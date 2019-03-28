@@ -149,6 +149,7 @@
   \item Ementa
   \item Descrição
   \item Pré-requisitos
+  \item Período ideal
   
 \end{itemize}
 \begin{tikzpicture}
@@ -158,7 +159,8 @@
   	child [grow=05,level distance=4cm]{node[attribute] {dis\_Departamento}}
   	child [grow=-10,level distance=3.5cm]{node[attribute] {dis\_Ementa}}
   	child [grow=-30,level distance=3cm]{node[attribute] {dis\_Descrição}}
-  	child [grow=-60,level distance=3cm]{node[attribute] {dis\_Pre-requisitos}};
+  	child [grow=-60,level distance=3cm]{node[attribute] {dis\_Pre-requisitos}}
+  	child [grow=-130,level distance=4cm]{node[attribute] {dis\_PeríodoIdeal}};
 \end{tikzpicture}
 \paragraph{Restrições Entidade Regular:}
 \begin{itemize}
@@ -168,6 +170,7 @@
   \item \textbf{dis\_Ementa:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
   \item \textbf{dis\_Descricao:} Sequência de caracteres UTF-8. Mínimo de 4 e máximo de 1000 caracteres. Não pode ser nulo.
   \item \textbf{dis\_PreRequisitos:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço.. Mínimo de 4 e máximo de 100 caracteres. Não pode ser nulo.
+  \item \textbf{dis\_Período ideal:} Sequência de caracteres alfanuméricos
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -256,9 +259,15 @@
   \item
 \end{itemize}
 \begin{tikzpicture}
-  \node[entity] (node1) {Grade};
+  \node[entity] (node1) {Grade}
+  	child [grow=0,level distance=3cm]{node[attribute] {cur\_Nome}}
+	child [grow=-20,level distance=3cm]{node[attribute] {\underline{cur\_Código}}};
 \end{tikzpicture}
-
+\paragraph{Restrições Entidade Regular:}
+\begin{itemize}
+  \item \textbf{Nome:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
+  \item \textbf{Código:} Sequência de caracteres alfanuméricos
+\end{itemize}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %         Relacionamentos (estou achando que não precisa dessa parte
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
