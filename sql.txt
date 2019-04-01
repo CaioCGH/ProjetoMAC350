@@ -1,0 +1,57 @@
+Parte SQL
+
+Escrever dois scripts em SQL em SGBD PostgreSQL(psql)
+
+O primeiro para a criação e configuração da base de dados. (EP1_NUSP1_DDL.sql)
+O segundo para limpeza/remoção completa do banco. (EP1_NUSP1_DDL_CLEAN.sql)
+
+Não há necessidade de integrar os scripts SQL a qualquer tipo de interface em Python.
+Seu script deve apenas ser capaz de criar as relações no SGBD PostgreSQL e toda à analise será feita via interface direta com o banco (por exemplo, via psql).
+
+Roteiro maroto de SQL
+
+1) Instalar o PostgreSQL
+
+2) Criar um banco de dados para testar
+createdb mydatabasename
+
+3) Criando o script
+
+A sintaxe do script num arquivo do tipo .sql e só colocar os comandos separados por ponto e vírgula(;), como abaixo
+
+DROP TABLE IF EXISTS weather;
+CREATE TABLE weather (
+ city varchar(80),
+ temp_lo int, -- low temperature
+ temp_hi int, -- high temperature
+ prcp real, -- precipitation
+ date date
+);
+
+DROP TABLE IF EXISTS weather2;
+CREATE TABLE weather2 (
+ city varchar(80),
+ temp_lo int, -- low temperature
+ temp_hi int, -- high temperature
+ prcp real, -- precipitation
+ date date
+);
+
+As duas funções que vamos usar fortemente é criar e remover tabelas
+-- criar
+CREATE TABLE weather (
+ city varchar(80),
+ temp_lo int, -- low temperature
+ temp_hi int, -- high temperature
+ prcp real, -- precipitation
+ date date
+);
+
+-- remover
+DROP TABLE weather;
+
+Falta modelagem das relações por meio de tabelas
+
+
+4) Rodando o script
+psql -U myusername -d mydatabasename -a -f mydirectory/EP1_NUSP1_DDL.sql
