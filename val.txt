@@ -1,0 +1,16 @@
+Validação dos modelos
+
+
+Introduzir o EP, opcional (...)
+
+Ao fazer um banco de dados com persistência, os dados somente podem ser acrescentados, ou seja, não podemos alterar os dados, essa falta de modificação faz a modelagem do banco de dados mais complicada e ter uma necessidade de um planejamento antecipado, para complicar mais temos alguns sistemas que modificam de ano para ano seus dados, como o cursos obrigatórios, onde os cursos necessários podem mudar, os cursos lecionados, onde os cursos disponíveis podem mudar e o novo sistema de trilhas, onde os requerimentos de cursos podem mudar.
+
+Podemos olhar modelo conceitual I, as relações entre os alunos, professores e administradores não tem muita mudança e podem ser facilmente usadas em persistência, porém temos outras relações como alunos e trilhas, alunos e cursos que modificam de ano para ano.
+
+Analizar melhor, para cada relação verificar a aplicação de persistência nessa relação (...)
+
+
+Explicar as adaptações depois no novo MER(...)
+
+
+
