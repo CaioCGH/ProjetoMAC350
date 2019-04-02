@@ -5,8 +5,11 @@
 \usepackage{fullpage}
 \usepackage{graphicx}
 \usepackage{tikz}
+\usepackage{titlesec}
 \usetikzlibrary{er,positioning}
 \renewcommand{\baselinestretch}{0.5}
+
+
 \author{Caio Calisto Gaede Hirakawa \\ Matheus Santos Conceição}
 \title{Exercício-Programa 1: Base de dados}
 \begin{document}
@@ -79,6 +82,7 @@
 
 \subsection{Aluno:}
 \begin{itemize}
+  \item Data de Ingresso
   \item Curso
   \item Créditos acumulados
   \begin{itemize}
@@ -90,7 +94,8 @@
 \end{itemize}
 \begin{tikzpicture}
   \node[entity] (node1) {Aluno}
-  child [grow=-90,level distance=1cm]{node[attribute] {al\_Curso}}
+  child [grow=+10,level distance=3cm]{node[attribute] {al\_Curso}}
+  child [grow=-90,level distance=1cm]{node[attribute] {al\_DataIngresso}}
   child [grow=-10,level distance=3cm]{node[attribute] {al\_Creditos}
   	child [grow=-20,level distance=3cm]{node[attribute] {al\_Obrigatorios}}
   	child [grow=-70,level distance=2cm]{node[attribute] {al\_Eletivos}}
@@ -100,6 +105,7 @@
 \end{tikzpicture}
 \paragraph{Restrições Entidade Regular:}
 \begin{itemize}
+  \item \textbf{Data de Ingresso:} Data no formato dd/mm/aaaa. Não pode ser nulo.
   \item \textbf{Curso:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
   \item \textbf{Créditos acumulados:}
   \begin{itemize}
@@ -173,6 +179,34 @@
   \item \textbf{dis\_Período ideal:} Sequência de caracteres alfanuméricos
 \end{itemize}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\paragraph{Especialização da Disciplina:}
+%\begin{itemize}
+%	\item \textbf{Obrigatória:}
+%			\begin{itemize}
+%  				\item \textbf{teste:}
+%			\end{itemize}
+%			\begin{tikzpicture}
+%  				\node[entity] (node1) {Obrigatória};
+%			\end{tikzpicture}
+%			\paragraph{Restrições Entidade Regular:}
+%			\begin{itemize}
+%				\item \textbf{teste2:}
+%			\end{itemize}
+%			
+%	\item \textbf{Eletiva:}
+%	\item \textbf{Livre:} 
+%\end{itemize}
+%
+%----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+%Acho que não precisa colocar Obrigatoria/eletiva/livre dentro de Disciplina. Declara como Entidade né? Mesmo sendo especialização
+%----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % parei de inserir as restrições aqui, mas mesmo restrições anteriores devem
 % precisar de uma revisão, principalmente no número max e min de carateres
@@ -181,13 +215,18 @@
 \subsection{Curso:}
 \begin{itemize}
   \item Nome
-  \item Código
+  \item Código (Chave primária)
 \end{itemize}
 \begin{tikzpicture}
   \node[entity] (node1) {Curso}
-  	child [grow=45,level distance=3cm]{node[attribute] {cur\_Nome}}
-  	child [grow=25,level distance=3cm]{node[attribute] {\underline{cur\_Codigo}}};
+  	child [grow=-30,level distance=3cm]{node[attribute] {cur\_Nome}}
+  	child [grow=-80,level distance=3cm]{node[attribute] {\underline{cur\_Codigo}}};
 \end{tikzpicture}
+\paragraph{Restrições Entidade Regular:}
+\begin{itemize}
+  \item \textbf{cur\_Nome:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
+  \item \textbf{cur\_Codigo:} Sequência de caracteres alfanuméricos. No mínimo de 4 e máximo de 9 caracteres. Não pode ser nulo.
+\end{itemize}
 
 \subsection{Obrigatória:}
 \begin{itemize}
@@ -197,29 +236,54 @@
   \node[entity] (node1) {Obrigatória};
 \end{tikzpicture}
 
-\subsection{Optativa:}
+\subsection{Eletiva:}
 \begin{itemize}
   \item
 \end{itemize}
 \begin{tikzpicture}
-  \node[entity] (node1) {Optativa};
+  \node[entity] (node1) {Eletiva};
+\end{tikzpicture}
+
+\subsection{Livre:}
+\begin{itemize}
+  \item
+\end{itemize}
+\begin{tikzpicture}
+  \node[entity] (node1) {Livre};
 \end{tikzpicture}
 
 \subsection{Módulo:}
 \begin{itemize}
-  \item
+  \item Nome
+  \item Código (Chave primária)
 \end{itemize}
 \begin{tikzpicture}
-  \node[entity] (node1) {Modulo};
+  \node[entity] (node1) {Modulo}
+  	child [grow=-30,level distance=3cm]{node[attribute] {mod\_Nome}}
+  	child [grow=-80,level distance=3cm]{node[attribute] {\underline{mod\_Codigo}}};
 \end{tikzpicture}
+\paragraph{Restrições Entidade Regular:}
+\begin{itemize}
+  \item \textbf{mod\_Nome:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
+  \item \textbf{mod\_Codigo:} Sequência de caracteres alfanuméricos. No mínimo de 4 e máximo de 9 caracteres. Não pode ser nulo.
+\end{itemize}
+
 
 \subsection{Trilha:}
 \begin{itemize}
-  \item
+  \item Nome
+  \item Código (Chave primária)
 \end{itemize}
 \begin{tikzpicture}
-  \node[entity] (node1) {Modulo};
+  \node[entity] (node1) {Trilha}
+  	child [grow=-30,level distance=3cm]{node[attribute] {tr\_Nome}}
+  	child [grow=-80,level distance=3cm]{node[attribute] {\underline{tr\_Codigo}}};
 \end{tikzpicture}
+\paragraph{Restrições Entidade Regular:}
+\begin{itemize}
+  \item \textbf{tr\_Nome:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
+  \item \textbf{tr\_Codigo:} Sequência de caracteres alfanuméricos. No mínimo de 4 e máximo de 9 caracteres. Não pode ser nulo.
+\end{itemize}
 
 \subsection{Usuário:}
 \begin{itemize}
@@ -231,11 +295,22 @@
 
 \subsection{Perfil:}
 \begin{itemize}
-  \item
+  \item Tipo
+  \item Data de Início
+  \item Data de Término
 \end{itemize}
 \begin{tikzpicture}
-  \node[entity] (node1) {Perfil};
+  \node[entity] (node1) {Perfil}
+  	child [grow=-20,level distance=3cm]{node[attribute] {pr\_Tipo}}
+  	child [grow=-100,level distance=3cm]{node[attribute] {\underline{pr\_DataTerm}}}
+	child [grow=-50,level distance=3cm]{node[attribute] {\underline{pr\_DataInicio}}};
 \end{tikzpicture}
+\paragraph{Restrições Entidade Regular:}
+\begin{itemize}
+  \item \textbf{pr\_Tipo:} Sequência de caracteres alfanuméricos. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
+  \item \textbf{pr\_DataInicio:} Data no formato dd/mm/aaaa. Não pode ser nulo.
+  \item \textbf{pr\_DataTerm:} Data no formato dd/mm/aaaa. Não pode ser nulo.
+\end{itemize}
 
 \subsection{Serviço:}
 \begin{itemize}
