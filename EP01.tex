@@ -212,20 +212,17 @@
 % precisar de uma revisão, principalmente no número max e min de carateres
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Curso:}
+\subsection{Currículo:}
 \begin{itemize}
-  \item Nome
-  \item Código (Chave primária)
+  \item Ano de Início (Chave primária)
 \end{itemize}
 \begin{tikzpicture}
-  \node[entity] (node1) {Curso}
-  	child [grow=-30,level distance=3cm]{node[attribute] {cur\_Nome}}
-  	child [grow=-80,level distance=3cm]{node[attribute] {\underline{cur\_Codigo}}};
+  \node[entity] (node1) {Currículo}
+  	child [grow=-90,level distance=1.5cm]{node[attribute] {\underline{cur\_AnoIni}}};
 \end{tikzpicture}
 \paragraph{Restrições Entidade Regular:}
 \begin{itemize}
-  \item \textbf{cur\_Nome:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
-  \item \textbf{cur\_Codigo:} Sequência de caracteres alfanuméricos. No mínimo de 4 e máximo de 9 caracteres. Não pode ser nulo.
+  \item \textbf{cur\_AnoIni:} Número inteiro de 4 dígitos entre 1500 e +infinito.
 \end{itemize}
 
 \subsection{Obrigatória:}
@@ -314,11 +311,16 @@
 
 \subsection{Serviço:}
 \begin{itemize}
-  \item
+  \item Nome
 \end{itemize}
 \begin{tikzpicture}
-  \node[entity] (node1) {Serviço};
+  \node[entity] (node1) {Serviço}
+  child [grow=-90,level distance=1.5cm]{node[attribute] {ser\_Nome}};
 \end{tikzpicture}
+\paragraph{Restrições Entidade Regular:}
+\begin{itemize}
+  \item \textbf{ser\_Nome:} Sequência de caracteres alfanuméricos. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
+\end{itemize}
 
 \subsection{Oferecimento:}
 \begin{itemize}
