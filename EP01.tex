@@ -156,7 +156,11 @@
   \item Descrição
   \item Pré-requisitos
   \item Período ideal
-  
+  \item Créditos:
+  \begin{itemize}
+  	\item Aula
+  	\item Trabalho
+  	\end{itemize}
 \end{itemize}
 \begin{tikzpicture}
   \node[entity] (node1) {Disciplina}
@@ -166,7 +170,11 @@
   	child [grow=-10,level distance=3.5cm]{node[attribute] {dis\_Ementa}}
   	child [grow=-30,level distance=3cm]{node[attribute] {dis\_Descrição}}
   	child [grow=-60,level distance=3cm]{node[attribute] {dis\_Pre-requisitos}}
-  	child [grow=-130,level distance=4cm]{node[attribute] {dis\_PeríodoIdeal}};
+  	child [grow=-130,level distance=4cm]{node[attribute] {dis\_PeríodoIdeal}}
+  	child [grow=180,level distance=4cm]{node[attribute] {dis\_Creditos}
+  		child [grow=-150,level distance=2cm]{node[attribute] {dis\_Aula}}
+  		child [grow=-60,level distance=1.5cm]{node[attribute] {dis\_Trabalho}}
+  	};
 \end{tikzpicture}
 \paragraph{Restrições Entidade Regular:}
 \begin{itemize}
@@ -176,7 +184,9 @@
   \item \textbf{dis\_Ementa:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
   \item \textbf{dis\_Descricao:} Sequência de caracteres UTF-8. Mínimo de 4 e máximo de 1000 caracteres. Não pode ser nulo.
   \item \textbf{dis\_PreRequisitos:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço.. Mínimo de 4 e máximo de 100 caracteres. Não pode ser nulo.
-  \item \textbf{dis\_Período ideal:} Sequência de caracteres alfanuméricos
+  \item \textbf{dis\_PeriodoIdeal:} Sequência de caracteres alfanuméricos 	  
+  \item \textbf{dis\_Aula:} Inteiro positivo.
+  \item \textbf{dis\_Trabalho:} Inteiro positivo.
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -200,6 +210,8 @@
 %
 %----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 %Acho que não precisa colocar Obrigatoria/eletiva/livre dentro de Disciplina. Declara como Entidade né? Mesmo sendo especialização
+
+%eu acho que sim
 %----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -212,12 +224,12 @@
 % precisar de uma revisão, principalmente no número max e min de carateres
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Currículo:}
+\subsection{Grade:}
 \begin{itemize}
   \item Ano de Início (Chave primária)
 \end{itemize}
 \begin{tikzpicture}
-  \node[entity] (node1) {Currículo}
+  \node[entity] (node1) {Grade}
   	child [grow=-90,level distance=1.5cm]{node[attribute] {\underline{cur\_AnoIni}}};
 \end{tikzpicture}
 \paragraph{Restrições Entidade Regular:}
@@ -225,12 +237,20 @@
   \item \textbf{cur\_AnoIni:} Número inteiro de 4 dígitos entre 1500 e +infinito.
 \end{itemize}
 
-\subsection{Obrigatória:}
+\subsection{Obrigatória:}	
+\begin{itemize}
+  \item 
+\end{itemize}
+\begin{tikzpicture}
+  \node[entity] (node1) {Obrigatoria};
+\end{tikzpicture}
+
+\subsection{Optativa:}	
 \begin{itemize}
   \item
 \end{itemize}
 \begin{tikzpicture}
-  \node[entity] (node1) {Obrigatória};
+  \node[entity] (node1) {Optativa};
 \end{tikzpicture}
 
 \subsection{Eletiva:}
@@ -284,11 +304,24 @@
 
 \subsection{Usuário:}
 \begin{itemize}
-  \item
+  \item us\_login
+  \item us\_senha
+  \item us\_username
 \end{itemize}
 \begin{tikzpicture}
-  \node[entity] (node1) {Usuario};
+  \node[entity] (node1) {Usuario}
+  	child [grow=-10,level distance=3cm]{node[attribute] {us\_login}}
+  	child [grow=-30,level distance=3cm]{node[attribute] {us\_senha}}
+  	child [grow=-60,level distance=3cm]{node[attribute] {us\_username}};
 \end{tikzpicture}
+
+\paragraph{Restrições Entidade Regular:}
+\begin{itemize}
+  \item \textbf{us\_login:} Sequência de caracteres alfanuméricos e especiais \begin{verbatim}(!#$%&'*+-/=?^_`{|}~.@)\end{verbatim}. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
+  \item \textbf{us\_senha:}  Sequência de caracteres alfanuméricos e especiais \begin{verbatim}(!#$%&'*+-/=?^_`{|}~.@)\end{verbatim}. No mínimo de 8 e máximo de 80 caracteres. Não pode ser nulo.
+  \item \textbf{us\_login:} Sequência de . No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
+  \item \textbf{us\_username:} Sequência de letras maiúsculas e minúsculas, apóstrofe, hífen e espaço. No mínimo de 5 e máximo de 80 caracteres. Não pode ser nulo.
+\end{itemize}
 
 \subsection{Perfil:}
 \begin{itemize}
