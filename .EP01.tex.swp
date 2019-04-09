@@ -238,17 +238,20 @@
   \item Ano de Início (Chave primária)
    \item Ano de Fim
    \item Unidade
+   \item Curso
 \end{itemize}
 \begin{tikzpicture}
   \node[entity] (node1) {Currículo}
   	child [grow=0,level distance=3cm]{node[attribute] {\underline{cur\_AnoIni}}}
 	child [grow=-25,level distance=3.5cm]{node[attribute] {cur\_Unidade}}
+	child [grow=-165,level distance=3.5cm]{node[attribute] {cur\_Curso}}
 	child [grow=-90,level distance=1.5cm]{node[attribute] {cur\_AnoFim}};
 \end{tikzpicture}
 \paragraph{Restrições de Domínio:}
 \begin{itemize}
   \item \textbf{cur\_AnoIni:} Número inteiro de 4 dígitos entre 1500 e +infinito.
    \item \textbf{cur\_AnoFim:} Número inteiro de 4 dígitos entre 1500 e +infinito.
+   \item \textbf{cur\_Curso:} Sequência de caracteres. No mínimo de 2 até 80 caracteres.
    \item \textbf{cur\_Unidade:} Sequência de caracteres. No mínimo de 2 até 80 caracteres.
 \end{itemize}
 %%%%%%%%%%%%%%%%%%%%%%%%INICIO INICIO INICIO INICIO INICIO%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -488,4 +491,9 @@ grama de disciplinas segundo uma trilha
 escolhida;
   \item Data de término
 \end{itemize}
+
+\section{Modelo lógico}
+
+{\huge Já temos o modelo lógico no papel, falta criar a imagem//
+vamos usar um software que o César recomendou\par}
 \end{document}
