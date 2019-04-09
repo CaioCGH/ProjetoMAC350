@@ -26,6 +26,7 @@
   \item CPF (Chave secundária)
   \item Nome
   \item E-mail
+  \item Sexo
   \item Data de Nascimento
   \item Endereço:
   \begin{itemize}
@@ -40,14 +41,16 @@
 \end{itemize}
 \begin{tikzpicture}
   \node[entity] (node1) {Pessoa}
-  child [grow=-125,level distance=3cm]{node[attribute] {pe\_Email}}
+  child [grow=-130,level distance=3cm]{node[attribute] {pe\_Email}}
   child [grow=-30,level distance=3cm]{node[attribute] {pe\_Name}}
-  child [grow=-50,level distance=3cm]{node[attribute] {\underline{pe\_NUSP}}}
-  child [grow=-90,level distance=3cm]{node[attribute] {\underline{\underline{pe\_CPF}}}}
+  child [grow=-55,level distance=3cm]{node[attribute] {\underline{pe\_NUSP}}}
+  child [grow=+30,level distance=3cm]{node[attribute] {pe\_DataNasc}}
+  child [grow=+60,level distance=3cm]{node[attribute] {pe\_Sexo}}
+  child [grow=-95,level distance=3cm]{node[attribute] {\underline{\underline{pe\_CPF}}}}
   child [grow=0,level distance=3cm]{node[attribute] {pe\_Endereço}
     	child [grow=40,level distance=3cm]{node[attribute] {pe\_Numero}}
    		child [grow=16,level distance=4cm]{node[attribute] {pe\_Complemento}}
-   		child [grow=5,level distance=3.5cm]{node[attribute] {pe\_Bairro}}
+   		child [grow=4,level distance=3.5cm]{node[attribute] {pe\_Bairro}}
    		child [grow=-10,level distance=4cm]{node[attribute] {pe\_Municipio}}
    		child [grow=-25,level distance=4cm]{node[attribute] {pe\_UF}}
    		child [grow=-60,level distance=3cm]{node[attribute] {pe\_CEP}}
@@ -68,6 +71,7 @@
   \item \textbf{pe\_Email:} Sequência de 1 a 80 caracteres alfanuméricos e caracteres especiais \begin{verbatim}(!#$%&'*+-/=?^_`{|}~.)\end{verbatim} seguidos de um @, seguido de mais uma sequência de 1 a 80 caracteres alfanuméricos e caracteres especiais \begin{verbatim}(!#$%&'*+-/=?^_`{|}~.)\end{verbatim}.
   Não pode ser nulo.
   \item \textbf{pe\_DataNascimento:} no formato data dd/mm/aaaa. Não pode ser nulo.
+  \item \textbf{pe\_Sexo:} M, F ou N, representando Sexo Masculino, Feminino ou Não declarado respectivamente.
   \item \textbf{pe\_Endereco:}
   \begin{itemize}
   	\item \textbf{pe\_Logradouro:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
@@ -83,7 +87,7 @@
 \subsection{Aluno:}
 \begin{itemize}
   \item Data de Ingresso
-  \item Curso
+  \item Código do Curso
   \item Créditos acumulados
   \begin{itemize}
   	\item Obrigatórios
@@ -94,7 +98,7 @@
 \end{itemize}
 \begin{tikzpicture}
   \node[entity] (node1) {Aluno}
-  child [grow=+10,level distance=3cm]{node[attribute] {al\_Curso}}
+  child [grow=+10,level distance=3cm]{node[attribute] {al\_CodCurso}}
   child [grow=-90,level distance=1cm]{node[attribute] {al\_DataIngresso}}
   child [grow=-10,level distance=3cm]{node[attribute] {al\_Creditos}
   	child [grow=-20,level distance=3cm]{node[attribute] {al\_Obrigatorios}}
@@ -106,7 +110,7 @@
 \paragraph{Restrições Entidade Regular:}
 \begin{itemize}
   \item \textbf{Data de Ingresso:} Data no formato dd/mm/aaaa. Não pode ser nulo.
-  \item \textbf{Curso:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
+  \item \textbf{Código do Curso:} Números entre 1 e +infinito. Não pode ser nulo.
   \item \textbf{Créditos acumulados:}
   \begin{itemize}
   	\item \textbf{Obrigatórios:} inteiro entre 0 e +infinito. Não pode ser nulo.
@@ -119,16 +123,20 @@
 \begin{itemize}
   \item Departamento
   \item Data de Admissão
+  \item Área de Atuação
 \end{itemize}
 \begin{tikzpicture}
   \node[entity] (node1) {Professor}
   	child [grow=-30,level distance=3cm]{node[attribute] {pr\_Departamento}}
+	child [grow=+0,level distance=3cm]{node[attribute] {pr\_Area}}
   	child [grow=-80,level distance=2.5cm]{node[attribute] {pr\_DataAdmissao}};
+	\draw[black] (3, 0) ellipse (0.9 and 0.3);
 \end{tikzpicture}
 \paragraph{Restrições Entidade Regular:}
 \begin{itemize}
   \item \textbf{pr\_Departamento:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
   \item \textbf{pr\_DataAdmissao:} Data no formato dd/mm/aaaa. Não pode ser nulo.
+  \item \textbf{pr\_Area:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
 \end{itemize}
 
 \subsection{Administrador:}
@@ -166,15 +174,16 @@
   \node[entity] (node1) {Disciplina}
   	child [grow=45,level distance=3cm]{node[attribute] {dis\_Nome}}
   	child [grow=25,level distance=3cm]{node[attribute] {\underline{dis\_Codigo}}}
-  	child [grow=05,level distance=4cm]{node[attribute] {dis\_Departamento}}
-  	child [grow=-10,level distance=3.5cm]{node[attribute] {dis\_Ementa}}
-  	child [grow=-30,level distance=3cm]{node[attribute] {dis\_Descrição}}
-  	child [grow=-60,level distance=3cm]{node[attribute] {dis\_Pre-requisitos}}
+  	child [grow=130,level distance=2cm]{node[attribute] {dis\_Departamento}}
+  	child [grow=-30,level distance=3.5cm]{node[attribute] {dis\_Ementa}}
+  	child [grow=0,level distance=3.5cm]{node[attribute] {dis\_Pre-requisitos}}
+  	child [grow=-60,level distance=3cm]{node[attribute] {dis\_Descrição}}
   	child [grow=-130,level distance=4cm]{node[attribute] {dis\_PeríodoIdeal}}
   	child [grow=180,level distance=4cm]{node[attribute] {dis\_Creditos}
   		child [grow=-150,level distance=2cm]{node[attribute] {dis\_Aula}}
   		child [grow=-60,level distance=1.5cm]{node[attribute] {dis\_Trabalho}}
   	};
+	\draw[black] (3.5, 0) ellipse (1.9 and 0.3);
 \end{tikzpicture}
 \paragraph{Restrições Entidade Regular:}
 \begin{itemize}
@@ -183,10 +192,10 @@
   \item \textbf{dis\_Departamento:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
   \item \textbf{dis\_Ementa:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
   \item \textbf{dis\_Descricao:} Sequência de caracteres UTF-8. Mínimo de 4 e máximo de 1000 caracteres. Não pode ser nulo.
-  \item \textbf{dis\_PreRequisitos:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço.. Mínimo de 4 e máximo de 100 caracteres. Não pode ser nulo.
-  \item \textbf{dis\_PeriodoIdeal:} Sequência de caracteres alfanuméricos 	  
-  \item \textbf{dis\_Aula:} Inteiro positivo.
-  \item \textbf{dis\_Trabalho:} Inteiro positivo.
+  \item \textbf{dis\_PreRequisitos:} Sequencia de caracteres alfanuméricos. No mínimo de 4 de 80 caracteres. 
+  \item \textbf{dis\_PeriodoIdeal:}  Numéro inteiro entre 1 e 12.
+  \item \textbf{dis\_Aula:} Inteiro positivo entre 1 e 50.
+  \item \textbf{dis\_Trabalho:} Inteiro positivo entre 1 e 50.
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -224,19 +233,27 @@
 % precisar de uma revisão, principalmente no número max e min de carateres
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Grade:}
+\subsection{Currículo:}
 \begin{itemize}
   \item Ano de Início (Chave primária)
+   \item Ano de Fim
+   \item Unidade
 \end{itemize}
 \begin{tikzpicture}
-  \node[entity] (node1) {Grade}
-  	child [grow=-90,level distance=1.5cm]{node[attribute] {\underline{cur\_AnoIni}}};
+  \node[entity] (node1) {Currículo}
+  	child [grow=0,level distance=3cm]{node[attribute] {\underline{cur\_AnoIni}}}
+	child [grow=-25,level distance=3.5cm]{node[attribute] {cur\_Unidade}}
+	child [grow=-90,level distance=1.5cm]{node[attribute] {cur\_AnoFim}};
 \end{tikzpicture}
 \paragraph{Restrições Entidade Regular:}
 \begin{itemize}
   \item \textbf{cur\_AnoIni:} Número inteiro de 4 dígitos entre 1500 e +infinito.
+   \item \textbf{cur\_AnoFim:} Número inteiro de 4 dígitos entre 1500 e +infinito.
+   \item \textbf{cur\_Unidade:} Sequência de caracteres. No mínimo de 2 até 80 caracteres.
 \end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%INICIO INICIO INICIO INICIO INICIO%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\iffalse
 \subsection{Obrigatória:}	
 \begin{itemize}
   \item 
@@ -245,12 +262,13 @@
   \node[entity] (node1) {Obrigatoria};
 \end{tikzpicture}
 
+
 \subsection{Optativa:}	
 \begin{itemize}
-  \item
+ \item
 \end{itemize}
 \begin{tikzpicture}
-  \node[entity] (node1) {Optativa};
+ \node[entity] (node1) {Optativa};
 \end{tikzpicture}
 
 \subsection{Eletiva:}
@@ -268,7 +286,8 @@
 \begin{tikzpicture}
   \node[entity] (node1) {Livre};
 \end{tikzpicture}
-
+\fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%FIM FIM FIM FIM FIM FIM%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Módulo:}
 \begin{itemize}
   \item Nome
@@ -282,7 +301,7 @@
 \paragraph{Restrições Entidade Regular:}
 \begin{itemize}
   \item \textbf{mod\_Nome:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
-  \item \textbf{mod\_Codigo:} Sequência de caracteres alfanuméricos. No mínimo de 4 e máximo de 9 caracteres. Não pode ser nulo.
+  \item \textbf{mod\_Codigo:} Sequência de caracteres numéricos. No mínimo de 1 e máximo de 9 caracteres. Não pode ser nulo.
 \end{itemize}
 
 
@@ -304,98 +323,76 @@
 
 \subsection{Usuário:}
 \begin{itemize}
-  \item us\_login
-  \item us\_senha
-  \item us\_username
+  \item Login (Chave primária)
+  \item Senha
+  \item Username
 \end{itemize}
 \begin{tikzpicture}
   \node[entity] (node1) {Usuario}
-  	child [grow=-10,level distance=3cm]{node[attribute] {us\_login}}
+  	child [grow=-10,level distance=3cm]{node[attribute] {\underline{us\_login}}}
   	child [grow=-30,level distance=3cm]{node[attribute] {us\_senha}}
   	child [grow=-60,level distance=3cm]{node[attribute] {us\_username}};
 \end{tikzpicture}
 
 \paragraph{Restrições Entidade Regular:}
 \begin{itemize}
-  \item \textbf{us\_login:} Sequência de caracteres alfanuméricos e especiais \begin{verbatim}(!#$%&'*+-/=?^_`{|}~.@)\end{verbatim}. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
-  \item \textbf{us\_senha:}  Sequência de caracteres alfanuméricos e especiais \begin{verbatim}(!#$%&'*+-/=?^_`{|}~.@)\end{verbatim}. No mínimo de 8 e máximo de 80 caracteres. Não pode ser nulo.
-  \item \textbf{us\_login:} Sequência de . No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
-  \item \textbf{us\_username:} Sequência de letras maiúsculas e minúsculas, apóstrofe, hífen e espaço. No mínimo de 5 e máximo de 80 caracteres. Não pode ser nulo.
+  \item \textbf{us\_login:} Sequência de caracteres alfanuméricos. No mínimo de 6 até 80 caracteres. Não pode ser nulo.
+  \item \textbf{us\_senha:}  Sequência de caracteres alfanuméricos. No mínimo de 6 até 80 caracteres. Não pode ser nulo.
+  \item \textbf{us\_username:} Sequência de caracteres alfanuméricos, separados ou não pode espaço. No mínimo de 6 até 80 caracteres. Não pode ser nulo.
 \end{itemize}
 
 \subsection{Perfil:}
 \begin{itemize}
   \item Tipo
-  \item Data de Início
-  \item Data de Término
 \end{itemize}
 \begin{tikzpicture}
   \node[entity] (node1) {Perfil}
-  	child [grow=-20,level distance=3cm]{node[attribute] {pr\_Tipo}}
-  	child [grow=-100,level distance=3cm]{node[attribute] {\underline{pr\_DataTerm}}}
-	child [grow=-50,level distance=3cm]{node[attribute] {\underline{pr\_DataInicio}}};
+  	child [grow=-90,level distance=1.5cm]{node[attribute] {\underline{pr\_Tipo}}};
 \end{tikzpicture}
 \paragraph{Restrições Entidade Regular:}
 \begin{itemize}
   \item \textbf{pr\_Tipo:} Sequência de caracteres alfanuméricos. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
-  \item \textbf{pr\_DataInicio:} Data no formato dd/mm/aaaa. Não pode ser nulo.
-  \item \textbf{pr\_DataTerm:} Data no formato dd/mm/aaaa. Não pode ser nulo.
 \end{itemize}
 
 \subsection{Serviço:}
 \begin{itemize}
-  \item Nome
+  \item Nome (Chave primário)
+  \item Descrição
 \end{itemize}
 \begin{tikzpicture}
   \node[entity] (node1) {Serviço}
-  child [grow=-90,level distance=1.5cm]{node[attribute] {ser\_Nome}};
+  child [grow=-90,level distance=1.5cm]{node[attribute] {\underline{ser\_Nome}}}
+  child [grow=-20,level distance=3cm]{node[attribute] {ser\_Descrição}};
 \end{tikzpicture}
 \paragraph{Restrições Entidade Regular:}
 \begin{itemize}
   \item \textbf{ser\_Nome:} Sequência de caracteres alfanuméricos. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
+    \item \textbf{ser\_Descrição:} Sequência de caracteres alfanuméricos. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
+
 \end{itemize}
 
 \section{Agregados}
 
 \subsection{Oferecimento:}
 \begin{itemize}
-  \item Data de Início
-  \item Nota
-  \item Frequência
+  \item Data de Início (Chave Primária)
   \item Horário
   \item Vagas
 \end{itemize}
 \begin{tikzpicture}
   \node[entity] (node1) {Oferecimento}
-  	child [grow=-45,level distance=3cm]{node[attribute] {of\_DataInicio}}
-  	child [grow=-90,level distance=3cm]{node[attribute] {of\_Nota}}
-  	child [grow=-130,level distance=3cm]{node[attribute] {of\_Frequencia}}
-  	child [grow=-150,level distance=3cm]{node[attribute] {of\_Horario}}
-  	child [grow=-175,level distance=3cm]{node[attribute] {of\_Vagas}};
+  	child [grow=-45,level distance=2.5cm]{node[attribute] {\underline{of\_DataInicio}}}
+  	child [grow=-90,level distance=3cm]{node[attribute] {of\_Horario}}
+  	child [grow=-0,level distance=3cm]{node[attribute] {of\_Vagas}};
 \end{tikzpicture}
 
 \paragraph{Restrições Entidade Regular:}
 \begin{itemize}
-  \item \textbf{ser\_DataInicio:} Sequência de caracteres alfanuméricos. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
-  \item \textbf{ser\_Nome:} Sequência de caracteres alfanuméricos. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
-  \item \textbf{ser\_Nome:} Sequência de caracteres alfanuméricos. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
-  \item \textbf{ser\_Nome:} Sequência de caracteres alfanuméricos. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
-  \item \textbf{ser\_Nome:} Sequência de caracteres alfanuméricos. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
+  \item \textbf{ser\_DataInicio:} Data no formato dd/mm/aaaa. Não pode ser nulo.
+  \item \textbf{ser\_Horario:} Horário no formato "ddd hh:mm - hh:mm", no qual ddd = dia da semana, hh = hora (00-23) e mm=minutos (00-59). Não pode ser nulo.
+  \item \textbf{ser\_Vagas:} Número inteiro entre 1 e +infinito. Não pode ser nulo.
 \end{itemize}
-\subsection{Grade:}
-\begin{itemize}
-  \item
-\end{itemize}
-\begin{tikzpicture}
-  \node[entity] (node1) {Grade}
-  	child [grow=0,level distance=3cm]{node[attribute] {cur\_Nome}}
-	child [grow=-20,level distance=3cm]{node[attribute] {\underline{cur\_Código}}};
-\end{tikzpicture}
-\paragraph{Restrições Entidade Regular:}
-\begin{itemize}
-  \item \textbf{Nome:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
-  \item \textbf{Código:} Sequência de caracteres alfanuméricos
-\end{itemize}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %         Relacionamentos (estou achando que não precisa dessa parte
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
