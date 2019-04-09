@@ -355,15 +355,33 @@
   \item \textbf{ser\_Nome:} Sequência de caracteres alfanuméricos. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
 \end{itemize}
 
+\section{Agregados}
+
 \subsection{Oferecimento:}
 \begin{itemize}
-  \item Semestre
+  \item Data de Início
+  \item Nota
+  \item Frequência
+  \item Horário
+  \item Vagas
 \end{itemize}
 \begin{tikzpicture}
   \node[entity] (node1) {Oferecimento}
-  	child [grow=-45,level distance=3cm]{node[attribute] {of\_semestre}};
+  	child [grow=-45,level distance=3cm]{node[attribute] {of\_DataInicio}}
+  	child [grow=-90,level distance=3cm]{node[attribute] {of\_Nota}}
+  	child [grow=-130,level distance=3cm]{node[attribute] {of\_Frequencia}}
+  	child [grow=-150,level distance=3cm]{node[attribute] {of\_Horario}}
+  	child [grow=-175,level distance=3cm]{node[attribute] {of\_Vagas}};
 \end{tikzpicture}
 
+\paragraph{Restrições Entidade Regular:}
+\begin{itemize}
+  \item \textbf{ser\_DataInicio:} Sequência de caracteres alfanuméricos. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
+  \item \textbf{ser\_Nome:} Sequência de caracteres alfanuméricos. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
+  \item \textbf{ser\_Nome:} Sequência de caracteres alfanuméricos. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
+  \item \textbf{ser\_Nome:} Sequência de caracteres alfanuméricos. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
+  \item \textbf{ser\_Nome:} Sequência de caracteres alfanuméricos. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
+\end{itemize}
 \subsection{Grade:}
 \begin{itemize}
   \item
@@ -381,6 +399,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %         Relacionamentos (estou achando que não precisa dessa parte
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
 \section{Relacionamentos}
 
 \subsection{Ministra:}
