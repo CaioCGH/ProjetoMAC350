@@ -1,4 +1,3 @@
-
 \documentclass{report}
 \usepackage[utf8]{inputenc}
 \usepackage[portuges]{babel}
@@ -17,6 +16,19 @@
 \tableofcontents
 \chapter{Parte I: Entendimento e validação do modelo}
 \paragraph{Validar o modelo}
+
+Para criar um banco de dados sobre gestão de grades curriculares dentro da USP foram oferecidos dois modelos conceituais. Nesse capitulo iremos discutir quais serão os benefícios e os malefícios de cada um desses dois modelos conceituais e tentar criar um novo modelo conceitual a partir desses dois modelos.
+
+Alguns pontos que podemos apresentar é que nesse banco de dados precisamos de uma estrutura de persistência, ou seja, os dados somente podem ser acrescentados e uma condição extra que não podemos alterar os dados. Essa falta de modificação de dados faz com que a modelagem do banco de dados fique mais complicada e provocando uma necessidade de um planejamento antecipado, com alguns sistemas que modificam de ano para ano seus dados, como o cursos obrigatórios, onde os cursos necessários podem mudar, os cursos lecionados, onde os cursos disponíveis podem mudar e o novo sistema de trilhas, onde os requerimentos de cursos podem mudar.
+
+Podemos olhar modelo conceitual I, as relações entre os alunos, professores e administradores não tem muita mudança e podem ser facilmente usadas em persistência, porém temos outras relações como alunos e trilhas, alunos e cursos que modificam de ano para ano.
+
+Analizar melhor, para cada relação verificar a aplicação de persistência nessa relação (...)
+
+
+Explicar as adaptações depois no novo MER(...)
+
+
 \chapter{Parte II: Descrição das classes abstratas}
 
 \section{Entidades}
@@ -83,7 +95,6 @@
   	\item \textbf{pe\_CEP:} Sequência de 5 dígitos, seguido de um hífen, seguidos de mais três dígitos. Não pode ser nulo.
   	\end{itemize}
 \end{itemize}
-
 \subsection{Aluno:}
 \begin{itemize}
   \item Data de Ingresso
@@ -94,7 +105,6 @@
   	\item Optativos Eletivos
   	\item Optativos Livres
   \end{itemize}
-
 \end{itemize}
 \begin{tikzpicture}
   \node[entity] (node1) {Aluno}
@@ -118,7 +128,6 @@
   	\item \textbf{Optativos Livres:} inteiro entre 0 e +infinito. Não pode ser nulo.
   \end{itemize}
 \end{itemize}
-
 \subsection{Professor:}
 \begin{itemize}
   \item Departamento
@@ -138,7 +147,6 @@
   \item \textbf{pr\_DataAdmissao:} Data no formato dd/mm/aaaa. Não pode ser nulo.
   \item \textbf{pr\_Area:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
 \end{itemize}
-
 \subsection{Administrador:}
 \begin{itemize}
   \item Data de Início da Gestão
@@ -154,7 +162,6 @@
   \item \textbf{adm\_DataInicio:} Data no formato dd/mm/aaaa. Não pode ser nulo.
   \item \textbf{adm\_DataTermino:} Data no formato dd/mm/aaaa. Não pode ser nulo.
 \end{itemize}
-
 \subsection{Disciplina:}
 \begin{itemize}
   \item Nome
@@ -197,7 +204,6 @@
   \item \textbf{dis\_Aula:} Inteiro positivo entre 1 e 50.
   \item \textbf{dis\_Trabalho:} Inteiro positivo entre 1 e 50.
 \end{itemize}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\paragraph{Especialização da Disciplina:}
 %\begin{itemize}
@@ -219,20 +225,14 @@
 %
 %----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 %Acho que não precisa colocar Obrigatoria/eletiva/livre dentro de Disciplina. Declara como Entidade né? Mesmo sendo especialização
-
 %eu acho que sim
 %----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % parei de inserir as restrições aqui, mas mesmo restrições anteriores devem
 % precisar de uma revisão, principalmente no número max e min de carateres
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \subsection{Currículo:}
 \begin{itemize}
   \item Ano de Início (Chave primária)
@@ -255,7 +255,6 @@
    \item \textbf{cur\_Unidade:} Sequência de caracteres. No mínimo de 2 até 80 caracteres.
 \end{itemize}
 %%%%%%%%%%%%%%%%%%%%%%%%INICIO INICIO INICIO INICIO INICIO%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \iffalse
 \subsection{Obrigatória:}	
 \begin{itemize}
@@ -264,8 +263,6 @@
 \begin{tikzpicture}
   \node[entity] (node1) {Obrigatoria};
 \end{tikzpicture}
-
-
 \subsection{Optativa:}	
 \begin{itemize}
  \item
@@ -273,7 +270,6 @@
 \begin{tikzpicture}
  \node[entity] (node1) {Optativa};
 \end{tikzpicture}
-
 \subsection{Eletiva:}
 \begin{itemize}
   \item
@@ -281,7 +277,6 @@
 \begin{tikzpicture}
   \node[entity] (node1) {Eletiva};
 \end{tikzpicture}
-
 \subsection{Livre:}
 \begin{itemize}
   \item
@@ -306,8 +301,6 @@
   \item \textbf{mod\_Nome:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
   \item \textbf{mod\_Codigo:} Sequência de caracteres numéricos. No mínimo de 1 e máximo de 9 caracteres. Não pode ser nulo.
 \end{itemize}
-
-
 \subsection{Trilha:}
 \begin{itemize}
   \item Nome
@@ -323,7 +316,6 @@
   \item \textbf{tr\_Nome:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
   \item \textbf{tr\_Codigo:} Sequência de caracteres alfanuméricos. No mínimo de 4 e máximo de 9 caracteres. Não pode ser nulo.
 \end{itemize}
-
 \subsection{Usuário:}
 \begin{itemize}
   \item Login (Chave primária)
@@ -336,14 +328,12 @@
   	child [grow=-30,level distance=3cm]{node[attribute] {us\_senha}}
   	child [grow=-60,level distance=3cm]{node[attribute] {us\_username}};
 \end{tikzpicture}
-
 \paragraph{Restrições de Domínio:}
 \begin{itemize}
   \item \textbf{us\_login:} Sequência de caracteres alfanuméricos. No mínimo de 6 até 80 caracteres. Não pode ser nulo.
   \item \textbf{us\_senha:}  Sequência de caracteres alfanuméricos. No mínimo de 6 até 80 caracteres. Não pode ser nulo.
   \item \textbf{us\_username:} Sequência de caracteres alfanuméricos, separados ou não pode espaço. No mínimo de 6 até 80 caracteres. Não pode ser nulo.
 \end{itemize}
-
 \subsection{Perfil:}
 \begin{itemize}
   \item Tipo
@@ -356,7 +346,6 @@
 \begin{itemize}
   \item \textbf{pr\_Tipo:} Sequência de caracteres alfanuméricos. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
 \end{itemize}
-
 \subsection{Serviço:}
 \begin{itemize}
   \item Nome (Chave primário)
@@ -371,11 +360,8 @@
 \begin{itemize}
   \item \textbf{ser\_Nome:} Sequência de caracteres alfanuméricos. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
     \item \textbf{ser\_Descrição:} Sequência de caracteres alfanuméricos. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
-
 \end{itemize}
-
 \section{Agregados}
-
 \subsection{Oferecimento:}
 \begin{itemize}
   \item Data de Início (Chave Primária)
@@ -388,23 +374,16 @@
   	child [grow=-90,level distance=3cm]{node[attribute] {of\_Horario}}
   	child [grow=-0,level distance=3cm]{node[attribute] {of\_Vagas}};
 \end{tikzpicture}
-
 \paragraph{Restrições de Domínio:}
 \begin{itemize}
   \item \textbf{ser\_DataInicio:} Data no formato dd/mm/aaaa. Não pode ser nulo.
   \item \textbf{ser\_Horario:} Horário no formato "ddd hh:mm - hh:mm", no qual ddd = dia da semana, hh = hora (00-23) e mm=minutos (00-59). Não pode ser nulo.
   \item \textbf{ser\_Vagas:} Número inteiro entre 1 e +infinito. Não pode ser nulo.
 \end{itemize}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %         Relacionamentos (estou achando que não precisa dessa parte
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
 \section{Relacionamentos}
-
-
 \subsection{Cursa:}
 \begin{itemize}
   \item Frequência
@@ -420,9 +399,6 @@
   \item \textbf{c\_Frequencia:} Número entre 0 e 100.
   \item \textbf{c\_Nota:} Número entre 0 e 10.
 \end{itemize}
-
-
-
 \subsection{Planeja:}
 \begin{itemize}
   \item Data de Inscrição
@@ -435,8 +411,6 @@
 \begin{itemize}
   \item \textbf{pla\_DataInscri:} Data no formato dd/mm/aaaa. Não pode ser nulo.
 \end{itemize}
-
-
 \subsection{Administra:}
 \begin{itemize}
   \item Data de Início da Administração
@@ -449,24 +423,18 @@
 \begin{itemize}
   \item \textbf{adm\_DataIniAdm:} Data no formato dd/mm/aaaa. Não pode ser nulo.
 \end{itemize}
-
 \subsection{rel\_cur\_tri:}
  Não identificamos a necessidade deste relacionamento conter atributos, porque
  sua definição já está contida na relação Currículo.
-
 \subsection{tr\_mo:}
  Não identificamos a necessidade deste relacionamento conter atributos, pois só
  importa o mapeamento entre as entidades Trilha e Módulo.
-
 \subsection{rel\_dis\_mod:}
  Não identificamos a necessidade deste relacionamento conter atributos, pois só
  importa o mapeamento entre as entidades Disciplina e Módulo.
-
-
 \subsection{pe\_us:}
 Não identificamos a necessidade deste relacionamento conter atributos, pois só
  importa o mapeamento entre as entidades Pessoa e Usuário.
-
 \subsection{us\_pf:}
 \begin{itemize}
   \item Data de início
@@ -482,7 +450,6 @@ Não identificamos a necessidade deste relacionamento conter atributos, pois só
   \item \textbf{up\_DataIniPerf:} Data no formato dd/mm/aaaa. Não pode ser nulo.
   \item \textbf{up\_DataTermPerf:} Data no formato dd/mm/aaaa. Não pode ser nulo.
 \end{itemize}
-
 \subsection{Funcionalidades esperadas}
 {\huge fazer isso no final\par}
 \begin{itemize}
@@ -491,9 +458,7 @@ grama de disciplinas segundo uma trilha
 escolhida;
   \item Data de término
 \end{itemize}
-
 \section{Modelo lógico}
-
 {\huge Já temos o modelo lógico no papel, falta criar a imagem//
 vamos usar um software que o César recomendou\par}
 \end{document}
