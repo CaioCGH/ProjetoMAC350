@@ -4,37 +4,43 @@
 \contentsline {chapter}{\numberline {2}Parte II: Descri\IeC {\c c}\IeC {\~a}o das classes abstratas}{3}
 \contentsline {section}{\numberline {2.1}Entidades}{3}
 \contentsline {subsection}{\numberline {2.1.1}Pessoa:}{3}
-\contentsline {paragraph}{Restri\IeC {\c c}\IeC {\~o}es Entidade Regular:}{4}
-\contentsline {subsection}{\numberline {2.1.2}Aluno:}{4}
-\contentsline {paragraph}{Restri\IeC {\c c}\IeC {\~o}es Entidade Regular:}{5}
-\contentsline {subsection}{\numberline {2.1.3}Professor:}{5}
-\contentsline {paragraph}{Restri\IeC {\c c}\IeC {\~o}es Entidade Regular:}{5}
-\contentsline {subsection}{\numberline {2.1.4}Administrador:}{5}
-\contentsline {paragraph}{Restri\IeC {\c c}\IeC {\~o}es Entidade Regular:}{6}
-\contentsline {subsection}{\numberline {2.1.5}Disciplina:}{6}
-\contentsline {paragraph}{Restri\IeC {\c c}\IeC {\~o}es Entidade Regular:}{6}
-\contentsline {subsection}{\numberline {2.1.6}Curr\IeC {\'\i }culo:}{7}
-\contentsline {paragraph}{Restri\IeC {\c c}\IeC {\~o}es Entidade Regular:}{7}
-\contentsline {subsection}{\numberline {2.1.7}M\IeC {\'o}dulo:}{7}
-\contentsline {paragraph}{Restri\IeC {\c c}\IeC {\~o}es Entidade Regular:}{7}
-\contentsline {subsection}{\numberline {2.1.8}Trilha:}{7}
-\contentsline {paragraph}{Restri\IeC {\c c}\IeC {\~o}es Entidade Regular:}{8}
-\contentsline {subsection}{\numberline {2.1.9}Usu\IeC {\'a}rio:}{8}
-\contentsline {paragraph}{Restri\IeC {\c c}\IeC {\~o}es Entidade Regular:}{8}
-\contentsline {subsection}{\numberline {2.1.10}Perfil:}{8}
-\contentsline {paragraph}{Restri\IeC {\c c}\IeC {\~o}es Entidade Regular:}{8}
-\contentsline {subsection}{\numberline {2.1.11}Servi\IeC {\c c}o:}{8}
-\contentsline {paragraph}{Restri\IeC {\c c}\IeC {\~o}es Entidade Regular:}{9}
-\contentsline {section}{\numberline {2.2}Agregados}{9}
-\contentsline {subsection}{\numberline {2.2.1}Oferecimento:}{9}
-\contentsline {paragraph}{Restri\IeC {\c c}\IeC {\~o}es Entidade Regular:}{9}
-\contentsline {section}{\numberline {2.3}Relacionamentos}{9}
-\contentsline {subsection}{\numberline {2.3.1}Ministra:}{9}
-\contentsline {subsection}{\numberline {2.3.2}Cursa:}{9}
-\contentsline {subsection}{\numberline {2.3.3}Planeja:}{10}
-\contentsline {subsection}{\numberline {2.3.4}Administra:}{10}
-\contentsline {subsection}{\numberline {2.3.5}rel\_dis\_cur:}{10}
-\contentsline {subsection}{\numberline {2.3.6}op\_mod:}{10}
-\contentsline {subsection}{\numberline {2.3.7}tr\_mod:}{10}
-\contentsline {subsection}{\numberline {2.3.8}us\_pf:}{10}
-\contentsline {subsection}{\numberline {2.3.9}pf\_se:}{11}
+\contentsline {paragraph}{Restri\IeC {\c c}\IeC {\~o}es de Dom\IeC {\'\i }nio:}{4}
+\contentsline {subsection}{\numberline {2.1.2}Aluno:}{5}
+\contentsline {paragraph}{Restri\IeC {\c c}\IeC {\~o}es de Dom\IeC {\'\i }nio:}{5}
+\contentsline {subsection}{\numberline {2.1.3}Professor:}{6}
+\contentsline {paragraph}{Restri\IeC {\c c}\IeC {\~o}es de Dom\IeC {\'\i }nio:}{6}
+\contentsline {subsection}{\numberline {2.1.4}Administrador:}{6}
+\contentsline {paragraph}{Restri\IeC {\c c}\IeC {\~o}es de Dom\IeC {\'\i }nio:}{7}
+\contentsline {subsection}{\numberline {2.1.5}Disciplina:}{7}
+\contentsline {paragraph}{Restri\IeC {\c c}\IeC {\~o}es de Dom\IeC {\'\i }nio:}{8}
+\contentsline {subsection}{\numberline {2.1.6}Curr\IeC {\'\i }culo:}{8}
+\contentsline {paragraph}{Restri\IeC {\c c}\IeC {\~o}es de Dom\IeC {\'\i }nio:}{9}
+\contentsline {subsection}{\numberline {2.1.7}M\IeC {\'o}dulo:}{9}
+\contentsline {paragraph}{Restri\IeC {\c c}\IeC {\~o}es de Dom\IeC {\'\i }nio:}{9}
+\contentsline {subsection}{\numberline {2.1.8}Trilha:}{9}
+\contentsline {paragraph}{Restri\IeC {\c c}\IeC {\~o}es de Dom\IeC {\'\i }nio:}{10}
+\contentsline {subsection}{\numberline {2.1.9}Usu\IeC {\'a}rio:}{10}
+\contentsline {paragraph}{Restri\IeC {\c c}\IeC {\~o}es de Dom\IeC {\'\i }nio:}{10}
+\contentsline {subsection}{\numberline {2.1.10}Perfil:}{11}
+\contentsline {paragraph}{Restri\IeC {\c c}\IeC {\~o}es de Dom\IeC {\'\i }nio:}{11}
+\contentsline {subsection}{\numberline {2.1.11}Servi\IeC {\c c}o:}{11}
+\contentsline {paragraph}{Restri\IeC {\c c}\IeC {\~o}es de Dom\IeC {\'\i }nio:}{11}
+\contentsline {section}{\numberline {2.2}Agregados}{12}
+\contentsline {subsection}{\numberline {2.2.1}Oferecimento:}{12}
+\contentsline {paragraph}{Restri\IeC {\c c}\IeC {\~o}es de Dom\IeC {\'\i }nio:}{12}
+\contentsline {section}{\numberline {2.3}Relacionamentos}{12}
+\contentsline {subsection}{\numberline {2.3.1}pe\_us:}{12}
+\contentsline {subsection}{\numberline {2.3.2}us\_pf:}{12}
+\contentsline {paragraph}{Restri\IeC {\c c}\IeC {\~o}es de Dom\IeC {\'\i }nio:}{13}
+\contentsline {subsection}{\numberline {2.3.3}pf\_se:}{13}
+\contentsline {subsection}{\numberline {2.3.4}Cursa:}{13}
+\contentsline {paragraph}{Restri\IeC {\c c}\IeC {\~o}es de Dom\IeC {\'\i }nio:}{13}
+\contentsline {subsection}{\numberline {2.3.5}Planeja:}{13}
+\contentsline {paragraph}{Restri\IeC {\c c}\IeC {\~o}es de Dom\IeC {\'\i }nio:}{14}
+\contentsline {subsection}{\numberline {2.3.6}Administra:}{14}
+\contentsline {paragraph}{Restri\IeC {\c c}\IeC {\~o}es de Dom\IeC {\'\i }nio:}{14}
+\contentsline {subsection}{\numberline {2.3.7}rel\_cur\_tri:}{14}
+\contentsline {subsection}{\numberline {2.3.8}tr\_mo:}{14}
+\contentsline {subsection}{\numberline {2.3.9}rel\_dis\_mod:}{14}
+\contentsline {subsection}{\numberline {2.3.10}Funcionalidades esperadas}{14}
+\contentsline {section}{\numberline {2.4}Modelo l\IeC {\'o}gico}{14}
