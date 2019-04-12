@@ -6,7 +6,7 @@ Para os cursos obrigatórios e o novo sistema de trilhas podemos usar um sistema
 
 O sistema de cursos lecionados pode ser facilmente tratado, pois acrescentamos os dados ao decorrer do professor lecionar a disciplina.
 
-MERX-1
+No modelo MER-X 1 vemos que existe um trecho, em que definimos a grade como obrigatória ou optativa, essa trecho pode ser transformado em informação de uma entidade Disciplina, essa mudança faz com que o modelo MER-X 2 torne mais compacto e sem uma especialização com uma única informação.
 
-MERX-2
+Assim, utilizaremos o modelo MER-X 2 para a modelagem do nosso banco de dados.
 
