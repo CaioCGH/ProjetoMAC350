@@ -73,7 +73,7 @@ CREATE TABLE curriculo (
 	curr_AnoFim varchar(10),
 	curr_Curso varchar(80),
 	curr_Unidade varchar(80),
-	CONSTRAINT PK_curriculo PRIMARY KEY(curr_NUSP, curr_AnoIni, curr_AnoFim, curr_Curso)
+	CONSTRAINT PK_curriculo PRIMARY KEY(curr_NUSP, curr_Curso)
 );
 
 DROP TABLE IF EXISTS modulo;
@@ -96,7 +96,7 @@ CREATE TABLE usuario (
 	us_Senha varchar(80),
 	us_Username varchar(80),
 	us_NUSP int,
-	CONSTRAINT PK_usuario PRIMARY KEY(us_Login, us_Senha, us_NUSP)
+	CONSTRAINT PK_usuario PRIMARY KEY(us_Login, us_NUSP)
 );
 
 DROP TABLE IF EXISTS perfil;
