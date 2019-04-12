@@ -121,7 +121,7 @@ CREATE TABLE oferecimento(
 	of_Vagas int,
 	of_Horario varchar(20),
 	CONSTRAINT PK_oferecimento PRIMARY KEY(of_DataInicio, of_NUSP, of_Codigo, of_Vagas, of_Horario)
-)
+);
 
 -- MODIFY LATER
 DROP TABLE IF EXISTS cursa;
@@ -133,7 +133,7 @@ CREATE TABLE cursa(
 	cur_Nota float,
 	cur_Freq int,
 	CONSTRAINT PK_cursa PRIMARY KEY(cur_NUSPAluno, cur_DataIni, cur_NUSPProf)
-)
+);
 
 -- MODIFY LATER
 DROP TABLE IF EXISTS planeja;
@@ -142,7 +142,7 @@ CREATE TABLE planeja(
 	pla_Codigo int,
 	pla_DataIni varchar(10),
 	CONSTRAINT PK_planeja PRIMARY KEY(pla_NUSP, pla_Codigo, pla_DataIni)	
-)
+);
 
 -- MODIFY LATER
 DROP TABLE IF EXISTS rel_cur_tri;
@@ -152,7 +152,7 @@ CREATE TABLE rel_cur_tri(
 	of_Codigo int,
 	ctr_Unidade varchar(10),
 	CONSTRAINT PK_rel_cur_tri PRIMARY KEY(ctr_AnoIni, ctr_Curso, of_Codigo, ctr_Unidade)		
-)
+);
 
 -- MODIFY LATER
 DROP TABLE IF EXISTS tr_mod;
@@ -160,7 +160,7 @@ CREATE TABLE tr_mod(
 	tr_Codigo int,
 	tr_Modulo varchar(10),
 	CONSTRAINT PK_tr_mod PRIMARY KEY(tr_Codigo, tr_Modulo)
-)
+);
 
 -- MODIFY LATER
 DROP TABLE IF EXISTS rel_dis_mod;
@@ -168,7 +168,7 @@ CREATE TABLE rel_dis_mod(
 	dm_CodigoDis int,
 	dm_Mod varchar(10),
 	CONSTRAINT PK_rel_dis_mod PRIMARY KEY(dm_CodigoDis, dm_Mod)
-)
+);
 
 -- MODIFY LATER
 DROP TABLE IF EXISTS us_pf;
@@ -176,7 +176,7 @@ CREATE TABLE us_pf(
 	us_Login varchar(10),
 	us_PerfilTipo varchar(10),
 	CONSTRAINT PK_us_pf PRIMARY KEY(us_Login, us_PerfilTipo)
-)
+);
 
 -- MODIFY LATER
 DROP TABLE IF EXISTS pf_se;
@@ -184,4 +184,4 @@ CREATE TABLE pf_se(
 	pf_PerfilTipo varchar(10),
 	pf_Nome varchar(10),
 	CONSTRAINT PK_pf_se PRIMARY KEY(pf_PerfilTipo, pf_Nome)	
-)
+);
