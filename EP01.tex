@@ -59,7 +59,7 @@ Explicar as adaptações depois no novo MER(...)
 \begin{tikzpicture}
   \node[entity] (node1) {Pessoa}
   child [grow=-130,level distance=3cm]{node[attribute] {pe\_Email}}
-  child [grow=-30,level distance=3cm]{node[attribute] {pe\_Name}}
+  child [grow=-30,level distance=3cm]{node[attribute] {pe\_Nome}}
   child [grow=-55,level distance=3cm]{node[attribute] {\underline{pe\_NUSP}}}
   child [grow=+30,level distance=3cm]{node[attribute] {pe\_DataNasc}}
   child [grow=+60,level distance=3cm]{node[attribute] {pe\_Sexo}}
@@ -87,7 +87,7 @@ Explicar as adaptações depois no novo MER(...)
   \item \textbf{pe\_Nome:} Sequência de letras maiúsculas e minúsculas, apóstrofe, hífen e espaço. No mínimo de 5 e máximo de 80 caracteres. Não pode ser nulo.
   \item \textbf{pe\_Email:} Sequência de 1 a 80 caracteres alfanuméricos e caracteres especiais \begin{verbatim}(!#$%&'*+-/=?^_`{|}~.)\end{verbatim} seguidos de um @, seguido de mais uma sequência de 1 a 80 caracteres alfanuméricos e caracteres especiais \begin{verbatim}(!#$%&'*+-/=?^_`{|}~.)\end{verbatim}.
   Não pode ser nulo.
-  \item \textbf{pe\_DataNascimento:} no formato data dd/mm/aaaa. Não pode ser nulo.
+  \item \textbf{pe\_DataNasc:} no formato data dd/mm/aaaa. Não pode ser nulo.
   \item \textbf{pe\_Sexo:} M, F ou N, representando Sexo Masculino, Feminino ou Não declarado respectivamente.
   \item \textbf{pe\_Endereco:}
   \begin{itemize}
@@ -101,7 +101,7 @@ Explicar as adaptações depois no novo MER(...)
   	\end{itemize}
 \end{itemize}
 
-O listing traz um exemplo de possíveis tuplas a serem inseridas em Pessoa, no formato (NUSP, CPF, Nome, email, sexo, DataNasc, End):
+O listing traz um exemplo de possíveis tuplas a serem inseridas em Pessoa, no formato (NUSP, CPF, Nome, Email, Sexo, DataNasc, Endereco):
 
 \begin{itemize}
 	\item 7777777; 003.939.708-41; Juca Araujo; juca@usp.br; M; 01/04/1999; Avenida A, 10, null, Butanta, Sao Paulo, SP, 10.200-100
@@ -180,7 +180,7 @@ A inserção de um aluno no banco de dados sempre acarretará que ele entre com 
   \item \textbf{pr\_Area:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
 \end{itemize}
 
-O listing traz um exemplo de possíveis tuplas a serem inseridas em Professor no formato (Depart, DataAdmissao, Area):
+O listing traz um exemplo de possíveis tuplas a serem inseridas em Professor no formato (Departamento, DataAdmissao, Area):
 
 \begin{itemize}
 	\item IME; 01/02/1985; Software. 
@@ -200,15 +200,15 @@ A entidade regular Administrador é uma entidade chave para nosso modelo e é ne
 \end{itemize}
 \begin{tikzpicture}
   \node[entity] (node1) {Administrador}
-  child [grow=-30,level distance=3cm]{node[attribute] {adm\_DataInicio}}
-  child [grow=-80,level distance=2.5cm]{node[attribute] {adm\_DataTermino}};
+  child [grow=-30,level distance=3cm]{node[attribute] {adm\_DataIni}}
+  child [grow=-80,level distance=2.5cm]{node[attribute] {adm\_DataTerm}};
 \end{tikzpicture}
 \paragraph{Restrições de Domínio:}
 \begin{itemize}
   \item \textbf{adm\_DataInicio:} Data no formato dd/mm/aaaa. Não pode ser nulo.
   \item \textbf{adm\_DataTermino:} Data no formato dd/mm/aaaa.
 \end{itemize}
-O listing traz um exemplo de possíveis tuplas a serem inseridas em Administrador no formato (DataInicio, DataTermino):
+O listing traz um exemplo de possíveis tuplas a serem inseridas em Administrador no formato (DataIni, DataTerm):
 
 \begin{itemize}
 	\item 01/01/2010; 31/12/2015. 
@@ -253,16 +253,16 @@ A entidade regular Disciplina é uma entidade chave para nosso modelo e é nela 
 \begin{itemize}
   \item \textbf{dis\_Nome:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
   \item \textbf{dis\_Codigo:}  Sequência de caracteres alfanuméricos. No mínimo de 4 e máximo de 9 caracteres. Não pode ser nulo.
-  \item \textbf{dis\_Departamento:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
+  \item \textbf{dis\_Depart:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
   \item \textbf{dis\_Ementa:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
   \item \textbf{dis\_Descricao:} Sequência de caracteres UTF-8. Mínimo de 4 e máximo de 1000 caracteres. Não pode ser nulo.
-  \item \textbf{dis\_PreRequisitos:} Sequencia de caracteres alfanuméricos. No mínimo de 4 de 80 caracteres. 
-  \item \textbf{dis\_PeriodoIdeal:}  Numéro inteiro entre 1 e 12.
+  \item \textbf{dis\_PreRequis:} Sequencia de caracteres alfanuméricos. No mínimo de 4 de 80 caracteres. 
+  \item \textbf{dis\_PerIdeal:}  Numéro inteiro entre 1 e 12.
   \item \textbf{dis\_Aula:} Inteiro positivo entre 1 e 50.
   \item \textbf{dis\_Trabalho:} Inteiro positivo entre 1 e 50.
 \end{itemize}
 
-O listing traz um exemplo de possíveis tuplas a serem inseridas em Disciplina no formato (Nome, Código, Depart, Ementa, Descrição, PreRequis, PerIdeal, Cred):
+O listing traz um exemplo de possíveis tuplas a serem inseridas em Disciplina no formato (Nome, Codigo, Depart, Ementa, Descricao, PreRequis, PerIdeal, Aula, Trabalho):
 
 \begin{itemize}
 	\item Introdução a Computação; MAC110; MAC; Variáveis, Condicionais, Loops; Conceitos básicos de Programação; null; 1; 4, 2.
@@ -323,7 +323,7 @@ A entidade regular Currículo é uma entidade chave para nosso modelo e é nela 
    \item \textbf{cur\_Curso:} Sequência de caracteres. No mínimo de 2 até 80 caracteres.
    \item \textbf{cur\_Unidade:} Sequência de caracteres. No mínimo de 2 até 80 caracteres.
 \end{itemize}
-O listing traz um exemplo de possíveis tuplas a serem inseridas em Currículo no formato (AnoInicio, AnoFim, Curso, Unidade):
+O listing traz um exemplo de possíveis tuplas a serem inseridas em Currículo no formato (AnoIni, AnoFim, Curso, Unidade):
 
 \begin{itemize}
 	\item 01/01/2000; 31/12/2016; 42; IME. 
@@ -432,9 +432,9 @@ O listing traz um exemplo de possíveis tuplas a serem inseridas em Trilha no fo
 \end{tikzpicture}
 \paragraph{Restrições de Domínio:}
 \begin{itemize}
-  \item \textbf{us\_login:} Sequência de caracteres alfanuméricos. No mínimo de 6 até 80 caracteres. Não pode ser nulo.
-  \item \textbf{us\_senha:}  Sequência de caracteres alfanuméricos. No mínimo de 6 até 80 caracteres. Não pode ser nulo.
-  \item \textbf{us\_username:} Sequência de caracteres alfanuméricos, separados ou não pode espaço. No mínimo de 6 até 80 caracteres. Não pode ser nulo.
+  \item \textbf{us\_Login:} Sequência de caracteres alfanuméricos. No mínimo de 6 até 80 caracteres. Não pode ser nulo.
+  \item \textbf{us\_Senha:}  Sequência de caracteres alfanuméricos. No mínimo de 6 até 80 caracteres. Não pode ser nulo.
+  \item \textbf{us\_Username:} Sequência de caracteres alfanuméricos, separados ou não pode espaço. No mínimo de 6 até 80 caracteres. Não pode ser nulo.
 \end{itemize}
 O listing traz um exemplo de possíveis tuplas a serem inseridas em Usuário no formato (Login, Senha, Username):
 
@@ -527,9 +527,13 @@ O listing traz um exemplo de possíveis tuplas a serem inseridas em Oferecimento
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Relacionamentos}
 \subsection{pe\_us:}
-Não identificamos a necessidade deste relacionamento conter atributos, pois só
- importa o mapeamento entre as entidades Pessoa e Usuário.
+Não identificamos a necessidade deste relacionamento conter atributos, pois só importa o mapeamento entre as entidades Pessoa e Usuário.
 \subsection{us\_pf:}
+O relacionamento us\_pf é um relacionamento chave para nosso modelo e é nele que armazenaremos todos os dados das instâncias de cada usuário com o tipo de perfil que ele possui.
+	
+	Segundo nosso modelo, cada instância de us\_pf será composta pela Data de início de quando um usuário adquiriu aquele perfil e sua data de término.	
+	
+	O listing abaixo traz um exemplo da estrutura da entidade:
 \begin{itemize}
   \item Data de início
   \item Data de término
@@ -544,25 +548,51 @@ Não identificamos a necessidade deste relacionamento conter atributos, pois só
   \item \textbf{up\_DataIniPerf:} Data no formato dd/mm/aaaa. Não pode ser nulo.
   \item \textbf{up\_DataTermPerf:} Data no formato dd/mm/aaaa. Não pode ser nulo.
 \end{itemize}
+O listing traz um exemplo de possíveis tuplas a serem inseridas em us\_pf no formato (DataIniPerf, DataTermPerf):
+
+\begin{itemize}
+	\item 01/02/2019; 30/06/2019.
+	\item 01/08/2019; 31/12/2019.
+\end{itemize}
  \subsection{pf\_se:}
 Não identificamos a necessidade deste relacionamento conter atributos, pois só
  importa o mapeamento entre as entidades Perfil e Serviço.
 \subsection{Cursa:}
+O relacionamento Curso é um relacionamento chave para nosso modelo e é nele que armazenaremos todos os dados das instâncias de cada um dos alunos da USP que cursarem alguma disciplina presentes na nossa base de dados.
+	
+	Segundo nosso modelo, cada instância de Cursa será composta pela Data de quando o Aluno cursou a Disciplina, que será a chave primária desse relacionamento, sua Frequência e Nota.
+	
+	O listing abaixo traz um exemplo da estrutura da entidade:
 \begin{itemize}
+  \item Data de Início (Chave primária)
   \item Frequência
   \item Nota
 \end{itemize}
 \begin{tikzpicture}
   \node[relationship] (node1) {Cursa}
+        child [grow=0,level distance=3cm]{node[attribute] {\underline{c\_DataInic}}}
   	child [grow=-35,level distance=3cm]{node[attribute] {c\_Nota}}
   	child [grow=-60,level distance=3cm]{node[attribute] {c\_Frequencia}};
 \end{tikzpicture}
 \paragraph{Restrições de Domínio:}
 \begin{itemize}
+  \item \textbf{c\_DataIni:} Data no formato dd/mm/aaaa. Não pode ser nulo.
   \item \textbf{c\_Frequencia:} Número entre 0 e 100.
   \item \textbf{c\_Nota:} Número entre 0 e 10.
 \end{itemize}
+O listing traz um exemplo de possíveis tuplas a serem inseridas em Cursa no formato (DataIni, Frequência, Nota):
+
+\begin{itemize}
+	\item 01/02/2019; null; null.
+	\item 01/08/2019; null; null.
+\end{itemize}
+Na inserção desse relacionamento no Banco de Dados, todo aluno começará com valores nulos de frequência de nota, implicando que ele está cursando aquela matéria. No momento em que ele realizou a matéria, um procedure será feito para alterar sua nota e frequência.
 \subsection{Planeja:}
+O relacionamento Planeja é um relacionamento chave para nosso modelo e é nele que armazenaremos todos os dados das instâncias de cada um dos alunos da USP e seu planejamento em cursar alguma disciplina presentes na nossa base de dados.
+	
+	Segundo nosso modelo, cada instância de Planeja será composta pela Data de quando o Aluno pretende cursar uma disciplina.
+		
+	O listing abaixo traz um exemplo da estrutura da entidade:
 \begin{itemize}
   \item Data de Inscrição
 \end{itemize}
@@ -574,7 +604,18 @@ Não identificamos a necessidade deste relacionamento conter atributos, pois só
 \begin{itemize}
   \item \textbf{pla\_DataInscri:} Data no formato dd/mm/aaaa. Não pode ser nulo.
 \end{itemize}
+O listing traz um exemplo de possíveis tuplas a serem inseridas em Planeja no formato (DataInscri):
+
+\begin{itemize}
+	\item 01/02/2019.
+	\item 01/08/2019.
+\end{itemize}
 \subsection{Administra:}
+O relacionamento Administra é um relacionamento chave para nosso modelo e é nele que armazenaremos todos os dados das instâncias de Administrador da USP e o início do seu mandato.
+	
+	Segundo nosso modelo, cada instância de Administra será composta pela Data de quando o Administrador começou a ser responsável por um curso.
+		
+	O listing abaixo traz um exemplo da estrutura da entidade:
 \begin{itemize}
   \item Data de Início da Administração
 \end{itemize}
@@ -585,6 +626,12 @@ Não identificamos a necessidade deste relacionamento conter atributos, pois só
 \paragraph{Restrições de Domínio:}
 \begin{itemize}
   \item \textbf{adm\_DataIniAdm:} Data no formato dd/mm/aaaa. Não pode ser nulo.
+\end{itemize}
+O listing traz um exemplo de possíveis tuplas a serem inseridas em Administra no formato (DataIniADM):
+
+\begin{itemize}
+	\item 01/02/2019.
+	\item 01/08/2019.
 \end{itemize}
 \subsection{rel\_cur\_tri:}
  Não identificamos a necessidade deste relacionamento conter atributos, porque
