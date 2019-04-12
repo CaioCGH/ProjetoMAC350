@@ -1,16 +1,12 @@
-Validação dos modelos
+Nesse exercício-programa iremos modelar o banco de dados para um sistema de gestão de grades curriculares da USP, a partir dos dois modelos conceituais oferecidos. Nesse capítulo iremos discutir quais serão os benefícios e os malefícios de cada um desses dois modelos conceituais e tentar criar um novo modelo conceitual a partir deles.
 
+Alguns pontos que sabemos é que nesse banco de dados utilizamos uma estrutura de persistência, ou seja, os dados somente podem ser acrescentados e além disso não podem ser modificados. Essa falta de variabilidade de dados faz com que a modelagem do banco de dados fique mais complicada, criando uma necessidade de um planejamento antecipado para alguns sistemas que modificam de ano para ano seus dados, como os cursos obrigatórios, onde os cursos necessários podem mudar, os cursos lecionados, onde os cursos disponíveis podem mudar, o novo sistema de trilhas, onde os requerimentos para cumprir a trilha podem mudar.
 
-Introduzir o EP, opcional (...)
+Para os cursos obrigatórios e o novo sistema de trilhas podemos usar um sistema externo para verificar quais são os requisitos que precisam ser cumpridos e após a verificação podemos marcar no banco de dados quais foram as matérias cumpridas e se terminamos os cursos obrigatórios e/ou completamos uma trilha, evitando criar um banco de dados para marcar os requisitos da trilha e das obrigatórias de cada ano dentro do banco.
 
-Ao fazer um banco de dados com persistência, os dados somente podem ser acrescentados, ou seja, não podemos alterar os dados, essa falta de modificação faz a modelagem do banco de dados mais complicada e ter uma necessidade de um planejamento antecipado, para complicar mais temos alguns sistemas que modificam de ano para ano seus dados, como o cursos obrigatórios, onde os cursos necessários podem mudar, os cursos lecionados, onde os cursos disponíveis podem mudar e o novo sistema de trilhas, onde os requerimentos de cursos podem mudar.
+O sistema de cursos lecionados pode ser facilmente tratado, pois acrescentamos os dados ao decorrer do professor lecionar a disciplina.
 
-Podemos olhar modelo conceitual I, as relações entre os alunos, professores e administradores não tem muita mudança e podem ser facilmente usadas em persistência, porém temos outras relações como alunos e trilhas, alunos e cursos que modificam de ano para ano.
+MERX-1
 
-Analizar melhor, para cada relação verificar a aplicação de persistência nessa relação (...)
-
-
-Explicar as adaptações depois no novo MER(...)
-
-
+MERX-2
 
