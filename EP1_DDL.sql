@@ -92,7 +92,7 @@ CREATE TABLE curriculo (
 	curr_AnoFim varchar(10),
 	curr_Curso varchar(80),
 	curr_Unidade varchar(80),
-	CONSTRAINT PK_curriculo PRIMARY KEY(curr_NUSP, curr_Curso, curr_AnoIni),
+	CONSTRAINT PK_curriculo PRIMARY KEY(curr_Curso, curr_Unidade, curr_AnoIni),
     FOREIGN KEY(curr_NUSP) REFERENCES administrador(adm_NUSP)
 );
 
@@ -113,7 +113,7 @@ CREATE TABLE usuario (
 	us_Senha varchar(80),
 	us_Username varchar(80),
 	us_NUSP int,
-	CONSTRAINT PK_usuario PRIMARY KEY(us_Login, us_NUSP)
+	CONSTRAINT PK_usuario PRIMARY KEY(us_Login)
 );
 
 CREATE TABLE perfil(
