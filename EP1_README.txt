@@ -1,6 +1,6 @@
 Bruna Meneguzzi                         9327136
 Caio Calisto Gaede Hirakawa             7590899
-Eduardo Freire de Carvalho Lima        ????????
+Eduardo Freire de Carvalho Lima        10262627
 Jiang Zhi                               9778706
 Matheus Santos                         10297672
 
