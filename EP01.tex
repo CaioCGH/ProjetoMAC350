@@ -15,21 +15,20 @@
 \maketitle
 \tableofcontents
 \chapter{Parte I: Entendimento e validação do modelo}
-\paragraph{Validar o modelo}
+Nesse exercício-programa iremos modelar o banco de dados para um sistema de gestão de grades curriculares da USP, a partir dos dois modelos conceituais oferecidos. No capítulo atual iremos discutir quais serão os benefícios e os malefícios de cada um desses dois modelos conceituais e tentar criar um novo modelo conceitual a partir deles.
 
-Para criar um banco de dados sobre gestão de grades curriculares dentro da USP foram oferecidos dois modelos conceituais. Nesse capitulo iremos discutir quais serão os benefícios e os malefícios de cada um desses dois modelos conceituais e tentar criar um novo modelo conceitual a partir desses dois modelos.
+Alguns pontos que sabemos é que nesse banco de dados utilizamos uma estrutura de persistência, ou seja, os dados somente podem ser acrescentados e além disso não podem ser modificados. Essa falta de variabilidade de dados faz com que a modelagem do banco de dados fique mais complicada, criando uma necessidade de um planejamento antecipado para alguns sistemas que modificam de ano para ano seus dados, como os cursos obrigatórios, onde os cursos necessários podem mudar, os cursos lecionados, onde os cursos disponíveis podem mudar, o novo sistema de trilhas, onde os requerimentos para cumprir a trilha podem mudar.
 
-Alguns pontos que podemos apresentar é que nesse banco de dados precisamos de uma estrutura de persistência, ou seja, os dados somente podem ser acrescentados e uma condição extra que não podemos alterar os dados. Essa falta de modificação de dados faz com que a modelagem do banco de dados fique mais complicada e provocando uma necessidade de um planejamento antecipado, com alguns sistemas que modificam de ano para ano seus dados, como o cursos obrigatórios, onde os cursos necessários podem mudar, os cursos lecionados, onde os cursos disponíveis podem mudar e o novo sistema de trilhas, onde os requerimentos de cursos podem mudar.
+Para os cursos obrigatórios e o novo sistema de trilhas podemos usar um sistema externo para colocar as matérias feitas e verificar quais são os requisitos que precisam ser cumpridos. Após a verificação podemos marcar no banco de dados quais foram as matérias cumpridas e se terminamos os cursos obrigatórios e/ou completamos uma trilha, evitando criar um banco de dados para marcar os requisitos da trilha e das obrigatórias de cada ano dentro do banco. Mas devido a ausência desse sistema externo, precisamos criar um módulo para colocar os currículos.
 
-Podemos olhar modelo conceitual I, as relações entre os alunos, professores e administradores não tem muita mudança e podem ser facilmente usadas em persistência, porém temos outras relações como alunos e trilhas, alunos e cursos que modificam de ano para ano.
+O sistema de cursos lecionados pode ser feito facilmente, pois acrescentamos os dados ao decorrer das aulas lecionadas pelos  professor sobre a disciplina.
 
-Analizar melhor, para cada relação verificar a aplicação de persistência nessa relação (...)
+Inicialmente foi proposto o modelo MER-X 1, onde vemos que existe um trecho onde definimos a grade como obrigatória ou optativa, essa trecho pode ser transformado em informação da entidade Disciplina. Como mostrado no modelo MER-X 2 onde o banco de dados fica mais compacto.
+
+Assim, utilizaremos o modelo MER-X 2 com algumas modificações para a modelagem do nosso banco de dados.
 
 
-Explicar as adaptações depois no novo MER(...)
-
-
-\chapter{Parte II: Descrição das classes abstratas}
+\chapter{Parte II: Modelo Conceitual e suas classes abstratas}
 
 \section{Entidades}
 \subsection{Pessoa:}
@@ -54,7 +53,7 @@ Explicar as adaptações depois no novo MER(...)
   	\item Município
   	\item Unidade Federativa
   	\item CEP
-  	\end{itemize}
+  \end{itemize}
 \end{itemize}
 \begin{tikzpicture}
   \node[entity] (node1) {Pessoa}
@@ -75,6 +74,7 @@ Explicar as adaptações depois no novo MER(...)
 \end{tikzpicture}
 
 \paragraph{Restrições de Domínio:}
+
 \begin{itemize}
   \item \textbf{pe\_NUSP:} Chave primária da entidade Pessoa. Sequência de 6 a 9 dígitos, englobando todos os números USP conhecidos e mais um dígito para quando os dígitos disponíveis não forem suficientes. Não pode ser nulo.
   \item \textbf{pe\_CPF:} Chave secundária da entidade Pessoa. Sequência de 11 dígitos que passe pelas regras de validação da Receita Federal:
@@ -85,7 +85,8 @@ Explicar as adaptações depois no novo MER(...)
   \end{itemize}
   Não pode ser nulo.
   \item \textbf{pe\_Nome:} Sequência de letras maiúsculas e minúsculas, apóstrofe, hífen e espaço. No mínimo de 5 e máximo de 80 caracteres. Não pode ser nulo.
-  \item \textbf{pe\_Email:} Sequência de 1 a 80 caracteres alfanuméricos e caracteres especiais \begin{verbatim}(!#$%&'*+-/=?^_`{|}~.)\end{verbatim} seguidos de um @, seguido de mais uma sequência de 1 a 80 caracteres alfanuméricos e caracteres especiais \begin{verbatim}(!#$%&'*+-/=?^_`{|}~.)\end{verbatim}.
+  \item \textbf{pe\_Email:} Sequência de 1 a 80 caracteres alfanuméricos e caracteres especiais \begin{verbatim}(!#$%&'*+-/=?^_`{|}~.) \end{verbatim} seguidos de um @, seguido de mais uma sequência de 1 a 80 caracteres alfanuméricos e caracteres especiais \begin{verbatim}(!#$%&'*+-/=?^_`{|}~.)
+  \end{verbatim} .
   Não pode ser nulo.
   \item \textbf{pe\_DataNasc:} no formato data dd/mm/aaaa. Não pode ser nulo.
   \item \textbf{pe\_Sexo:} M, F ou N, representando Sexo Masculino, Feminino ou Não declarado respectivamente.
@@ -100,6 +101,7 @@ Explicar as adaptações depois no novo MER(...)
   	\item \textbf{pe\_CEP:} Sequência de 5 dígitos, seguido de um hífen, seguidos de mais três dígitos. Não pode ser nulo.
   	\end{itemize}
 \end{itemize}
+
 
 O listing traz um exemplo de possíveis tuplas a serem inseridas em Pessoa, no formato (NUSP, CPF, Nome, Email, Sexo, DataNasc, Endereco):
 
@@ -643,14 +645,35 @@ O listing traz um exemplo de possíveis tuplas a serem inseridas em Administra n
  Não identificamos a necessidade deste relacionamento conter atributos, pois só
  importa o mapeamento entre as entidades Disciplina e Módulo.
 \subsection{Funcionalidades esperadas}
-{\huge fazer isso no final\par}
 \begin{itemize}
-  \item Permitir ao aluno planejar um crono-
-grama de disciplinas segundo uma trilha
+  \item Permitir ao aluno planejar um cronograma de disciplinas segundo uma trilha
 escolhida;
   \item Data de término
 \end{itemize}
+
+
+
+
+\section {DER}
+Como a modelagem do DER ficou muito extensa tivemos uma dificuldade de colocar essa modelagem dentro do pdf, mantendo as informações de forma legível.
+
+\begin{figure}[!htb]
+     \centering
+     \includegraphics[scale=0.35]{imagens/DER_EP1.jpg}
+     \caption{DER}
+\end{figure}
+
+Essa imagem, pode ser encontrada também na pasta imagens dentro do arquivo DER\_EP1.jpg
+
+
+\chapter{Parte III: Modelo lógico e Físico}
 \section{Modelo lógico}
-{\huge Já temos o modelo lógico no papel, falta criar a imagem//
-vamos usar um software que o César recomendou\par}
+O modelo conceitual pode ser transformado em lógico e se encontra no pdf Modelo lógico.
+
+\section{Modelo físico}
+Nessa parte convertemos o modelo lógico em modelo físico, a partir das informações dentro das entidades e das suas chaves primárias e suas chaves estrangeiras criada no modelo lógico.
+
+Algumas verificações de consistência de dados podem ser muito díficil de fazer internamente no banco de dados como saber se o e-mail é válido, então podemos fazer um checador de consistência externa no momento de inserir os dados e de periodos e periodos de tempo podemos checar a consistência interna do banco de dados.
+
+
 \end{document}
