@@ -9,7 +9,7 @@
 \renewcommand{\baselinestretch}{0.5}
 
 
-\author{Caio Calisto Gaede Hirakawa \\ Matheus Santos Conceição}
+\author{Bruna Meneguzzi \\ Caio Calisto Gaede Hirakawa \\ Eduardo Lima \\ Jiang Zhi \\ Matheus Santos Conceição}
 \title{Exercício-Programa 1: Base de dados}
 \begin{document}
 \maketitle
@@ -32,11 +32,11 @@ Assim, utilizaremos o modelo MER-X 2 com algumas modificações para a modelagem
 
 \section{Entidades}
 \subsection{Pessoa:}
- 	A entidade regular Pessoa é uma entidade chave para nosso modelo e é nela que armazenaremos todos os dados das instâncias de cada uma das pessoas da USP presentes na nossa base de dados, seja ela Aluno, Professor ou Administrador.
-	
-	Segundo nosso modelo, cada instância de Pessoa será composta por seu número USP, que será utilizado como chave primária, seu CPF, que será utilizado como chave secundária, seu nome, e-mail, sexo, data de nascimento e endereço, que será um atributo composto de logradouro, número, complemento, bairro, município, unidade federativa e CEP.
-	
-	O listing abaixo traz um exemplo da estrutura da entidade:
+  A entidade regular Pessoa é uma entidade chave para nosso modelo e é nela que armazenaremos todos os dados das instâncias de cada uma das pessoas da USP presentes na nossa base de dados, seja ela Aluno, Professor ou Administrador.
+  
+  Segundo nosso modelo, cada instância de Pessoa será composta por seu número USP, que será utilizado como chave primária, seu CPF, que será utilizado como chave secundária, seu nome, e-mail, sexo, data de nascimento e endereço, que será um atributo composto de logradouro, número, complemento, bairro, município, unidade federativa e CEP.
+  
+  O listing abaixo traz um exemplo da estrutura da entidade:
 \begin{itemize}
   \item Número USP  (Chave primária)
   \item CPF (Chave secundária)
@@ -46,13 +46,13 @@ Assim, utilizaremos o modelo MER-X 2 com algumas modificações para a modelagem
   \item Data de Nascimento
   \item Endereço:
   \begin{itemize}
-  	\item Logradouro
-  	\item Número
-  	\item Complemento
-  	\item Bairro
-  	\item Município
-  	\item Unidade Federativa
-  	\item CEP
+    \item Logradouro
+    \item Número
+    \item Complemento
+    \item Bairro
+    \item Município
+    \item Unidade Federativa
+    \item CEP
   \end{itemize}
 \end{itemize}
 \begin{tikzpicture}
@@ -64,12 +64,12 @@ Assim, utilizaremos o modelo MER-X 2 com algumas modificações para a modelagem
   child [grow=+60,level distance=3cm]{node[attribute] {pe\_Sexo}}
   child [grow=-95,level distance=3cm]{node[attribute] {\underline{\underline{pe\_CPF}}}}
   child [grow=0,level distance=3cm]{node[attribute] {pe\_Endereço}
-    	child [grow=40,level distance=3cm]{node[attribute] {pe\_Numero}}
-   		child [grow=16,level distance=4cm]{node[attribute] {pe\_Complemento}}
-   		child [grow=4,level distance=3.5cm]{node[attribute] {pe\_Bairro}}
-   		child [grow=-10,level distance=4cm]{node[attribute] {pe\_Municipio}}
-   		child [grow=-25,level distance=4cm]{node[attribute] {pe\_UF}}
-   		child [grow=-60,level distance=3cm]{node[attribute] {pe\_CEP}}
+      child [grow=40,level distance=3cm]{node[attribute] {pe\_Numero}}
+      child [grow=16,level distance=4cm]{node[attribute] {pe\_Complemento}}
+      child [grow=4,level distance=3.5cm]{node[attribute] {pe\_Bairro}}
+      child [grow=-10,level distance=4cm]{node[attribute] {pe\_Municipio}}
+      child [grow=-25,level distance=4cm]{node[attribute] {pe\_UF}}
+      child [grow=-60,level distance=3cm]{node[attribute] {pe\_CEP}}
     };
 \end{tikzpicture}
 
@@ -79,9 +79,9 @@ Assim, utilizaremos o modelo MER-X 2 com algumas modificações para a modelagem
   \item \textbf{pe\_NUSP:} Chave primária da entidade Pessoa. Sequência de 6 a 9 dígitos, englobando todos os números USP conhecidos e mais um dígito para quando os dígitos disponíveis não forem suficientes. Não pode ser nulo.
   \item \textbf{pe\_CPF:} Chave secundária da entidade Pessoa. Sequência de 11 dígitos que passe pelas regras de validação da Receita Federal:
   \begin{itemize}
-  	\item verificação do primeiro dígito
-  	\item verificação de segundo dígito
-  	\item verificação de dígitos iguais
+    \item verificação do primeiro dígito
+    \item verificação de segundo dígito
+    \item verificação de dígitos iguais
   \end{itemize}
   Não pode ser nulo.
   \item \textbf{pe\_Nome:} Sequência de letras maiúsculas e minúsculas, apóstrofe, hífen e espaço. No mínimo de 5 e máximo de 80 caracteres. Não pode ser nulo.
@@ -92,38 +92,38 @@ Assim, utilizaremos o modelo MER-X 2 com algumas modificações para a modelagem
   \item \textbf{pe\_Sexo:} M, F ou N, representando Sexo Masculino, Feminino ou Não declarado respectivamente.
   \item \textbf{pe\_Endereco:}
   \begin{itemize}
-  	\item \textbf{pe\_Logradouro:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
-  	\item \textbf{pe\_Numero}: Sequência de 1 a 10 caracteres alfanuméricos e espaço, com o intuito de permitir escrever "sem número". Não pode ser nulo.
-  	\item \textbf{pe\_Complemento:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Pode ser nulo.
-  	\item \textbf{pe\_Bairro:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
-  	\item \textbf{pe\_Municipio:} Complemento Logradouro: Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
-  	\item \textbf{pe\_UF:} Complemento Logradouro: Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
-  	\item \textbf{pe\_CEP:} Sequência de 5 dígitos, seguido de um hífen, seguidos de mais três dígitos. Não pode ser nulo.
-  	\end{itemize}
+    \item \textbf{pe\_Logradouro:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
+    \item \textbf{pe\_Numero}: Sequência de 1 a 10 caracteres alfanuméricos e espaço, com o intuito de permitir escrever "sem número". Não pode ser nulo.
+    \item \textbf{pe\_Complemento:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Pode ser nulo.
+    \item \textbf{pe\_Bairro:} Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
+    \item \textbf{pe\_Municipio:} Complemento Logradouro: Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
+    \item \textbf{pe\_UF:} Complemento Logradouro: Sequência de caracteres alfanuméricos, apóstrofe, hífen e espaço. No mínimo de 4 e máximo de 80 caracteres. Não pode ser nulo.
+    \item \textbf{pe\_CEP:} Sequência de 5 dígitos, seguido de um hífen, seguidos de mais três dígitos. Não pode ser nulo.
+    \end{itemize}
 \end{itemize}
 
 
 O listing traz um exemplo de possíveis tuplas a serem inseridas em Pessoa, no formato (NUSP, CPF, Nome, Email, Sexo, DataNasc, Endereco):
 
 \begin{itemize}
-	\item 7777777; 003.939.708-41; Juca Araujo; juca@usp.br; M; 01/04/1999; Avenida A, 10, null, Butanta, Sao Paulo, SP, 10.200-100
-	\item 7777888;076.713.684-58; Celia; celia@usp.br; F; 02/03/2000; Avenida B, 11, apto 11, Pinheiros, Sao Paulo, SP, 01.500-250
+  \item 7777777; 003.939.708-41; Juca Araujo; juca@usp.br; M; 01/04/1999; Avenida A, 10, null, Butanta, Sao Paulo, SP, 10.200-100
+  \item 7777888;076.713.684-58; Celia; celia@usp.br; F; 02/03/2000; Avenida B, 11, apto 11, Pinheiros, Sao Paulo, SP, 01.500-250
 
 \end{itemize}
 \subsection{Aluno:}
-	A entidade regular Aluno é uma entidade chave para nosso modelo e é nela que armazenaremos todos os dados das instâncias de cada um dos alunos da USP presentes na nossa base de dados.
-	
-	Segundo nosso modelo, cada instância de Aluno será composta por sua Data de Ingresso, o Código do Curso a qual ele pertence e a quantidade de Créditos Acumulados por ele até o momento da consulta, que será um atributo composto por créditos referentes a disciplinas Obrigatórios, Eletivas e Livres.
-	
-	O listing abaixo traz um exemplo da estrutura da entidade:
+  A entidade regular Aluno é uma entidade chave para nosso modelo e é nela que armazenaremos todos os dados das instâncias de cada um dos alunos da USP presentes na nossa base de dados.
+  
+  Segundo nosso modelo, cada instância de Aluno será composta por sua Data de Ingresso, o Código do Curso a qual ele pertence e a quantidade de Créditos Acumulados por ele até o momento da consulta, que será um atributo composto por créditos referentes a disciplinas Obrigatórios, Eletivas e Livres.
+  
+  O listing abaixo traz um exemplo da estrutura da entidade:
 \begin{itemize}
   \item Data de Ingresso
   \item Código do Curso
   \item Créditos acumulados
   \begin{itemize}
-  	\item Obrigatórios
-  	\item Optativos Eletivos
-  	\item Optativos Livres
+    \item Obrigatórios
+    \item Optativos Eletivos
+    \item Optativos Livres
   \end{itemize}
 \end{itemize}
 \begin{tikzpicture}
@@ -131,9 +131,9 @@ O listing traz um exemplo de possíveis tuplas a serem inseridas em Pessoa, no f
   child [grow=+10,level distance=3cm]{node[attribute] {al\_CodCurso}}
   child [grow=-90,level distance=1cm]{node[attribute] {al\_DataIngresso}}
   child [grow=-10,level distance=3cm]{node[attribute] {al\_Creditos}
-  	child [grow=-20,level distance=3cm]{node[attribute] {al\_Obrigatorios}}
-  	child [grow=-70,level distance=2cm]{node[attribute] {al\_Eletivos}}
-  	child [grow=-135,level distance=2cm]{node[attribute] {al\_Livres}}
+    child [grow=-20,level distance=3cm]{node[attribute] {al\_Obrigatorios}}
+    child [grow=-70,level distance=2cm]{node[attribute] {al\_Eletivos}}
+    child [grow=-135,level distance=2cm]{node[attribute] {al\_Livres}}
   };
   
 \end{tikzpicture}
@@ -143,26 +143,26 @@ O listing traz um exemplo de possíveis tuplas a serem inseridas em Pessoa, no f
   \item \textbf{Código do Curso:} Números entre 1 e +infinito. Não pode ser nulo.
   \item \textbf{Créditos acumulados:}
   \begin{itemize}
-  	\item \textbf{Obrigatórios:} inteiro entre 0 e +infinito. Não pode ser nulo.
-  	\item \textbf{Optativos Eletivos:} inteiro entre 0 e +infinito. Não pode ser nulo.
-  	\item \textbf{Optativos Livres:} inteiro entre 0 e +infinito. Não pode ser nulo.
+    \item \textbf{Obrigatórios:} inteiro entre 0 e +infinito. Não pode ser nulo.
+    \item \textbf{Optativos Eletivos:} inteiro entre 0 e +infinito. Não pode ser nulo.
+    \item \textbf{Optativos Livres:} inteiro entre 0 e +infinito. Não pode ser nulo.
   \end{itemize}
 \end{itemize}
 
 O listing traz um exemplo de possíveis tuplas a serem inseridas em Aluno, no formato (DataIngr, CodCurso, Creditos):
 
 \begin{itemize}
-	\item 01/02/2016; 42; 0, 0, 0
-	\item 03/02/2017; 15; 0, 0, 0
+  \item 01/02/2016; 42; 0, 0, 0
+  \item 03/02/2017; 15; 0, 0, 0
 \end{itemize}
 
 A inserção de um aluno no banco de dados sempre acarretará que ele entre com 0 créditos e, para alterá-lo no decorrer de seu período na USP, um procedure será feito.
 \subsection{Professor:}
-	A entidade regular Professor é uma entidade chave para nosso modelo e é nela que armazenaremos todos os dados das instâncias de cada um dos professores da USP presentes na nossa base de dados.
-	
-	Segundo nosso modelo, cada instância de Professor será composta por seu Departamento, Data de Admissão e Área de atuação, que será um atributo multivalorado.
-	
-	O listing abaixo traz um exemplo da estrutura da entidade:
+  A entidade regular Professor é uma entidade chave para nosso modelo e é nela que armazenaremos todos os dados das instâncias de cada um dos professores da USP presentes na nossa base de dados.
+  
+  Segundo nosso modelo, cada instância de Professor será composta por seu Departamento, Data de Admissão e Área de atuação, que será um atributo multivalorado.
+  
+  O listing abaixo traz um exemplo da estrutura da entidade:
 \begin{itemize}
   \item Departamento
   \item Data de Admissão
@@ -170,10 +170,10 @@ A inserção de um aluno no banco de dados sempre acarretará que ele entre com 
 \end{itemize}
 \begin{tikzpicture}
   \node[entity] (node1) {Professor}
-  	child [grow=-30,level distance=3cm]{node[attribute] {pr\_Departamento}}
-	child [grow=+0,level distance=3cm]{node[attribute] {pr\_Area}}
-  	child [grow=-80,level distance=2.5cm]{node[attribute] {pr\_DataAdmissao}};
-	\draw[black] (3, 0) ellipse (0.9 and 0.3);
+    child [grow=-30,level distance=3cm]{node[attribute] {pr\_Departamento}}
+  child [grow=+0,level distance=3cm]{node[attribute] {pr\_Area}}
+    child [grow=-80,level distance=2.5cm]{node[attribute] {pr\_DataAdmissao}};
+  \draw[black] (3, 0) ellipse (0.9 and 0.3);
 \end{tikzpicture}
 \paragraph{Restrições de Domínio:}
 \begin{itemize}
@@ -185,17 +185,17 @@ A inserção de um aluno no banco de dados sempre acarretará que ele entre com 
 O listing traz um exemplo de possíveis tuplas a serem inseridas em Professor no formato (Departamento, DataAdmissao, Area):
 
 \begin{itemize}
-	\item IME; 01/02/1985; Software. 
-	\item FMU; 05/03/2000; Neurologia, Clinico Geral
-	\item BIO; 10/01/1992; Zoologia
+  \item IME; 01/02/1985; Software. 
+  \item FMU; 05/03/2000; Neurologia, Clinico Geral
+  \item BIO; 10/01/1992; Zoologia
 \end{itemize}
 
 \subsection{Administrador:}
 A entidade regular Administrador é uma entidade chave para nosso modelo e é nela que armazenaremos todos os dados das instâncias de cada um dos administradores dos cursos da USP presentes na nossa base de dados.
-	
-	Segundo nosso modelo, cada instância de Administrador será composta por sua Data de Inicio do mandato e Data de Término, este último podendo ser nulo, indicando que o mandato ainda está em vigência.
-		
-	O listing abaixo traz um exemplo da estrutura da entidade:
+  
+  Segundo nosso modelo, cada instância de Administrador será composta por sua Data de Inicio do mandato e Data de Término, este último podendo ser nulo, indicando que o mandato ainda está em vigência.
+    
+  O listing abaixo traz um exemplo da estrutura da entidade:
 \begin{itemize}
   \item Data de Início da Gestão
   \item Data de Término da Gestão
@@ -213,15 +213,15 @@ A entidade regular Administrador é uma entidade chave para nosso modelo e é ne
 O listing traz um exemplo de possíveis tuplas a serem inseridas em Administrador no formato (DataIni, DataTerm):
 
 \begin{itemize}
-	\item 01/01/2010; 31/12/2015. 
-	\item 01/01/2016; null.
+  \item 01/01/2010; 31/12/2015. 
+  \item 01/01/2016; null.
 \end{itemize}
 \subsection{Disciplina:}
 A entidade regular Disciplina é uma entidade chave para nosso modelo e é nela que armazenaremos todos os dados das instâncias de cada um das discilinas da USP presentes na nossa base de dados.
-	
-	Segundo nosso modelo, cada instância de Disciplina será composta por seu Nome, Código, que será sua chave primária, Departamento a que pertence, Ementa, Descrição do que é lecionado nela, Pré-Requisitos, um atributo multivalorado, Período Ideal e quantidade de créditos que ela fornece.
-		
-	O listing abaixo traz um exemplo da estrutura da entidade:
+  
+  Segundo nosso modelo, cada instância de Disciplina será composta por seu Nome, Código, que será sua chave primária, Departamento a que pertence, Ementa, Descrição do que é lecionado nela, Pré-Requisitos, um atributo multivalorado, Período Ideal e quantidade de créditos que ela fornece.
+    
+  O listing abaixo traz um exemplo da estrutura da entidade:
 \begin{itemize}
   \item Nome
   \item Código (Chave Primária)
@@ -232,24 +232,24 @@ A entidade regular Disciplina é uma entidade chave para nosso modelo e é nela 
   \item Período ideal
   \item Créditos:
   \begin{itemize}
-  	\item Aula
-  	\item Trabalho
-  	\end{itemize}
+    \item Aula
+    \item Trabalho
+    \end{itemize}
 \end{itemize}
 \begin{tikzpicture}
   \node[entity] (node1) {Disciplina}
-  	child [grow=45,level distance=3cm]{node[attribute] {dis\_Nome}}
-  	child [grow=25,level distance=3cm]{node[attribute] {\underline{dis\_Codigo}}}
-  	child [grow=130,level distance=2cm]{node[attribute] {dis\_Departamento}}
-  	child [grow=-30,level distance=3.5cm]{node[attribute] {dis\_Ementa}}
-  	child [grow=0,level distance=3.5cm]{node[attribute] {dis\_Pre-requisitos}}
-  	child [grow=-60,level distance=3cm]{node[attribute] {dis\_Descrição}}
-  	child [grow=-130,level distance=4cm]{node[attribute] {dis\_PeríodoIdeal}}
-  	child [grow=180,level distance=4cm]{node[attribute] {dis\_Creditos}
-  		child [grow=-150,level distance=2cm]{node[attribute] {dis\_Aula}}
-  		child [grow=-60,level distance=1.5cm]{node[attribute] {dis\_Trabalho}}
-  	};
-	\draw[black] (3.5, 0) ellipse (1.9 and 0.3);
+    child [grow=45,level distance=3cm]{node[attribute] {dis\_Nome}}
+    child [grow=25,level distance=3cm]{node[attribute] {\underline{dis\_Codigo}}}
+    child [grow=130,level distance=2cm]{node[attribute] {dis\_Departamento}}
+    child [grow=-30,level distance=3.5cm]{node[attribute] {dis\_Ementa}}
+    child [grow=0,level distance=3.5cm]{node[attribute] {dis\_Pre-requisitos}}
+    child [grow=-60,level distance=3cm]{node[attribute] {dis\_Descrição}}
+    child [grow=-130,level distance=4cm]{node[attribute] {dis\_PeríodoIdeal}}
+    child [grow=180,level distance=4cm]{node[attribute] {dis\_Creditos}
+      child [grow=-150,level distance=2cm]{node[attribute] {dis\_Aula}}
+      child [grow=-60,level distance=1.5cm]{node[attribute] {dis\_Trabalho}}
+    };
+  \draw[black] (3.5, 0) ellipse (1.9 and 0.3);
 \end{tikzpicture}
 \paragraph{Restrições de Domínio:}
 \begin{itemize}
@@ -267,26 +267,26 @@ A entidade regular Disciplina é uma entidade chave para nosso modelo e é nela 
 O listing traz um exemplo de possíveis tuplas a serem inseridas em Disciplina no formato (Nome, Codigo, Depart, Ementa, Descricao, PreRequis, PerIdeal, Aula, Trabalho):
 
 \begin{itemize}
-	\item Introdução a Computação; MAC110; MAC; Variáveis, Condicionais, Loops; Conceitos básicos de Programação; null; 1; 4, 2.
-	\item Analise de Algoritmo; MAC425; MAC; Complexidade, Programação Dinâmica, Gulosos; Analisar custo de tempo e espaço extra em algoritmos clássicos; MAC323, MAC215; 4, 0.
+  \item Introdução a Computação; MAC110; MAC; Variáveis, Condicionais, Loops; Conceitos básicos de Programação; null; 1; 4, 2.
+  \item Analise de Algoritmo; MAC425; MAC; Complexidade, Programação Dinâmica, Gulosos; Analisar custo de tempo e espaço extra em algoritmos clássicos; MAC323, MAC215; 4, 0.
 \end{itemize}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\paragraph{Especialização da Disciplina:}
 %\begin{itemize}
-%	\item \textbf{Obrigatória:}
-%			\begin{itemize}
-%  				\item \textbf{teste:}
-%			\end{itemize}
-%			\begin{tikzpicture}
-%  				\node[entity] (node1) {Obrigatória};
-%			\end{tikzpicture}
-%			\paragraph{Restrições de Domínio:}
-%			\begin{itemize}
-%				\item \textbf{teste2:}
-%			\end{itemize}
-%			
-%	\item \textbf{Eletiva:}
-%	\item \textbf{Livre:} 
+% \item \textbf{Obrigatória:}
+%     \begin{itemize}
+%         \item \textbf{teste:}
+%     \end{itemize}
+%     \begin{tikzpicture}
+%         \node[entity] (node1) {Obrigatória};
+%     \end{tikzpicture}
+%     \paragraph{Restrições de Domínio:}
+%     \begin{itemize}
+%       \item \textbf{teste2:}
+%     \end{itemize}
+%     
+% \item \textbf{Eletiva:}
+% \item \textbf{Livre:} 
 %\end{itemize}
 %
 %----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -301,10 +301,10 @@ O listing traz um exemplo de possíveis tuplas a serem inseridas em Disciplina n
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Currículo:}
 A entidade regular Currículo é uma entidade chave para nosso modelo e é nela que armazenaremos todos os dados das instâncias de cada um currículos dos cursos da USP presentes na nossa base de dados.
-	
-	Segundo nosso modelo, cada instância de Currículo será composta por seu Ano de Inicio, Ano de Fim, este último podendo ser nulo, indicando que o currículo ainda está em vigência para um certo Curso, Unidade e Curso a qual o currículo pertence.
-		
-	O listing abaixo traz um exemplo da estrutura da entidade:
+  
+  Segundo nosso modelo, cada instância de Currículo será composta por seu Ano de Inicio, Ano de Fim, este último podendo ser nulo, indicando que o currículo ainda está em vigência para um certo Curso, Unidade e Curso a qual o currículo pertence.
+    
+  O listing abaixo traz um exemplo da estrutura da entidade:
 \begin{itemize}
   \item Ano de Início (Chave primária)
    \item Ano de Fim
@@ -313,10 +313,10 @@ A entidade regular Currículo é uma entidade chave para nosso modelo e é nela 
 \end{itemize}
 \begin{tikzpicture}
   \node[entity] (node1) {Currículo}
-  	child [grow=0,level distance=3cm]{node[attribute] {\underline{cur\_AnoIni}}}
-	child [grow=-25,level distance=3.5cm]{node[attribute] {cur\_Unidade}}
-	child [grow=-165,level distance=3.5cm]{node[attribute] {cur\_Curso}}
-	child [grow=-90,level distance=1.5cm]{node[attribute] {cur\_AnoFim}};
+    child [grow=0,level distance=3cm]{node[attribute] {\underline{cur\_AnoIni}}}
+  child [grow=-25,level distance=3.5cm]{node[attribute] {cur\_Unidade}}
+  child [grow=-165,level distance=3.5cm]{node[attribute] {cur\_Curso}}
+  child [grow=-90,level distance=1.5cm]{node[attribute] {cur\_AnoFim}};
 \end{tikzpicture}
 \paragraph{Restrições de Domínio:}
 \begin{itemize}
@@ -328,19 +328,19 @@ A entidade regular Currículo é uma entidade chave para nosso modelo e é nela 
 O listing traz um exemplo de possíveis tuplas a serem inseridas em Currículo no formato (AnoIni, AnoFim, Curso, Unidade):
 
 \begin{itemize}
-	\item 01/01/2000; 31/12/2016; 42; IME. 
-	\item 01/01/2017; null; 42; IME
+  \item 01/01/2000; 31/12/2016; 42; IME. 
+  \item 01/01/2017; null; 42; IME
 \end{itemize}
 %%%%%%%%%%%%%%%%%%%%%%%%INICIO INICIO INICIO INICIO INICIO%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \iffalse
-\subsection{Obrigatória:}	
+\subsection{Obrigatória:} 
 \begin{itemize}
   \item 
 \end{itemize}
 \begin{tikzpicture}
   \node[entity] (node1) {Obrigatoria};
 \end{tikzpicture}
-\subsection{Optativa:}	
+\subsection{Optativa:}  
 \begin{itemize}
  \item
 \end{itemize}
@@ -365,18 +365,18 @@ O listing traz um exemplo de possíveis tuplas a serem inseridas em Currículo n
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%FIM FIM FIM FIM FIM FIM%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Módulo:}
 A entidade regular Módulo é uma entidade chave para nosso modelo e é nela que armazenaremos todos os dados das instâncias de cada um dos módulos existentes dos cursos da USP presentes na nossa base de dados.
-	
-	Segundo nosso modelo, cada instância de Módulo será composta por seu Nome e Código, este sendo sua chave primária.
-		
-	O listing abaixo traz um exemplo da estrutura da entidade:
+  
+  Segundo nosso modelo, cada instância de Módulo será composta por seu Nome e Código, este sendo sua chave primária.
+    
+  O listing abaixo traz um exemplo da estrutura da entidade:
 \begin{itemize}
   \item Nome
   \item Código (Chave primária)
 \end{itemize}
 \begin{tikzpicture}
   \node[entity] (node1) {Modulo}
-  	child [grow=-30,level distance=3cm]{node[attribute] {mod\_Nome}}
-  	child [grow=-80,level distance=3cm]{node[attribute] {\underline{mod\_Codigo}}};
+    child [grow=-30,level distance=3cm]{node[attribute] {mod\_Nome}}
+    child [grow=-80,level distance=3cm]{node[attribute] {\underline{mod\_Codigo}}};
 \end{tikzpicture}
 \paragraph{Restrições de Domínio:}
 \begin{itemize}
@@ -386,23 +386,23 @@ A entidade regular Módulo é uma entidade chave para nosso modelo e é nela que
 O listing traz um exemplo de possíveis tuplas a serem inseridas em Módulo no formato (Nome, Codigo):
 
 \begin{itemize}
-	\item Matematica Discreta I; 1. 
-	\item Algoritmos 2; 5.
+  \item Matematica Discreta I; 1. 
+  \item Algoritmos 2; 5.
 \end{itemize}
 \subsection{Trilha:}
 A entidade regular Trilha é uma entidade chave para nosso modelo e é nela que armazenaremos todos os dados das instâncias de cada uma das trilhas dos cursos da USP presentes na nossa base de dados.
-	
-	Segundo nosso modelo, cada instância de Trilha será composta por seu Nome e Código, este último sendo sua chave primária.
-		
-	O listing abaixo traz um exemplo da estrutura da entidade:
+  
+  Segundo nosso modelo, cada instância de Trilha será composta por seu Nome e Código, este último sendo sua chave primária.
+    
+  O listing abaixo traz um exemplo da estrutura da entidade:
 \begin{itemize}
   \item Nome
   \item Código (Chave primária)
 \end{itemize}
 \begin{tikzpicture}
   \node[entity] (node1) {Trilha}
-  	child [grow=-30,level distance=3cm]{node[attribute] {tr\_Nome}}
-  	child [grow=-80,level distance=3cm]{node[attribute] {\underline{tr\_Codigo}}};
+    child [grow=-30,level distance=3cm]{node[attribute] {tr\_Nome}}
+    child [grow=-80,level distance=3cm]{node[attribute] {\underline{tr\_Codigo}}};
 \end{tikzpicture}
 \paragraph{Restrições de Domínio:}
 \begin{itemize}
@@ -412,15 +412,15 @@ A entidade regular Trilha é uma entidade chave para nosso modelo e é nela que 
 O listing traz um exemplo de possíveis tuplas a serem inseridas em Trilha no formato (Nome, Codigo):
 
 \begin{itemize}
-	\item Inteligência Artificial; 10. 
-	\item Teoria da Computação; 3.
+  \item Inteligência Artificial; 10. 
+  \item Teoria da Computação; 3.
 \end{itemize}
 \subsection{Usuário:}
- 	A entidade regular Usuário é uma entidade chave para nosso modelo e é nela que armazenaremos todos os dados das instâncias de cada um dos Usuários da nossa plataforma presentes na nossa base de dados.
-	
-	Segundo nosso modelo, cada instância de Usuário será composta por seu Login, este sendo sua chave primária, sua Senha e seu Username.
-		
-	O listing abaixo traz um exemplo da estrutura da entidade:
+  A entidade regular Usuário é uma entidade chave para nosso modelo e é nela que armazenaremos todos os dados das instâncias de cada um dos Usuários da nossa plataforma presentes na nossa base de dados.
+  
+  Segundo nosso modelo, cada instância de Usuário será composta por seu Login, este sendo sua chave primária, sua Senha e seu Username.
+    
+  O listing abaixo traz um exemplo da estrutura da entidade:
 \begin{itemize}
   \item Login (Chave primária)
   \item Senha
@@ -428,9 +428,9 @@ O listing traz um exemplo de possíveis tuplas a serem inseridas em Trilha no fo
 \end{itemize}
 \begin{tikzpicture}
   \node[entity] (node1) {Usuario}
-  	child [grow=-10,level distance=3cm]{node[attribute] {\underline{us\_login}}}
-  	child [grow=-30,level distance=3cm]{node[attribute] {us\_senha}}
-  	child [grow=-60,level distance=3cm]{node[attribute] {us\_username}};
+    child [grow=-10,level distance=3cm]{node[attribute] {\underline{us\_login}}}
+    child [grow=-30,level distance=3cm]{node[attribute] {us\_senha}}
+    child [grow=-60,level distance=3cm]{node[attribute] {us\_username}};
 \end{tikzpicture}
 \paragraph{Restrições de Domínio:}
 \begin{itemize}
@@ -441,21 +441,21 @@ O listing traz um exemplo de possíveis tuplas a serem inseridas em Trilha no fo
 O listing traz um exemplo de possíveis tuplas a serem inseridas em Usuário no formato (Login, Senha, Username):
 
 \begin{itemize}
-	\item anabeatriz2007; 123456; Ana Bia. 
-	\item marcelinho2000; 102030; Marcelo Silva
+  \item anabeatriz2007; 123456; Ana Bia. 
+  \item marcelinho2000; 102030; Marcelo Silva
 \end{itemize}
 \subsection{Perfil:}
   A entidade regular Perfil é uma entidade chave para nosso modelo e é nela que armazenaremos todos os dados das instâncias de cada um dos Perfis da nossa plataforma presentes na nossa base de dados.
-	
-	Segundo nosso modelo, cada instância de Perfil será composta apenas por seu Tipo, que será sua chave primária.
-		
-	O listing abaixo traz um exemplo da estrutura da entidade:
+  
+  Segundo nosso modelo, cada instância de Perfil será composta apenas por seu Tipo, que será sua chave primária.
+    
+  O listing abaixo traz um exemplo da estrutura da entidade:
 \begin{itemize}
   \item Tipo
 \end{itemize}
 \begin{tikzpicture}
   \node[entity] (node1) {Perfil}
-  	child [grow=-90,level distance=1.5cm]{node[attribute] {\underline{pr\_Tipo}}};
+    child [grow=-90,level distance=1.5cm]{node[attribute] {\underline{pr\_Tipo}}};
 \end{tikzpicture}
 \paragraph{Restrições de Domínio:}
 \begin{itemize}
@@ -464,15 +464,15 @@ O listing traz um exemplo de possíveis tuplas a serem inseridas em Usuário no 
 O listing traz um exemplo de possíveis entradas a serem inseridas em Perfil no formato (Tipo):
 
 \begin{itemize}
-	\item Visitante
-	\item Aluno Monitor.
+  \item Visitante
+  \item Aluno Monitor.
 \end{itemize}
 \subsection{Serviço:}
   A entidade regular Serviço é uma entidade chave para nosso modelo e é nela que armazenaremos todos os dados das instâncias de cada um dos Serviços presentes na nossa base de dados.
-	
-	Segundo nosso modelo, cada instância de Serviço será composta por seu Nome, que será sua chave primária, e uma Descrição de cada um deles. 
-		
-	O listing abaixo traz um exemplo da estrutura da entidade:
+  
+  Segundo nosso modelo, cada instância de Serviço será composta por seu Nome, que será sua chave primária, e uma Descrição de cada um deles. 
+    
+  O listing abaixo traz um exemplo da estrutura da entidade:
 \begin{itemize}
   \item Nome (Chave primário)
   \item Descrição
@@ -490,16 +490,16 @@ O listing traz um exemplo de possíveis entradas a serem inseridas em Perfil no 
 O listing traz um exemplo de possíveis tuplas a serem inseridas em Serviços no formato (Nome, Descrição):
 
 \begin{itemize}
-	\item Alteração; Alterar atributos de entidades e relacionamentos do Banco de Dados
-	\item Inserção; Inserir dados no Banco de Dados, como novos alunos e novas disciplinas.
+  \item Alteração; Alterar atributos de entidades e relacionamentos do Banco de Dados
+  \item Inserção; Inserir dados no Banco de Dados, como novos alunos e novas disciplinas.
 \end{itemize}
 \section{Agregados}
 \subsection{Oferecimento:}
  O agregado Oferecimento é um agregado chave para nosso modelo e é nele que armazenaremos todos os dados das instâncias de cada um dos Oferecimentos presentes na nossa base de dados.
-	
-	Segundo nosso modelo, cada instância de Oferecimento será composta por sua Data de Inicio, que será sua chave primária, seu horário, atributo multivalorado, e a quantidade máxima de Vagas que o oferecimento suporta.
-			
-	O listing abaixo traz um exemplo da estrutura da entidade:
+  
+  Segundo nosso modelo, cada instância de Oferecimento será composta por sua Data de Inicio, que será sua chave primária, seu horário, atributo multivalorado, e a quantidade máxima de Vagas que o oferecimento suporta.
+      
+  O listing abaixo traz um exemplo da estrutura da entidade:
 \begin{itemize}
   \item Data de Início (Chave Primária)
   \item Horário
@@ -507,10 +507,10 @@ O listing traz um exemplo de possíveis tuplas a serem inseridas em Serviços no
 \end{itemize}
 \begin{tikzpicture}
   \node[entity] (node1) {Oferecimento}
-  	child [grow=-45,level distance=2.5cm]{node[attribute] {\underline{of\_DataInicio}}}
-  	child [grow=-90,level distance=3cm]{node[attribute] {of\_Horario}}
-  	child [grow=-0,level distance=3cm]{node[attribute] {of\_Vagas}};
-	\draw[black] (0, -3) ellipse (1.15 and 0.25);
+    child [grow=-45,level distance=2.5cm]{node[attribute] {\underline{of\_DataInicio}}}
+    child [grow=-90,level distance=3cm]{node[attribute] {of\_Horario}}
+    child [grow=-0,level distance=3cm]{node[attribute] {of\_Vagas}};
+  \draw[black] (0, -3) ellipse (1.15 and 0.25);
 \end{tikzpicture}
 \paragraph{Restrições de Domínio:}
 \begin{itemize}
@@ -521,8 +521,8 @@ O listing traz um exemplo de possíveis tuplas a serem inseridas em Serviços no
 O listing traz um exemplo de possíveis tuplas a serem inseridas em Oferecimento no formato (DataInicio, Horario, Vagas):
 
 \begin{itemize}
-	\item 01/02/2019; TER 08:00 - 09:40, QUI 10:00 - 11:40; 60. 
-	\item 01/08/2019; SEG 10:00 - 11:40, QUA 08:00 - 09:40; 40.
+  \item 01/02/2019; TER 08:00 - 09:40, QUI 10:00 - 11:40; 60. 
+  \item 01/08/2019; SEG 10:00 - 11:40, QUA 08:00 - 09:40; 40.
 \end{itemize}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %         Relacionamentos (estou achando que não precisa dessa parte
@@ -532,18 +532,18 @@ O listing traz um exemplo de possíveis tuplas a serem inseridas em Oferecimento
 Não identificamos a necessidade deste relacionamento conter atributos, pois só importa o mapeamento entre as entidades Pessoa e Usuário.
 \subsection{us\_pf:}
 O relacionamento us\_pf é um relacionamento chave para nosso modelo e é nele que armazenaremos todos os dados das instâncias de cada usuário com o tipo de perfil que ele possui.
-	
-	Segundo nosso modelo, cada instância de us\_pf será composta pela Data de início de quando um usuário adquiriu aquele perfil e sua data de término.	
-	
-	O listing abaixo traz um exemplo da estrutura da entidade:
+  
+  Segundo nosso modelo, cada instância de us\_pf será composta pela Data de início de quando um usuário adquiriu aquele perfil e sua data de término. 
+  
+  O listing abaixo traz um exemplo da estrutura da entidade:
 \begin{itemize}
   \item Data de início
   \item Data de término
 \end{itemize}
 \begin{tikzpicture}
   \node[relationship] (node1) {us\_pf}
-  	child [grow=-35,level distance=3cm]{node[attribute] {up\_DataIniPerf}}
-  	child [grow=-75,level distance=3cm]{node[attribute] {up\_DataTermPerf}};
+    child [grow=-35,level distance=3cm]{node[attribute] {up\_DataIniPerf}}
+    child [grow=-75,level distance=3cm]{node[attribute] {up\_DataTermPerf}};
 \end{tikzpicture}
 \paragraph{Restrições de Domínio:}
 \begin{itemize}
@@ -553,18 +553,18 @@ O relacionamento us\_pf é um relacionamento chave para nosso modelo e é nele q
 O listing traz um exemplo de possíveis tuplas a serem inseridas em us\_pf no formato (DataIniPerf, DataTermPerf):
 
 \begin{itemize}
-	\item 01/02/2019; 30/06/2019.
-	\item 01/08/2019; 31/12/2019.
+  \item 01/02/2019; 30/06/2019.
+  \item 01/08/2019; 31/12/2019.
 \end{itemize}
  \subsection{pf\_se:}
 Não identificamos a necessidade deste relacionamento conter atributos, pois só
  importa o mapeamento entre as entidades Perfil e Serviço.
 \subsection{Cursa:}
 O relacionamento Curso é um relacionamento chave para nosso modelo e é nele que armazenaremos todos os dados das instâncias de cada um dos alunos da USP que cursarem alguma disciplina presentes na nossa base de dados.
-	
-	Segundo nosso modelo, cada instância de Cursa será composta pela Data de quando o Aluno cursou a Disciplina, que será a chave primária desse relacionamento, sua Frequência e Nota.
-	
-	O listing abaixo traz um exemplo da estrutura da entidade:
+  
+  Segundo nosso modelo, cada instância de Cursa será composta pela Data de quando o Aluno cursou a Disciplina, que será a chave primária desse relacionamento, sua Frequência e Nota.
+  
+  O listing abaixo traz um exemplo da estrutura da entidade:
 \begin{itemize}
   \item Data de Início (Chave primária)
   \item Frequência
@@ -573,8 +573,8 @@ O relacionamento Curso é um relacionamento chave para nosso modelo e é nele qu
 \begin{tikzpicture}
   \node[relationship] (node1) {Cursa}
         child [grow=0,level distance=3cm]{node[attribute] {\underline{c\_DataInic}}}
-  	child [grow=-35,level distance=3cm]{node[attribute] {c\_Nota}}
-  	child [grow=-60,level distance=3cm]{node[attribute] {c\_Frequencia}};
+    child [grow=-35,level distance=3cm]{node[attribute] {c\_Nota}}
+    child [grow=-60,level distance=3cm]{node[attribute] {c\_Frequencia}};
 \end{tikzpicture}
 \paragraph{Restrições de Domínio:}
 \begin{itemize}
@@ -585,22 +585,22 @@ O relacionamento Curso é um relacionamento chave para nosso modelo e é nele qu
 O listing traz um exemplo de possíveis tuplas a serem inseridas em Cursa no formato (DataIni, Frequência, Nota):
 
 \begin{itemize}
-	\item 01/02/2019; null; null.
-	\item 01/08/2019; null; null.
+  \item 01/02/2019; null; null.
+  \item 01/08/2019; null; null.
 \end{itemize}
 Na inserção desse relacionamento no Banco de Dados, todo aluno começará com valores nulos de frequência de nota, implicando que ele está cursando aquela matéria. No momento em que ele realizou a matéria, um procedure será feito para alterar sua nota e frequência.
 \subsection{Planeja:}
 O relacionamento Planeja é um relacionamento chave para nosso modelo e é nele que armazenaremos todos os dados das instâncias de cada um dos alunos da USP e seu planejamento em cursar alguma disciplina presentes na nossa base de dados.
-	
-	Segundo nosso modelo, cada instância de Planeja será composta pela Data de quando o Aluno pretende cursar uma disciplina.
-		
-	O listing abaixo traz um exemplo da estrutura da entidade:
+  
+  Segundo nosso modelo, cada instância de Planeja será composta pela Data de quando o Aluno pretende cursar uma disciplina.
+    
+  O listing abaixo traz um exemplo da estrutura da entidade:
 \begin{itemize}
   \item Data de Inscrição
 \end{itemize}
 \begin{tikzpicture}
   \node[relationship] (node1) {Planeja}
-  	child [grow=-45,level distance=3cm]{node[attribute] {pla\_DataInscri}};
+    child [grow=-45,level distance=3cm]{node[attribute] {pla\_DataInscri}};
 \end{tikzpicture}
 \paragraph{Restrições de Domínio:}
 \begin{itemize}
@@ -609,21 +609,21 @@ O relacionamento Planeja é um relacionamento chave para nosso modelo e é nele 
 O listing traz um exemplo de possíveis tuplas a serem inseridas em Planeja no formato (DataInscri):
 
 \begin{itemize}
-	\item 01/02/2019.
-	\item 01/08/2019.
+  \item 01/02/2019.
+  \item 01/08/2019.
 \end{itemize}
 \subsection{Administra:}
 O relacionamento Administra é um relacionamento chave para nosso modelo e é nele que armazenaremos todos os dados das instâncias de Administrador da USP e o início do seu mandato.
-	
-	Segundo nosso modelo, cada instância de Administra será composta pela Data de quando o Administrador começou a ser responsável por um curso.
-		
-	O listing abaixo traz um exemplo da estrutura da entidade:
+  
+  Segundo nosso modelo, cada instância de Administra será composta pela Data de quando o Administrador começou a ser responsável por um curso.
+    
+  O listing abaixo traz um exemplo da estrutura da entidade:
 \begin{itemize}
   \item Data de Início da Administração
 \end{itemize}
 \begin{tikzpicture}
   \node[relationship] (node1) {Administra}
-  	child [grow=-45,level distance=3cm]{node[attribute] {adm\_DataIniAdm}};
+    child [grow=-45,level distance=3cm]{node[attribute] {adm\_DataIniAdm}};
 \end{tikzpicture}
 \paragraph{Restrições de Domínio:}
 \begin{itemize}
@@ -632,8 +632,8 @@ O relacionamento Administra é um relacionamento chave para nosso modelo e é ne
 O listing traz um exemplo de possíveis tuplas a serem inseridas em Administra no formato (DataIniADM):
 
 \begin{itemize}
-	\item 01/02/2019.
-	\item 01/08/2019.
+  \item 01/02/2019.
+  \item 01/08/2019.
 \end{itemize}
 \subsection{rel\_cur\_tri:}
  Não identificamos a necessidade deste relacionamento conter atributos, porque
@@ -652,23 +652,39 @@ escolhida;
 \end{itemize}
 
 
+\break
 
-
-\section {DER}
-Como a modelagem do DER ficou muito extensa tivemos uma dificuldade de colocar essa modelagem dentro do pdf, mantendo as informações de forma legível.
+\section {DER-X}
+Como a modelagem do DER-X ficou muito extensa tivemos uma dificuldade de colocar essa modelagem dentro do pdf, mantendo as informações de forma legível.
 
 \begin{figure}[!htb]
      \centering
      \includegraphics[scale=0.35]{imagens/DER_EP1.jpg}
-     \caption{DER}
+     \caption{DER-X}
 \end{figure}
 
 Essa imagem, pode ser encontrada também na pasta imagens dentro do arquivo DER\_EP1.jpg
 
 
 \chapter{Parte III: Modelo lógico e Físico}
+
 \section{Modelo lógico}
-O modelo conceitual pode ser transformado em lógico e se encontra no pdf Modelo lógico.
+
+O modelo conceitual pode ser transformado em lógico de maneira fácil, agora só precisamos saber quais são as chaves primárias e as chaves estrangeiras.
+
+Para as chaves primárias podemos definir diretamente do modelo conceitual.
+
+Para as chaves estrangeiras, precisamos observar para as relações, para as especializações, para a multivaloração.
+
+Quando temos relações podemos criar uma chave estrangeira da tabela de relações para suas respectivas chaves primárias das entidades relacionadas.
+
+Quando temos especialização, como aluno, professor e administrador, criamos a ligação dessas chave estrangeira dessas entidades para a entidade pessoal.
+
+Quando temos uma multivaloração, criamos a ligação desses a entidade que contém esses múltiplos valores para a entidade principal que queremos achar.
+
+Após finalizar esse processo, conseguimos um modelo lógico, mas esse modelo lógico ficou muito extenso e criamos um pdf que pode ser encontrado na pasta pdf no arquivo ModeloLogico.pdf.
+
+
 
 \section{Modelo físico}
 Nessa parte convertemos o modelo lógico em modelo físico, a partir das informações dentro das entidades e das suas chaves primárias e suas chaves estrangeiras criada no modelo lógico.
