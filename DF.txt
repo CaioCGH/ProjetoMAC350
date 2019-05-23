@@ -48,7 +48,6 @@
 >Dependências funcionais
   + {adm_NUSP -> adm_Nome, adm_DataIni, adm_DataTerm}
 
-
 #DISCIPLINA
 ############
 >Atributos
@@ -77,3 +76,34 @@
 >Dependências funcionais
   + {curr_AnoIni, curr_Curso, curr_Unidade -> curr_NUSP}
   + {curr_AnoIni, curr_Curso, curr_Unidade -> curr_AnoFim}
+
+#MODULO
+########
+>Atributos
+  + mod_Codigo (CHAVE PRIMÁRIA)
+  + mod_Nome  
+
+>Dependências funcionais
+  + {mod_Codigo -> mod_Codigo}
+
+#TRILHA
+########
+>Atributos
+  + tr_Código (CHAVE PRIMÁRIA)
+  + tr_Nome
+
+>Dependências funcionais
+  + {tr_Código -> tr_Nome}
+
+
+#USUÁRIO
+#########
+>Atributos
+  + us_id (CHAVE PRIMÁRIA)
+  + us_Email (CHAVE ESTRANGEIRA)
+  + us_Senha 
+
+>Depêndencias funcionais
+  + {us_id -> us_Email}
+  + {us_id -> us_id, us_Email}
+ 
