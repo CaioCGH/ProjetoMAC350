@@ -31,7 +31,6 @@ CREATE TABLE pessoa (
 
 CREATE TABLE aluno (
 	al_NUSP int,
-	al_Nome varchar(80),
 	al_DataIngresso  varchar(10),
 	al_CodCurso int,
 	al_Livres int,
@@ -39,18 +38,15 @@ CREATE TABLE aluno (
 	al_Obrigatorias int,
 	PRIMARY KEY(al_NUSP),
     FOREIGN KEY(al_NUSP) REFERENCES pessoa(pe_NUSP),
-    FOREIGN KEY(al_Nome) REFERENCES pessoa(pe_Nome)
 );
 
 CREATE TABLE professor (
 	pr_NUSP int,
-	pr_Nome varchar(80),
 	pr_Area  varchar(80),
 	pr_Departamento varchar(80),
 	pr_DataAdmissao varchar(10),
 	PRIMARY KEY(pr_NUSP),
     FOREIGN KEY(pr_NUSP) REFERENCES pessoa(pe_NUSP),
-    FOREIGN KEY(pr_Nome) REFERENCES pessoa(pe_Nome)
 );
 
 CREATE TABLE areadeatuacao (
@@ -62,11 +58,9 @@ CREATE TABLE areadeatuacao (
 
 CREATE TABLE administrador (
 	adm_NUSP int,
-	adm_Nome varchar(80)
 	ar_Atuacao  varchar(80),
 	PRIMARY KEY(adm_NUSP),
     FOREIGN KEY(adm_NUSP) REFERENCES pessoa(pe_NUSP),
-    FOREIGN KEY(adm_NUSP) REFERENCES professor(pr_NUSP)
 );
 
 
