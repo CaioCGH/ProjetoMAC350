@@ -204,3 +204,47 @@ CREATE TABLE pf_se(
     FOREIGN KEY(pf_PerfilTipo) REFERENCES perfil(pf_Tipo),
     FOREIGN KEY(pf_Nome) REFERENCES servicos(sr_Nome)
 );
+
+INSERT INTO pessoa VALUES (10000000, 'Bob', 'bob666@uspfake.com');
+INSERT INTO pessoa VALUES (10000001, 'Alice', 'Alice123@uspfake.com');
+INSERT INTO pessoa VALUES (10000002, 'Joe', 'joejoe@uspfake.com');
+INSERT INTO pessoa VALUES (10000004, 'Meg', 'megfox@uspfake.com');
+INSERT INTO pessoa VALUES (10000005, 'Julia', 'julialua@uspfake.com');
+INSERT INTO pessoa VALUES (10000007, 'Amanda', 'amanda13@uspfake.com');
+INSERT INTO pessoa VALUES (10000008, 'Caio', 'caiostronda@uspfake.com');
+INSERT INTO pessoa VALUES (10000009, 'Robin', 'batmanS2@uspfake.com');
+INSERT INTO pessoa VALUES (10000010, 'Will', 'william@uspfake.com');
+INSERT INTO pessoa VALUES (10000011, 'Lucy', 'lillucy@uspfake.com');
+INSERT INTO pessoa VALUES (10000012, 'Alan Turing', 'turingmachine@uspfake.com');
+INSERT INTO pessoa VALUES (10000013, 'Ada Lovelece', 'allyouneedislovelace@uspfake.com');
+INSERT INTO pessoa VALUES (10000014, 'Edsger Dijkstra', 'dijkstra@uspfake.com');
+INSERT INTO pessoa VALUES (10000015, 'Donald Knuth', 'donaldwho@uspfake.com');
+INSERT INTO pessoa VALUES (10000016, 'Albert Einstein', 'einstein@uspfake.com');
+INSERT INTO pessoa VALUES (10000017, 'Leonhard Euler', 'eee@uspfake.com');
+INSERT INTO pessoa VALUES (10000018, 'Euclides', 'euclides@uspfake.com');
+INSERT INTO pessoa VALUES (10000019, 'Linus Torvalds', 'linuxxx@uspfake.com');
+INSERT INTO pessoa VALUES (10000020, 'Gubi', 'Gubi42@uspfake.com');
+INSERT INTO pessoa VALUES (10000021, 'Beti Kira', 'issoefacil@uspfake.com');
+
+INSERT INTO aluno VALUES (10000000);
+INSERT INTO aluno VALUES (10000001);
+INSERT INTO aluno VALUES (10000002);
+INSERT INTO aluno VALUES (10000004);
+INSERT INTO aluno VALUES (10000005);
+INSERT INTO aluno VALUES (10000007);
+INSERT INTO aluno VALUES (10000008);
+INSERT INTO aluno VALUES (10000009);
+INSERT INTO aluno VALUES (10000010);
+INSERT INTO aluno VALUES (10000011);
+
+INSERT INTO professor VALUES (10000012);
+INSERT INTO professor VALUES (10000013);
+INSERT INTO professor VALUES (10000014);
+INSERT INTO professor VALUES (10000015);
+INSERT INTO professor VALUES (10000016);
+INSERT INTO professor VALUES (10000017);
+INSERT INTO professor VALUES (10000018);
+INSERT INTO professor VALUES (10000019);
+INSERT INTO professor VALUES (10000020);
+INSERT INTO professor VALUES (10000021);
+
