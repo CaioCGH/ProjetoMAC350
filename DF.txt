@@ -1,5 +1,5 @@
 #PESSOA
-########
+######## - OK
 >Atributos
   + pe_Email
   + pe_NUSP
@@ -11,7 +11,7 @@
 
 
 #ALUNO
-#######
+####### - OK
 >Atributos
   + al_NUSP (CHAVE ESTRANGEIRA/CHAVE PRIMÁRIA)
   + al_Nome (CHAVE ESTRANGEIRA)
@@ -22,11 +22,11 @@
   + al_Obrigatórios
 
 >Dependências funcionais
-  + {al_usp -> al_Nome, al_DataIngresso, al_CodCurso, al_Livres, al_Eletivas, al_Obrigatórias}
+  + {al_NUSP -> al_Nome, al_DataIngresso, al_CodCurso, al_Livres, al_Eletivas, al_Obrigatórias}
 
 
 #PROFESSOR
-###########
+########### - OK
 >Atributos
   + pr_NUSP (CHAVE ESTRANGEIRA/CHAVE PRIMÁRIA)
   + pr_Nome (CHAVE ESTRANGEIRA)
@@ -39,7 +39,7 @@
 
 
 #ADMINISTRADOR
-###############
+############### - OK
   + adm_NUSP (CHAVE ESTRANGEIRA/CHAVE PRIMÁRIA)
   + adm_Nome (CHAVE ESTRANGEIRA)
   + adm_DataIni
@@ -49,7 +49,7 @@
   + {adm_NUSP -> adm_Nome, adm_DataIni, adm_DataTerm}
 
 #DISCIPLINA
-############
+############ - OK
 >Atributos
   + dis_Codigo (CHAVE PRIMÁRIA)
   + dis_Nome 
@@ -61,11 +61,12 @@
   + dis_Descricao
 
 >Dependências funcionais
+  ?? - Acho que uma disciplina aqui pode ter codigo iguais, mas ser oferecida por duas pessoas diferentes.
   + {dis_Codigo -> dis_Nome}
-  + {dis_Codigo -> dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_PreRequisitosdis_Descricao}
+  + {dis_Codigo -> dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_PreRequisitosdis_Descricao} -> ??
 
 #CURRICULO
-###########
+########### - OK
 >Atributos
   + curr_NUSP (CHAVE ESTRANGEIRA)
   + curr_AnoIni (CHAVE PRIMÁRIA)
@@ -74,20 +75,21 @@
   + curr_Unidade (CHAVE PRIMÁRIA) 
 
 >Dependências funcionais
-  + {curr_AnoIni, curr_Curso, curr_Unidade -> curr_NUSP}
-  + {curr_AnoIni, curr_Curso, curr_Unidade -> curr_AnoFim}
+  ?? - Depende se esse curriculo eh para cada aluno ou se eh um curriculo para todos alunos - Isso pode acarretar o curriculo ser para varios alunos
+  + {curr_AnoIni, curr_Curso, curr_Unidade -> curr_NUSP} -> ??
+  + {curr_AnoIni, curr_Curso, curr_Unidade -> curr_AnoFim} -< ??
 
 #MODULO
-########
+######## - OK
 >Atributos
   + mod_Codigo (CHAVE PRIMÁRIA)
   + mod_Nome  
 
 >Dependências funcionais
-  + {mod_Codigo -> mod_Codigo}
+  + {mod_Codigo -> mod_Nome}
 
 #TRILHA
-########
+######## - OK
 >Atributos
   + tr_Código (CHAVE PRIMÁRIA)
   + tr_Nome
@@ -97,7 +99,7 @@
 
 
 #USUÁRIO
-#########
+######### - OK
 >Atributos
   + us_id (CHAVE PRIMÁRIA)
   + us_Email (CHAVE ESTRANGEIRA)
@@ -105,10 +107,10 @@
 
 >Dependências funcionais
   + {us_id -> us_Email}
-  + {us_id -> us_id, us_Email}
+  + {us_id -> us_id, us_Email} -> ??
 
 #SERVIÇOS
-######### 
+######### - OK
 >Atributos 
   + sr_Nome
   + sr_Descricao
@@ -118,7 +120,7 @@
 
 
 #OFERECIMENTO
-##############
+############## - OK
 >Atributos
   + of_DataInicio (CHAVE PRIMÁRIA)
   + of_NUSP (CHAVE ESTRANGEIRA/CHAVE PRIMÁRIA)
@@ -131,7 +133,7 @@
 
 
 #CURSA
-#######
+####### - OK
 >Atributos
   + cur_NUSPaluno (CHAVE ESTRANGEIRA/CHAVE PRIMÁRIA)
   + cur_DataIni (CHAVE PRIMÁRIA)
