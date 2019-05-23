@@ -1,0 +1,79 @@
+#PESSOA
+########
+>Atributos
+  + pe_Email
+  + pe_NUSP
+  + pe_Nome
+
+>Dependências funcionais
+  + {pe_NUSP -> pe_Email}
+  + {pe_NUSP -> pe_Nome}
+
+
+#ALUNO
+#######
+>Atributos
+  + al_NUSP (CHAVE ESTRANGEIRA/CHAVE PRIMÁRIA)
+  + al_Nome (CHAVE ESTRANGEIRA)
+  + al_DataIngresso
+  + al_CodCurso
+  + al_Livres
+  + al_Eletivos
+  + al_Obrigatórios
+
+>Dependências funcionais
+  + {al_usp -> al_Nome, al_DataIngresso, al_CodCurso, al_Livres, al_Eletivas, al_Obrigatórias}
+
+
+#PROFESSOR
+###########
+>Atributos
+  + pr_NUSP (CHAVE ESTRANGEIRA/CHAVE PRIMÁRIA)
+  + pr_Nome (CHAVE ESTRANGEIRA)
+  + pr_Area
+  + pr_Departamento
+  + pr_DataAdmissao
+
+>Dependências funcionais
+  + {pr_NUSP -> pr_Nome, pr_Area, pr_Departamento, pr_DataAdmisso}
+
+
+#ADMINISTRADOR
+###############
+  + adm_NUSP (CHAVE ESTRANGEIRA/CHAVE PRIMÁRIA)
+  + adm_Nome (CHAVE ESTRANGEIRA)
+  + adm_DataIni
+  + adm_DataTerm
+
+>Dependências funcionais
+  + {adm_NUSP -> adm_Nome, adm_DataIni, adm_DataTerm}
+
+
+#DISCIPLINA
+############
+>Atributos
+  + dis_Codigo (CHAVE PRIMÁRIA)
+  + dis_Nome 
+  + dis_Aula
+  + dis_Trabalho
+  + dis_PeriodoIdeal
+  + dis_Ementa
+  + dis_PreRequisitos
+  + dis_Descricao
+
+>Dependências funcionais
+  + {dis_Codigo -> dis_Nome}
+  + {dis_Codigo -> dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_PreRequisitosdis_Descricao}
+
+#CURRICULO
+###########
+>Atributos
+  + curr_NUSP (CHAVE ESTRANGEIRA)
+  + curr_AnoIni (CHAVE PRIMÁRIA)
+  + curr_Curso (CHAVE PRIMÁRIA)
+  + curr_AnoFim
+  + curr_Unidade (CHAVE PRIMÁRIA) 
+
+>Dependências funcionais
+  + {curr_AnoIni, curr_Curso, curr_Unidade -> curr_NUSP}
+  + {curr_AnoIni, curr_Curso, curr_Unidade -> curr_AnoFim}
