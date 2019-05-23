@@ -103,7 +103,47 @@
   + us_Email (CHAVE ESTRANGEIRA)
   + us_Senha 
 
->Depêndencias funcionais
+>Dependências funcionais
   + {us_id -> us_Email}
   + {us_id -> us_id, us_Email}
- 
+
+#SERVIÇOS
+######### 
+>Atributos 
+  + sr_Nome
+  + sr_Descricao
+
+>Denpendências funcionais
+  + {sr_Nome -> sr_Descricao}
+
+
+#OFERECIMENTO
+##############
+>Atributos
+  + of_DataInicio (CHAVE PRIMÁRIA)
+  + of_NUSP (CHAVE ESTRANGEIRA/CHAVE PRIMÁRIA)
+  + of_Codigo (CHAVE PRIMÁRIA)
+  + of_Vagas
+  + of_Horario
+
+>Dependências funcionais
+  + {of_DataInicio, of_NUSP, of_Codigo -> of_Vagas, of_Horário}
+
+
+#CURSA
+#######
+>Atributos
+  + cur_NUSPaluno (CHAVE ESTRANGEIRA/CHAVE PRIMÁRIA)
+  + cur_DataIni (CHAVE PRIMÁRIA)
+  + cur_NUSPprof (CHAVE ESTRANGEIRA/CHAVE PRIMÁRIA)
+  + cur_Codigo
+  + cur_Nota
+  + cur_Freq
+
+>Dependências funcionais
+  + {cur_NUSPaluno, cur_DataIni, cur_NUSPprf -> cur_Codigo, cur_Nota, cur_Freq}
+
+#PLANEJA
+#########
+>Atributos
+  
