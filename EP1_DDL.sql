@@ -24,32 +24,33 @@ DROP TABLE IF EXISTS pessoa;
 
 CREATE TABLE pessoa (
 	pe_NUSP int,
-	pe_CPF  int,
-	pe_Login varchar(80),
-	pe_Endereco varchar(80),
 	pe_Nome varchar(80),
-	pe_DataNasc varchar(10),
-	pe_Sexo varchar(1),
 	pe_Email varchar(80),
 	PRIMARY KEY(pe_NUSP)
 );
 
 CREATE TABLE aluno (
 	al_NUSP int,
+	al_Nome varchar(80),
 	al_DataIngresso  varchar(10),
 	al_CodCurso int,
-	al_Creditos int,
+	al_Livres int,
+	al_Eletivas int,
+	al_Obrigatorias int,
 	PRIMARY KEY(al_NUSP),
-    FOREIGN KEY(al_NUSP) REFERENCES pessoa(pe_NUSP)
+    FOREIGN KEY(al_NUSP) REFERENCES pessoa(pe_NUSP),
+    FOREIGN KEY(al_Nome) REFERENCES pessoa(pe_Nome)
 );
 
 CREATE TABLE professor (
 	pr_NUSP int,
+	pr_Nome varchar(80),
 	pr_Area  varchar(80),
 	pr_Departamento varchar(80),
 	pr_DataAdmissao varchar(10),
 	PRIMARY KEY(pr_NUSP),
-    FOREIGN KEY(pr_NUSP) REFERENCES pessoa(pe_NUSP)
+    FOREIGN KEY(pr_NUSP) REFERENCES pessoa(pe_NUSP),
+    FOREIGN KEY(pr_Nome) REFERENCES pessoa(pe_Nome)
 );
 
 CREATE TABLE areadeatuacao (
@@ -61,9 +62,11 @@ CREATE TABLE areadeatuacao (
 
 CREATE TABLE administrador (
 	adm_NUSP int,
+	adm_Nome varchar(80)
 	ar_Atuacao  varchar(80),
 	PRIMARY KEY(adm_NUSP),
-    FOREIGN KEY(adm_NUSP) REFERENCES pessoa(pe_NUSP)
+    FOREIGN KEY(adm_NUSP) REFERENCES pessoa(pe_NUSP),
+    FOREIGN KEY(adm_NUSP) REFERENCES professor(pr_NUSP)
 );
 
 
@@ -109,11 +112,12 @@ CREATE TABLE trilha (
 );
 
 CREATE TABLE usuario (
-	us_Login varchar(80),
-	us_Senha varchar(80),
-	us_Username varchar(80),
-	us_NUSP int,
-	CONSTRAINT PK_usuario PRIMARY KEY(us_Login)
+	us_id varchar(80),
+	us_password varchar(80),
+	us_Email varchar(80), 
+	CONSTRAINT PK_usuario PRIMARY KEY(us_id),
+        FOREIGN KEY(us_id) REFERENCES pessoa(pe_NUSP),
+        FOREIGN KEY(us_Email) REFERENCES pessoa(pe_Email)
 );
 
 CREATE TABLE perfil(
