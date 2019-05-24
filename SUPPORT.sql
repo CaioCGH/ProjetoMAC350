@@ -9,12 +9,24 @@ and:
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 CREATE EXTENSION IF NOT EXISTS citext;
 -- For security create admin schema as well
-CREATE ROLE dba
-	WITH SUPERUSER CREATEDB CREATEROLE
-	LOGIN ENCRYPTED PASSWORD 'dba1234'
-	VALID UNTIL '2019-07-01';
-CREATE SCHEMA IF NOT EXISTS admins;
-GRANT admins TO dba;
+DO
+$do$
+BEGIN
+-- For security create admin schema as well
+IF NOT EXISTS (
+      SELECT                       -- SELECT list can stay empty for this
+      FROM   pg_catalog.pg_roles
+      WHERE  rolname = 'dba') THEN
+
+      CREATE ROLE dba
+		WITH SUPERUSER CREATEDB CREATEROLE
+		LOGIN ENCRYPTED PASSWORD 'dba1234'
+		VALID UNTIL '2019-07-01';
+END IF;
+END
+$do$;
+
+CREATE SCHEMA IF NOT EXISTS admins AUTHORIZATION dba;
 
 /*
 If you get something like:

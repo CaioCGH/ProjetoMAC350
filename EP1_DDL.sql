@@ -1,244 +1,450 @@
 -- DROPAR NUMA ORDEM TOPOLOGICA..
-DROP TABLE IF EXISTS pf_se;
-DROP TABLE IF EXISTS us_pf;
+
+DROP TABLE IF EXISTS rel_pf_sr;
+DROP TABLE IF EXISTS rel_us_pf;
 DROP TABLE IF EXISTS rel_dis_mod;
-DROP TABLE IF EXISTS tr_mod;
+DROP TABLE IF EXISTS rel_tr_mod;
 DROP TABLE IF EXISTS rel_cur_tri;
 DROP TABLE IF EXISTS planeja;
 DROP TABLE IF EXISTS cursa;
 DROP TABLE IF EXISTS oferecimento;
-DROP TABLE IF EXISTS servicos;
+DROP TABLE IF EXISTS servico;
 DROP TABLE IF EXISTS perfil;
-DROP TABLE IF EXISTS usuario;
 DROP TABLE IF EXISTS trilha;
 DROP TABLE IF EXISTS modulo;
 DROP TABLE IF EXISTS curriculo;
-DROP TABLE IF EXISTS prerequisitos;
+DROP TABLE IF EXISTS prerequisito;
 DROP TABLE IF EXISTS disciplina;
 DROP TABLE IF EXISTS administrador;
-DROP TABLE IF EXISTS areadeatuacao;
 DROP TABLE IF EXISTS professor;
 DROP TABLE IF EXISTS aluno;
 DROP TABLE IF EXISTS pessoa;
 
-
 CREATE TABLE pessoa (
-	pe_NUSP int,
-	pe_Nome varchar(80),
-	pe_Email varchar(80),
-	PRIMARY KEY(pe_NUSP)
+	pe_id 		SERIAL,
+	pe_NUSP 	int,
+	pe_Nome 	varchar(80),
+	pe_Email 	varchar(80),
+	CONSTRAINT pk_pessoa PRIMARY KEY (pe_id),
+	CONSTRAINT sk_pessoa UNIQUE (pe_email),
+	CONSTRAINT tk_pessoa UNIQUE (pe_NUSP)
 );
 
 CREATE TABLE aluno (
-	al_NUSP int,
-	al_DataIngresso  varchar(10),
-	al_CodCurso int,
-	al_Livres int,
-	al_Eletivas int,
+	al_id			SERIAL,
+	al_DataIngresso varchar(10),
+	al_CodCurso 	int,
+	al_Livres 		int,
+	al_Eletivas 	int,
 	al_Obrigatorias int,
-	PRIMARY KEY(al_NUSP),
-    FOREIGN KEY(al_NUSP) REFERENCES pessoa(pe_NUSP),
+	CONSTRAINT al_id PRIMARY KEY (al_id),
+    FOREIGN KEY(al_id) REFERENCES pessoa(pe_id)
 );
+
 
 CREATE TABLE professor (
-	pr_NUSP int,
-	pr_Area  varchar(80),
+	pr_id 			SERIAL,
+	pr_Area  		varchar(80),
 	pr_Departamento varchar(80),
 	pr_DataAdmissao varchar(10),
-	PRIMARY KEY(pr_NUSP),
-    FOREIGN KEY(pr_NUSP) REFERENCES pessoa(pe_NUSP),
+	CONSTRAINT pr_id PRIMARY KEY (pr_id),
+    FOREIGN KEY(pr_id) REFERENCES pessoa(pe_id)
 );
 
-CREATE TABLE areadeatuacao (
-	pr_NUSP int,
-	ar_Atuacao  varchar(80),
-	PRIMARY KEY(pr_NUSP),
-    FOREIGN KEY(pr_NUSP) REFERENCES professor(pr_NUSP)
-);
+-- area de atuaçao removido para simplificar o projeto
 
 CREATE TABLE administrador (
-	adm_NUSP int,
-	ar_Atuacao  varchar(80),
-	PRIMARY KEY(adm_NUSP),
-    FOREIGN KEY(adm_NUSP) REFERENCES pessoa(pe_NUSP),
+	adm_id		SERIAL,
+	CONSTRAINT adm_id PRIMARY KEY (adm_id),
+    FOREIGN KEY(adm_id) REFERENCES pessoa(pe_id)
 );
-
 
 CREATE TABLE disciplina (
-	dis_Codigo int,
-	dis_Nome varchar(80),
-	dis_Aula int,
-	dis_Trabalho int,
-	dis_PeriodoIdeal int,
-	dis_Ementa varchar(80),
-	dis_PreRequisitos varchar(80),
-	dis_Descricao varchar(1000),
-	PRIMARY KEY (dis_Codigo)
+	dis_id 				SERIAL,
+	dis_Codigo  		varchar(80),
+	dis_Nome    		varchar(80),
+	dis_Aula    		int,
+	dis_Trabalho 		int,
+	dis_PeriodoIdeal 	int,
+	dis_Ementa 			varchar(2000),
+	dis_PreRequisitos 	varchar(80),
+	dis_Descricao 		varchar(1000),
+	CONSTRAINT pk_disciplina PRIMARY KEY (dis_id),
+	CONSTRAINT sk_disciplina UNIQUE (dis_codigo)
 );
 
-CREATE TABLE prerequisitos (
-	prq_DisCod int,
-	prq_PreRequisitos int,
-	PRIMARY KEY(prq_DisCod),
-    FOREIGN KEY(prq_DisCod) REFERENCES disciplina(dis_Codigo)
+CREATE TABLE prerequisito (
+	prq_id					SERIAL,
+	prq_dis1_id				SERIAL,
+	prq_dis2_id				SERIAL,
+	CONSTRAINT prq_id PRIMARY KEY (prq_id),
+    FOREIGN KEY(prq_dis1_id) REFERENCES disciplina(dis_id),
+    FOREIGN KEY(prq_dis2_id) REFERENCES disciplina(dis_id)
 );
 
 CREATE TABLE curriculo (
-	curr_NUSP int,
-	curr_AnoIni varchar(10),
-	curr_AnoFim varchar(10),
-	curr_Curso varchar(80),
-	curr_Unidade varchar(80),
-	CONSTRAINT PK_curriculo PRIMARY KEY(curr_Curso, curr_Unidade, curr_AnoIni),
-    FOREIGN KEY(curr_NUSP) REFERENCES administrador(adm_NUSP)
+	curr_id			SERIAL,
+	curr_adm_id		SERIAL,
+	curr_AnoIni 	varchar(10),
+	curr_AnoFim 	varchar(10),
+	curr_Curso 		varchar(80),
+	curr_Unidade 	varchar(80),
+	CONSTRAINT pk_curriculo PRIMARY KEY(curr_id),
+	CONSTRAINT sk_curriculo UNIQUE (curr_Curso, curr_Unidade, curr_AnoIni),
+    FOREIGN KEY(curr_adm_id) REFERENCES administrador(adm_id)
 );
 
 CREATE TABLE modulo (
-	mod_Codigo int,
-	mod_Nome varchar(80),
-	PRIMARY KEY(mod_Codigo)
+	mod_id 		SERIAL,
+	mod_Codigo  int,
+	mod_Nome    varchar(80),
+	CONSTRAINT pk_modulo PRIMARY KEY(mod_id),
+	CONSTRAINT sk_modulo UNIQUE (mod_Codigo)
 );
 
 CREATE TABLE trilha (
-	tr_Codigo int,
-	tr_Nome varchar(80),
-	PRIMARY KEY(tr_Codigo)
+	tr_id		SERIAL,
+	tr_Codigo   int,
+	tr_Nome 	varchar(80),
+	CONSTRAINT pk_trilha PRIMARY KEY(tr_id),
+	CONSTRAINT sk_trilha UNIQUE (tr_Codigo)
 );
 
-CREATE TABLE usuario (
-	us_id varchar(80),
-	us_password varchar(80),
-	us_Email varchar(80), 
-	CONSTRAINT PK_usuario PRIMARY KEY(us_id),
-        FOREIGN KEY(us_id) REFERENCES pessoa(pe_NUSP),
-        FOREIGN KEY(us_Email) REFERENCES pessoa(pe_Email)
-);
+-- usuario substituido pelo users em SUPPORT.sql
 
 CREATE TABLE perfil(
+	pf_id SERIAL,
 	pf_Tipo varchar(80),
-	PRIMARY KEY(pf_Tipo)
+	CONSTRAINT pk_perfil PRIMARY KEY (pf_id),
+	CONSTRAINT sk_perfil UNIQUE (pf_Tipo)
 );
 
-CREATE TABLE servicos(
-	sr_Nome varchar(80),
-	sr_Descricao varchar(80),
-	PRIMARY KEY(sr_Nome)
+CREATE TABLE servico(
+	sr_id 			SERIAL,
+	sr_Nome 		varchar(80),
+	sr_Descricao 	varchar(80),
+	CONSTRAINT pk_servico PRIMARY KEY (sr_id),
+	CONSTRAINT sk_servico UNIQUE (sr_Nome)
 );
 
 CREATE TABLE oferecimento(
-	of_DataInicio varchar(10),
-	of_NUSP int,
-	of_Codigo int,
-	of_Vagas int,
-	of_Horario varchar(20),
-	CONSTRAINT PK_oferecimento PRIMARY KEY(of_DataInicio, of_NUSP, of_Codigo),
-	FOREIGN KEY(of_NUSP) REFERENCES professor(pr_NUSP)
+	of_id 			SERIAL,
+	of_pr_id 		SERIAL,
+	of_DataInicio 	varchar(10),
+	of_Codigo 		int,
+	of_Vagas 		int,
+	of_Horario 		varchar(20),
+	CONSTRAINT pk_oferecimento PRIMARY KEY (of_id),
+	CONSTRAINT sk_oferecimento UNIQUE (of_DataInicio, of_pr_id, of_Codigo),
+	FOREIGN KEY(of_pr_id) REFERENCES professor(pr_id)
 );
 
 CREATE TABLE cursa(
-	cur_NUSPaluno int,
-	cur_DataIni varchar(10),
-	cur_NUSPprof int,
-	cur_Codigo int,
-	cur_Nota float,
-	cur_Freq int,
-	CONSTRAINT PK_cursa PRIMARY KEY(cur_NUSPAluno, cur_DataIni, cur_NUSPProf),
-	FOREIGN KEY(cur_NUSPaluno) REFERENCES aluno(al_NUSP),
-    FOREIGN KEY(cur_NUSPprof) REFERENCES professor(pr_NUSP)
+	cur_id 			SERIAL,
+	cur_al_id		SERIAL,
+	cur_of_id 		SERIAL,
+	cur_DataIni		varchar(10),
+	cur_Nota 		float,
+	cur_Freq 		int,
+	CONSTRAINT pk_cursa PRIMARY KEY(cur_id),
+	CONSTRAINT sk_cursa UNIQUE (cur_al_id, cur_of_id),
+	FOREIGN KEY(cur_al_id) REFERENCES aluno(al_id),
+    FOREIGN KEY(cur_of_id) REFERENCES professor(pr_id)
 );
 
 CREATE TABLE planeja(
-	pla_NUSP int,
-	pla_Codigo int,
+	pla_id 		SERIAL,
+	pla_al_id	SERIAL,
+	pla_dis_id	SERIAL,
 	pla_DataIni varchar(10),
-	CONSTRAINT PK_planeja PRIMARY KEY(pla_NUSP, pla_Codigo, pla_DataIni),	
-    FOREIGN KEY(pla_NUSP) REFERENCES aluno(al_NUSP)
+	CONSTRAINT pk_planeja PRIMARY KEY(pla_id),	
+	CONSTRAINT sk_planeja UNIQUE (pla_al_id, pla_dis_id, pla_DataIni),	
+    FOREIGN KEY(pla_al_id) REFERENCES aluno(al_id),
+    FOREIGN KEY(pla_dis_id) REFERENCES disciplina(dis_id)
 );
 
 CREATE TABLE rel_cur_tri(
-	ctr_AnoIni varchar(10),
-	ctr_Curso varchar(10),
-	of_Codigo int,
-	ctr_Unidade varchar(10),
-	CONSTRAINT PK_rel_cur_tri PRIMARY KEY(ctr_AnoIni, ctr_Curso, of_Codigo, ctr_Unidade),	
-    FOREIGN KEY(ctr_Curso,ctr_Unidade, ctr_AnoIni) REFERENCES curriculo(curr_Curso, curr_Unidade, curr_AnoIni),
-    FOREIGN KEY(of_Codigo) REFERENCES trilha(tr_Codigo)
+	ctr_id  		SERIAL,
+	ctr_curr_id		SERIAL,
+	ctr_tr_id 		SERIAL,
+	ctr_AnoIni 		varchar(10),
+	ctr_Unidade 	varchar(10),
+	CONSTRAINT pk_rel_cur_tri PRIMARY KEY(ctr_id),	
+	CONSTRAINT sk_rel_cur_tri UNIQUE (ctr_AnoIni, ctr_curr_id, ctr_tr_id, ctr_Unidade),	
+    FOREIGN KEY(ctr_curr_id) REFERENCES curriculo(curr_id),
+    FOREIGN KEY(ctr_tr_id) REFERENCES trilha(tr_id)
 );
 
-CREATE TABLE tr_mod(
-	tr_Codigo int,
-	tr_Modulo int,
-	CONSTRAINT PK_tr_mod PRIMARY KEY(tr_Codigo, tr_Modulo),
-    FOREIGN KEY(tr_Codigo) REFERENCES trilha(tr_Codigo),
-    FOREIGN KEY(tr_Modulo) REFERENCES modulo(mod_Codigo)
+CREATE TABLE rel_tr_mod(
+	mtr_id		SERIAL,
+	mtr_tr_id 	SERIAL,
+	mtr_mod_id 	SERIAL,
+	CONSTRAINT pk_rel_tr_mod PRIMARY KEY(mtr_id),
+    FOREIGN KEY(mtr_tr_id) REFERENCES trilha(tr_id),
+    FOREIGN KEY(mtr_mod_id) REFERENCES modulo(mod_Codigo)
 );
 
 CREATE TABLE rel_dis_mod(
-	dm_CodigoDis int,
-	dm_Mod varchar(80),
-	CONSTRAINT PK_rel_dis_mod PRIMARY KEY(dm_CodigoDis, dm_Mod),
-    FOREIGN KEY(dm_CodigoDis) REFERENCES disciplina(dis_Codigo),
-    FOREIGN KEY(dm_Mod) REFERENCES perfil(pf_Tipo)
+	dmod_id 		SERIAL,
+	dmod_dis_id		SERIAL,
+	dmod_mod_id		SERIAL,
+	CONSTRAINT pk_rel_dis_mod PRIMARY KEY(dmod_id),
+    FOREIGN KEY(dmod_dis_id) REFERENCES disciplina(dis_id),
+    FOREIGN KEY(dmod_mod_id) REFERENCES modulo(mod_id)
+);
+
+-- MODIFY LATER - adaptado para o SUPORT.sql
+CREATE TABLE rel_us_pf(
+	upf_id			SERIAL,
+	upf_us_id       SERIAL,
+	upf_pf_id       SERIAL,
+	CONSTRAINT pk_us_pf PRIMARY KEY(upf_id),
+    FOREIGN KEY(upf_pf_id) REFERENCES perfil(pf_id),
+    FOREIGN KEY(upf_us_id) REFERENCES users(us_id)
 );
 
 -- MODIFY LATER
-CREATE TABLE us_pf(
-	us_Login varchar(10),
-	us_PerfilTipo varchar(80),
-	CONSTRAINT PK_us_pf PRIMARY KEY(us_Login, us_PerfilTipo),
-    FOREIGN KEY(us_Login) REFERENCES usuario(us_Login),
-    FOREIGN KEY(us_PerfilTipo) REFERENCES perfil(pf_Tipo)
+CREATE TABLE rel_pf_sr(
+	psr_id		SERIAL,
+	psr_pf_id	SERIAL,
+	psr_sr_id	SERIAL,
+	CONSTRAINT pk_pf_sr PRIMARY KEY(psr_id),
+    FOREIGN KEY(psr_pf_id) REFERENCES perfil(pf_id),
+    FOREIGN KEY(psr_sr_id) REFERENCES servico(sr_id)
 );
 
--- MODIFY LATER
-CREATE TABLE pf_se(
-	pf_PerfilTipo varchar(10),
-	pf_Nome varchar(10),
-	CONSTRAINT PK_pf_se PRIMARY KEY(pf_PerfilTipo, pf_Nome),
-    FOREIGN KEY(pf_PerfilTipo) REFERENCES perfil(pf_Tipo),
-    FOREIGN KEY(pf_Nome) REFERENCES servicos(sr_Nome)
-);
 
-INSERT INTO pessoa VALUES (10000000, 'Bob', 'bob666@uspfake.com');
-INSERT INTO pessoa VALUES (10000001, 'Alice', 'Alice123@uspfake.com');
-INSERT INTO pessoa VALUES (10000002, 'Joe', 'joejoe@uspfake.com');
-INSERT INTO pessoa VALUES (10000004, 'Meg', 'megfox@uspfake.com');
-INSERT INTO pessoa VALUES (10000005, 'Julia', 'julialua@uspfake.com');
-INSERT INTO pessoa VALUES (10000007, 'Amanda', 'amanda13@uspfake.com');
-INSERT INTO pessoa VALUES (10000008, 'Caio', 'caiostronda@uspfake.com');
-INSERT INTO pessoa VALUES (10000009, 'Robin', 'batmanS2@uspfake.com');
-INSERT INTO pessoa VALUES (10000010, 'Will', 'william@uspfake.com');
-INSERT INTO pessoa VALUES (10000011, 'Lucy', 'lillucy@uspfake.com');
-INSERT INTO pessoa VALUES (10000012, 'Alan Turing', 'turingmachine@uspfake.com');
-INSERT INTO pessoa VALUES (10000013, 'Ada Lovelece', 'allyouneedislovelace@uspfake.com');
-INSERT INTO pessoa VALUES (10000014, 'Edsger Dijkstra', 'dijkstra@uspfake.com');
-INSERT INTO pessoa VALUES (10000015, 'Donald Knuth', 'donaldwho@uspfake.com');
-INSERT INTO pessoa VALUES (10000016, 'Albert Einstein', 'einstein@uspfake.com');
-INSERT INTO pessoa VALUES (10000017, 'Leonhard Euler', 'eee@uspfake.com');
-INSERT INTO pessoa VALUES (10000018, 'Euclides', 'euclides@uspfake.com');
-INSERT INTO pessoa VALUES (10000019, 'Linus Torvalds', 'linuxxx@uspfake.com');
-INSERT INTO pessoa VALUES (10000020, 'Gubi', 'Gubi42@uspfake.com');
-INSERT INTO pessoa VALUES (10000021, 'Beti Kira', 'issoefacil@uspfake.com');
+--pessoas
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000000, 'Bob', 'bob666@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000001, 'Alice', 'Alice123@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000002, 'Joe', 'joejoe@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000004, 'Meg', 'megfox@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000005, 'Julia', 'julialua@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000007, 'Amanda', 'amanda13@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000008, 'Caio', 'caiostronda@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000009, 'Robin', 'batmanS2@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000010, 'Will', 'william@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000011, 'Lucy', 'lillucy@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000012, 'Alan Turing', 'turingmachine@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000013, 'Ada Lovelece', 'allyouneedislovelace@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000014, 'Edsger Dijkstra', 'dijkstra@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000015, 'Donald Knuth', 'donaldwho@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000016, 'Albert Einstein', 'einstein@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000017, 'Leonhard Euler', 'eee@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000018, 'Euclides', 'euclides@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000019, 'Linus Torvalds', 'linuxxx@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000020, 'Gubi', 'Gubi42@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000021, 'Beti Kira', 'issoefacil@uspfake.com');
 
-INSERT INTO aluno VALUES (10000000);
-INSERT INTO aluno VALUES (10000001);
-INSERT INTO aluno VALUES (10000002);
-INSERT INTO aluno VALUES (10000004);
-INSERT INTO aluno VALUES (10000005);
-INSERT INTO aluno VALUES (10000007);
-INSERT INTO aluno VALUES (10000008);
-INSERT INTO aluno VALUES (10000009);
-INSERT INTO aluno VALUES (10000010);
-INSERT INTO aluno VALUES (10000011);
+--ALUNOS
+INSERT INTO aluno (al_id, al_DataIngresso, al_CodCurso, al_Livres, al_Eletivas, al_Obrigatorias)
+	VALUES        (1    , '01/01/2019'     , 0001       , 0        , 0          , 0              );
+INSERT INTO aluno (al_id, al_DataIngresso, al_CodCurso, al_Livres, al_Eletivas, al_Obrigatorias)
+	VALUES        (2    , '01/01/2018'     , 0001       , 0        , 0          , 20              );
+INSERT INTO aluno (al_id, al_DataIngresso, al_CodCurso, al_Livres, al_Eletivas, al_Obrigatorias)
+	VALUES        (3    , '01/01/2018'     , 0001       , 0        , 0          , 21              );
+INSERT INTO aluno (al_id, al_DataIngresso, al_CodCurso, al_Livres, al_Eletivas, al_Obrigatorias)
+	VALUES        (4    , '01/01/2018'     , 0002       , 0        , 0          , 22             );
+INSERT INTO aluno (al_id, al_DataIngresso, al_CodCurso, al_Livres, al_Eletivas, al_Obrigatorias)
+	VALUES        (5    , '01/01/2017'     , 0001       , 0        , 5          , 50              );
+INSERT INTO aluno (al_id, al_DataIngresso, al_CodCurso, al_Livres, al_Eletivas, al_Obrigatorias)
+	VALUES        (6    , '01/01/2017'     , 0001       , 0        , 6         , 51              );
+INSERT INTO aluno (al_id, al_DataIngresso, al_CodCurso, al_Livres, al_Eletivas, al_Obrigatorias)
+	VALUES        (7    , '01/01/2017'     , 0002       , 0        , 7          , 52              );
+INSERT INTO aluno (al_id, al_DataIngresso, al_CodCurso, al_Livres, al_Eletivas, al_Obrigatorias)
+	VALUES        (8    , '01/01/2017'     , 0002       , 0        , 8          , 53              );
+INSERT INTO aluno (al_id, al_DataIngresso, al_CodCurso, al_Livres, al_Eletivas, al_Obrigatorias)
+	VALUES        (9    , '01/01/2017'     , 0003       , 0        , 9          , 54              );
+INSERT INTO aluno (al_id, al_DataIngresso, al_CodCurso, al_Livres, al_Eletivas, al_Obrigatorias)
+	VALUES        (10   , '01/01/2016'     , 0001       , 8        , 10         , 55              );
 
-INSERT INTO professor VALUES (10000012);
-INSERT INTO professor VALUES (10000013);
-INSERT INTO professor VALUES (10000014);
-INSERT INTO professor VALUES (10000015);
-INSERT INTO professor VALUES (10000016);
-INSERT INTO professor VALUES (10000017);
-INSERT INTO professor VALUES (10000018);
-INSERT INTO professor VALUES (10000019);
-INSERT INTO professor VALUES (10000020);
-INSERT INTO professor VALUES (10000021);
+--PROFESSORES
+INSERT INTO professor (pr_id , pr_Area			    	, pr_Departamento, pr_DataAdmissao)
+	VALUES            (11    , 'computação musical' 	, 'MAC'          , '01/01/1974'     );
+INSERT INTO professor (pr_id , pr_Area			    	, pr_Departamento, pr_DataAdmissao)
+	VALUES            (12    , 'computação musical' 	, 'MAC'          , '01/01/1976'     );
+INSERT INTO professor (pr_id , pr_Area			    	, pr_Departamento, pr_DataAdmissao)
+	VALUES            (13    , 'sistemas de informação' , 'MAC'          , '01/01/1978'     );
+INSERT INTO professor (pr_id , pr_Area			    	, pr_Departamento, pr_DataAdmissao)
+	VALUES            (14    , 'sistemas de informação' , 'MAC'          , '01/01/1984'     );
+INSERT INTO professor (pr_id , pr_Area			    	, pr_Departamento, pr_DataAdmissao)
+	VALUES            (15    , 'sistemas de informação' , 'MAC'          , '01/01/1984'     );
+INSERT INTO professor (pr_id , pr_Area			    	, pr_Departamento, pr_DataAdmissao)
+	VALUES            (16    , 'otimização'			 	, 'MAC'          , '01/01/1984'     );
+INSERT INTO professor (pr_id , pr_Area			    	, pr_Departamento, pr_DataAdmissao)
+	VALUES            (17    , 'otimização' 			, 'MAC'          , '01/01/1994'     );
+INSERT INTO professor (pr_id , pr_Area			    	, pr_Departamento, pr_DataAdmissao)
+	VALUES            (18    , 'matematica discreta' 	, 'MAT'          , '01/01/1994'     );
+INSERT INTO professor (pr_id , pr_Area			    	, pr_Departamento, pr_DataAdmissao)
+	VALUES            (19    , 'matematica discreta' 	, 'MAT'          , '01/01/2000'     );
+INSERT INTO professor (pr_id , pr_Area			    	, pr_Departamento, pr_DataAdmissao)
+	VALUES            (20    , 'probabilidade'		 	, 'MAE'          , '01/01/2000'     );
 
+-- administradores
+INSERT INTO administrador (adm_id) VALUES (19);
+INSERT INTO administrador (adm_id) VALUES (20);
+
+
+-- disciplinas
+INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_PreRequisitos, dis_Descricao)
+	VALUES  (
+		'MAC0105',
+		'Fundamentos de Matemática para a Computação',
+		4,
+		0,
+		1,
+		'Discurso matemático: leitura e escrita matemática. Estratégias de demonstrações. Princípio da indução finita. Sequências, somas, recorrências e contagem. Algoritmo de Euclides. Divisibilidade nos inteiros. Sistemas de numeração. MDC e MMC. Teorema de Bézout. Teorema fundamental da aritmética. Congruências. O anel dos inteiros módulo m. Os corpos Zp. Relações de equivalência, conjunto quociente, definição de funções e operações no conjunto quociente. Ordem, fecho transitivo de relações. Conjuntos infinitos.',
+		null,
+		'OBJETIVOS:  Familiarizar o aluno com a linguagem matemática e com a estrutura das demonstrações matemáticas, bem como com alguns fatos e noções elementares sobre números, conjuntos, funções e relações.'
+	);
+
+INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_PreRequisitos, dis_Descricao)
+	VALUES  (
+		'MAC0110',
+		'Introdução à Computação',
+		4,
+		0,
+		1,
+		'Breve história da computação. Algoritmos: caracterização, notação, estruturas básicas. Computadores: unidades básicas, instruções, programa armazenado, endereçamento, programas em linguagem de máquina.Conceitos de linguagens algorítmicas: expressões; comandos seqüenciais, seletivos e repetitivos; entrada/saída; variáveis estruturadas; funções.Desenvolvimento e documentação de programas.Exemplos de processamento não numérico.Extensa prática de programação e depuração de programas.',
+		null,
+		' Objetivos: Introduzir a programação de computadores através do estudo de uma linguagem algorítmica e de exercícios práticos.'
+	);
+
+INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_PreRequisitos, dis_Descricao)
+	VALUES  (
+		'MAC0329',
+		'Álgebra Booleana e Aplicações no Projeto de Arquitetura de Computadores',
+		4,
+		0,
+		1,
+		'Sistemas de representação numérica: bases binária, octal e hexadecimal, conversão entre bases, aritmética com números binários. Noções de circuitos lógicos: funções lógicas, tabelas-verdade, portas lógicas. Noções de organização de computadores. Expressões booleanas: formas canônicas e suas formas minimais, mapas de Karnaugh e outros métodos para minimização de expressões booleanas. PLA e circuitos combinacionais. Circuitos sequenciais: flip-flops e registradores, noções de análise e projeto de circuitos sequenciais. Exemplos de circuitos: somadores, subtratores, multiplicadores, divisores, verificadores de paridade, decodificadores, seletores ou multiplexadores, demultiplexadores, comparadores, conversores de código, deslocadores e contadores. Álgebra booleana: definição axiomática, exemplos (álgebra de conjuntos, cálculo proposicional, funções lógicas), propriedades, e ordens parciais em álgebras booleanas.',
+		null,
+		'Objetivos: Estudo de álgebras Booleanas finitas, assim como, as suas aplicações no projeto de circuitos digitais e, em particular, de arquiteturas de computadores.'
+	);
+INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_PreRequisitos, dis_Descricao)
+	VALUES  (
+		'MAT2453',
+		'Cálculo Diferencial e Integral I',
+		6,
+		0,
+		1,
+		'Funções trigonométricas. Funções exponenciais. Função composta e função inversa. Limites: noção intuitiva, propriedades algébricas. Teorema do Confronto. Continuidade. Derivadas: definição, interpretações geométrica e física. Regras de derivação, regra de cadeia, derivada da função inversa e derivação implícita. Aplicações. Teorema do valor médio e consequências. Regras de LHospital. Gráficos. Resolução de problemas de Máximos e Mínimos. Integral de Riemann. Técnicas de integração. Aplicações: cálculos de volumes de revolução, comprimento de curvas. Fórmula de Taylor.',
+		null,
+		'Objetivos: Familiarizar o aluno com as noções de limite, derivada e integral de funções de uma variável, destacando aspectos geométricos e interpretações físicas.'
+ 
+	);
+INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_PreRequisitos, dis_Descricao)
+	VALUES  (
+		'MAT0112',
+		'Vetores e Geometria',
+		4,
+		0,
+		1,
+		'1. Vetores, operações, módulo de um vetor, ângulo de dois vetores. 2. Dependência linear, bases, mudança de bases. Sistema de coordenadas no espaço, transformação de coordenadas. 3. Bases ortogonais, matrizes ortogonais, produto escalar. Orientação do espaço, produto vetorial. 4. Equações vetoriais da reta e do plano no espaço. Paralelismo entre retas e planos. 5. Ortogonalidade entre retas e planos. Distância de dois pontos, de ponto a uma reta e a um plano. Áreas e volumes. 6. Curvas planas, cônicas. Curvas e superfícies no espaço. Noções sobre quádricas.',
+		null,
+		'Objetivos: Ensinar aos alunos as leis básicas do cálculo vetorial clássico e a geometria analítica em dimensão 2 e 3.'
+	);
+INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_PreRequisitos, dis_Descricao)
+	VALUES  (
+		'MAC0239',
+		'Introdução à Lógica e Verificação de Programas',
+		4,
+		0,
+		2,
+		'Lógica Formal: cálculo proposicional, sintaxe, semântica, métodos de prova; cálculo de predicados de primeira ordem, noções intuitivas de correção e completude. Verificação de Programas: semântica axiomática dos comandos básicos de programação; lógica de Hoare, pré- e pós-condições, comandos nulos, atribuição, seleção, iteração; invariantes, terminação. Exemplos clássicos de provas de algoritmos.',
+		'Introdução à Computação',
+		'Objetivos: Dar ao aluno o primeiro contato com métodos formais. Introduzir conceitos básicos para a verificação formal, assim como técnicas de demonstração de corretude de programas.'
+	);
+
+INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_PreRequisitos, dis_Descricao)
+	VALUES  (
+		'MAE0119',
+		'Introdução à Probabilidade e à Estatística',
+		6,
+		0,
+		2,
+		'1) Estatística Descritiva uni e bidimensional; 2) Probabilidade; 3) Variáveis aleatórias e principais distribuições discretas e contínuas; 4) Aproximação normal; 5) Distribuições amostrais e Teorema Limite Central; 6) Estimadores e propriedades; 7) Estimação pontual e por intervalo; 8) Testes de hipóteses para uma média, uma proporção; 9) Testes de comparação de médias e proporções; Testes qui-quadrado; 10) Teste de Hipóteses para Variância; 11) Regressão e correlação.',
+		null,
+		'Objetivos: Introduzir os conceitos básicos da teoria das probabilidades e da teoria estatística.'
+	);
+INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_PreRequisitos, dis_Descricao)
+	VALUES  (
+		'MAC0121',
+		'Algoritmos e Estruturas de Dados I',
+		4,
+		0,
+		2,
+		'Noções informais de prova de correção e medida do desempenho de algoritmos. Noções de tipos abstratos de dados. Vetores e matrizes. Strings (cadeias de caracteres). Alocação dinâmica de memória e redimensionamento de vetores. Apontadores. Listas ligadas. Estruturas ligadas não lineares. Árvores binárias. Pilhas e filas (implementadas com vetores e listas ligadas). Aplicações. Filas de prioridade (implementadas com heaps). Aplicações. Recursão. Aplicações. Algoritmos de ordenação elementares. Algoritmo quicksort. Algoritmo mergesort. Algoritmo heapsort. Algoritmo radixsort (ordenação digital). Ordenação indireta (ordenação de apontadores). Processamento elementar de texto. Aplicações. Tabelas de símbolos elementares: implementações baseadas em vetores, listas ligadas, busca binária, e árvores binárias de busca. Aplicações. As aplicações podem envolver várias estruturas de dados compostas (como vetores de listas ligadas) e várias estratégias algorítmicas (gulosa, divisão e conquista, programação dinâmica, backtracking, busca em largura, etc.).',
+		'Introdução à Computação',
+		'Objetivos: Introduzir técnicas básicas de programação, estruturas de dados básicas, e noções de projeto e análise de algoritmos, por meio de exemplos.'
+	);
+INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_PreRequisitos, dis_Descricao)
+	VALUES  (
+		'MAC0216',
+		'Técnicas de Programação I',
+		4,
+		2,
+		2,
+		'Conceitos básicos de arquitetura de computadores. Linguagem de montagem e montadores, ligação de código objeto, interface com hardware e com linguagens de alto nível. Interação com o sistema operacional no nível do shell: streams, entrada e saída padrão, redirecionamento e pipes. Shell scripts. Gerenciamento de compilação de programas e bibliotecas com ferramentas como make. Modularização de código. Ligação de módulos, estática e dinâmica. Construção de bibliotecas. Técnicas de depuração e teste de programas. Construção de um sistema em uma linguagem procedimental (por exemplo, C). Estudo de uma linguagem dinâmica de script (por exemplo, Python ou Ruby). Introdução aos conceitos de orientação a objetos no âmbito de linguagens dinâmicas.',
+		'Introdução à Computação',
+		' Objetivos: Expor o estudante a conceitos e ambientes de programação e integração de módulos e programas, partindo de baixo nível (linguagem de montagem), utilização de ferramentas do sistema operacional e de desenvolvimento de software até atingir os princípios de orientação a objetos. Estes tópicos são aplicados em uma parte prática que consiste em desenvolver um sistema de software em linguagem procedimental.'
+	);
+INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_PreRequisitos, dis_Descricao)
+	VALUES  (
+		'MAT2454',
+		'Cálculo Diferencial e Integral II',
+		4,
+		0,
+		2,
+		'Funções de duas ou mais variáveis: limites, continuidade, diferenciabilidade. ; Gradiente; Regra da cadeia; Teorema do Valor Médio; Derivadas de ordem superior; Teorema de Schwarz (enunciado); Fórmula de Taylor; Máximos e Mínimos; Multiplicadores de Lagrange.',
+		'Cálculo Diferencial e Integral I',
+		' Objetivos: Aprimorar o conhecimento e as habilidades dos alunos introduzindo o cálculo diferencial de funções de duas ou mais variáveis.'
+	);
+
+
+--prerequisitos
+INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (6, 2);
+INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (8, 2);
+INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (9, 2);
+INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (10, 4);
+
+--currículos
+INSERT INTO curriculo (curr_adm_id, curr_AnoIni, curr_AnoFim, curr_Curso                           , curr_Unidade)
+	VALUES            (19         , '2008'     , '2014'    , 'Bacharelado em Ciência da Computação', 'IME'       );
+INSERT INTO curriculo (curr_adm_id, curr_AnoIni, curr_AnoFim, curr_Curso                           , curr_Unidade)
+	VALUES            (19         , '2014'     , '2016'    , 'Bacharelado em Ciência da Computação', 'IME'       );
+INSERT INTO curriculo (curr_adm_id, curr_AnoIni, curr_AnoFim, curr_Curso                           , curr_Unidade)
+	VALUES            (20         , '2016'     , null      , 'Bacharelado em Ciência da Computação', 'IME'       );
+INSERT INTO curriculo (curr_adm_id, curr_AnoIni, curr_AnoFim, curr_Curso                           , curr_Unidade)
+	VALUES            (20         , '2010'     , '2015'    , 'Bacharelado em Ciência da Computação', 'ICMC'      );
+INSERT INTO curriculo (curr_adm_id, curr_AnoIni, curr_AnoFim, curr_Curso                           , curr_Unidade)
+	VALUES            (20         , '2015'     , null      , 'Bacharelado em Ciência da Computação', 'ICMC'      );
+
+INSERT INTO modulo	  (mod_Codigo, mod_Nome) VALUES (1, 'Desenvolvimento de Software I');
+INSERT INTO modulo	  (mod_Codigo, mod_Nome) VALUES (2, 'Desenvolvimento de Software II');
+INSERT INTO modulo	  (mod_Codigo, mod_Nome) VALUES (3, 'Sistemas Paralelos e Distribuídos');
+INSERT INTO modulo	  (mod_Codigo, mod_Nome) VALUES (4, 'Banco de Dados');
+INSERT INTO modulo	  (mod_Codigo, mod_Nome) VALUES (5, 'Inteligência Artificial');
+INSERT INTO modulo	  (mod_Codigo, mod_Nome) VALUES (6, 'Introdução à IA');
+INSERT INTO modulo	  (mod_Codigo, mod_Nome) VALUES (7, 'Sistemas');
+INSERT INTO modulo	  (mod_Codigo, mod_Nome) VALUES (8, 'Teoria associada à IA');
+INSERT INTO modulo	  (mod_Codigo, mod_Nome) VALUES (9, 'Dados 1');
+INSERT INTO modulo	  (mod_Codigo, mod_Nome) VALUES (10, 'Dados 2');
+INSERT INTO modulo	  (mod_Codigo, mod_Nome) VALUES (11, 'Dados 3');
+INSERT INTO modulo	  (mod_Codigo, mod_Nome) VALUES (12, 'Dados 4');
+INSERT INTO modulo	  (mod_Codigo, mod_Nome) VALUES (13, 'Dados - Área de Aplicação');
+INSERT INTO modulo	  (mod_Codigo, mod_Nome) VALUES (14, 'Algoritmos I');
+INSERT INTO modulo	  (mod_Codigo, mod_Nome) VALUES (15, 'Algoritmos II');
+INSERT INTO modulo	  (mod_Codigo, mod_Nome) VALUES (16, 'Otimização I');
+INSERT INTO modulo	  (mod_Codigo, mod_Nome) VALUES (17, 'Otimização II');
+INSERT INTO modulo	  (mod_Codigo, mod_Nome) VALUES (18, 'Matemática Discreta I');
+INSERT INTO modulo	  (mod_Codigo, mod_Nome) VALUES (19, 'Matemática Discreta II');
+--trilhas
+INSERT INTO trilha	  (tr_Codigo, tr_Nome) VALUES (1, 'Geral');
+INSERT INTO trilha	  (tr_Codigo, tr_Nome) VALUES (2, 'Sistemas de Software');
+INSERT INTO trilha	  (tr_Codigo, tr_Nome) VALUES (3, 'Inteligência Artificial');
+INSERT INTO trilha	  (tr_Codigo, tr_Nome) VALUES (4, 'Ciência de Dados');
+INSERT INTO trilha	  (tr_Codigo, tr_Nome) VALUES (5, 'Teoria da Computação');
+--perfis
+INSERT INTO perfil (pf_Tipo) VALUES ('aluno');
+INSERT INTO perfil (pf_Tipo) VALUES ('administrador');
