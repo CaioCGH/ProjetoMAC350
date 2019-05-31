@@ -14,8 +14,6 @@
 #ALUNO
 ####### - OK
 >Atributos
-  + al_NUSP (CHAVE ESTRANGEIRA/CHAVE PRIMÁRIA)
-  + al_Nome (CHAVE ESTRANGEIRA)
   + al_DataIngresso
   + al_CodCurso
   + al_Livres
@@ -24,9 +22,6 @@
 
 >Dependências funcionais
   + {al_NUSP -> al_Nome, al_DataIngresso, al_CodCurso, al_Livres, al_Eletivas, al_Obrigatórias}
-
-  bob1 = bob 1 2 3 2017
-  bob2 = bob 1 2 3 2017
 
 
 

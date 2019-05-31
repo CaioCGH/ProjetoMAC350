@@ -1,10 +1,15 @@
--- DROPAR NUMA ORDEM TOPOLOGICA..
+DROP DOMAIN IF EXISTS email CASCADE;
+CREATE DOMAIN email AS citext
+  CHECK ( value ~ '^[a-zA-Z0-9.!#$%&''*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$' );
 
+-- DROPAR NUMA ORDEM TOPOLOGICA..
+DROP TABLE IF EXISTS rel_adm_curr;
+DROP TABLE IF EXISTS rel_pe_us;
 DROP TABLE IF EXISTS rel_pf_sr;
 DROP TABLE IF EXISTS rel_us_pf;
 DROP TABLE IF EXISTS rel_dis_mod;
 DROP TABLE IF EXISTS rel_tr_mod;
-DROP TABLE IF EXISTS rel_cur_tri;
+DROP TABLE IF EXISTS rel_curr_tri;
 DROP TABLE IF EXISTS planeja;
 DROP TABLE IF EXISTS cursa;
 DROP TABLE IF EXISTS oferecimento;
@@ -54,7 +59,7 @@ CREATE TABLE professor (
 -- area de atuaçao removido para simplificar o projeto
 
 CREATE TABLE administrador (
-	adm_id		SERIAL,
+	adm_id				SERIAL,
 	CONSTRAINT adm_id PRIMARY KEY (adm_id),
     FOREIGN KEY(adm_id) REFERENCES pessoa(pe_id)
 );
@@ -67,7 +72,6 @@ CREATE TABLE disciplina (
 	dis_Trabalho 		int,
 	dis_PeriodoIdeal 	int,
 	dis_Ementa 			varchar(2000),
-	dis_PreRequisitos 	varchar(80),
 	dis_Descricao 		varchar(1000),
 	CONSTRAINT pk_disciplina PRIMARY KEY (dis_id),
 	CONSTRAINT sk_disciplina UNIQUE (dis_codigo)
@@ -84,14 +88,12 @@ CREATE TABLE prerequisito (
 
 CREATE TABLE curriculo (
 	curr_id			SERIAL,
-	curr_adm_id		SERIAL,
 	curr_AnoIni 	varchar(10),
 	curr_AnoFim 	varchar(10),
 	curr_Curso 		varchar(80),
 	curr_Unidade 	varchar(80),
 	CONSTRAINT pk_curriculo PRIMARY KEY(curr_id),
-	CONSTRAINT sk_curriculo UNIQUE (curr_Curso, curr_Unidade, curr_AnoIni),
-    FOREIGN KEY(curr_adm_id) REFERENCES administrador(adm_id)
+	CONSTRAINT sk_curriculo UNIQUE (curr_Curso, curr_Unidade, curr_AnoIni) 
 );
 
 CREATE TABLE modulo (
@@ -127,52 +129,82 @@ CREATE TABLE servico(
 	CONSTRAINT sk_servico UNIQUE (sr_Nome)
 );
 
+DROP TABLE IF EXISTS users;
+CREATE TABLE users (
+	us_id       SERIAL,
+	us_email    email,
+	us_password TEXT NOT NULL,
+	CONSTRAINT pk_user PRIMARY KEY (us_id),
+	CONSTRAINT sk_user UNIQUE (us_email)
+);
+
 CREATE TABLE oferecimento(
 	of_id 			SERIAL,
 	of_pr_id 		SERIAL,
+	of_dis_id		SERIAL,
 	of_DataInicio 	varchar(10),
-	of_Codigo 		int,
 	of_Vagas 		int,
-	of_Horario 		varchar(20),
+	of_Horario 		varchar(80),
 	CONSTRAINT pk_oferecimento PRIMARY KEY (of_id),
-	CONSTRAINT sk_oferecimento UNIQUE (of_DataInicio, of_pr_id, of_Codigo),
-	FOREIGN KEY(of_pr_id) REFERENCES professor(pr_id)
+	CONSTRAINT sk_oferecimento UNIQUE (of_DataInicio, of_pr_id, of_dis_id, of_Horario),
+	FOREIGN KEY(of_pr_id) REFERENCES professor(pr_id),
+	FOREIGN KEY(of_dis_id) REFERENCES disciplina(dis_id)
+);
+
+CREATE TABLE rel_pe_us(
+	pus_id		SERIAL,
+	pus_pe_id	SERIAL,
+	pus_us_id 	SERIAL,
+	CONSTRAINT pk_rel_pe_us PRIMARY KEY(pus_id),
+    FOREIGN KEY(pus_pe_id) REFERENCES pessoa(pe_id),
+    FOREIGN KEY(pus_us_id) REFERENCES users(us_id)
 );
 
 CREATE TABLE cursa(
 	cur_id 			SERIAL,
 	cur_al_id		SERIAL,
 	cur_of_id 		SERIAL,
-	cur_DataIni		varchar(10),
 	cur_Nota 		float,
 	cur_Freq 		int,
 	CONSTRAINT pk_cursa PRIMARY KEY(cur_id),
 	CONSTRAINT sk_cursa UNIQUE (cur_al_id, cur_of_id),
 	FOREIGN KEY(cur_al_id) REFERENCES aluno(al_id),
-    FOREIGN KEY(cur_of_id) REFERENCES professor(pr_id)
+    FOREIGN KEY(cur_of_id) REFERENCES oferecimento(of_id)
 );
 
 CREATE TABLE planeja(
 	pla_id 		SERIAL,
 	pla_al_id	SERIAL,
 	pla_dis_id	SERIAL,
-	pla_DataIni varchar(10),
+	pla_DataInicio varchar(10),
 	CONSTRAINT pk_planeja PRIMARY KEY(pla_id),	
-	CONSTRAINT sk_planeja UNIQUE (pla_al_id, pla_dis_id, pla_DataIni),	
+	CONSTRAINT sk_planeja UNIQUE (pla_al_id, pla_dis_id, pla_DataInicio),	
     FOREIGN KEY(pla_al_id) REFERENCES aluno(al_id),
     FOREIGN KEY(pla_dis_id) REFERENCES disciplina(dis_id)
 );
 
-CREATE TABLE rel_cur_tri(
+CREATE TABLE rel_curr_tri(
 	ctr_id  		SERIAL,
 	ctr_curr_id		SERIAL,
 	ctr_tr_id 		SERIAL,
-	ctr_AnoIni 		varchar(10),
+	ctr_AnoInicio 		varchar(10),
 	ctr_Unidade 	varchar(10),
-	CONSTRAINT pk_rel_cur_tri PRIMARY KEY(ctr_id),	
-	CONSTRAINT sk_rel_cur_tri UNIQUE (ctr_AnoIni, ctr_curr_id, ctr_tr_id, ctr_Unidade),	
+	CONSTRAINT pk_rel_curr_tri PRIMARY KEY(ctr_id),	
+	CONSTRAINT sk_rel_curr_tri UNIQUE (ctr_AnoInicio, ctr_curr_id, ctr_tr_id, ctr_Unidade),	
     FOREIGN KEY(ctr_curr_id) REFERENCES curriculo(curr_id),
     FOREIGN KEY(ctr_tr_id) REFERENCES trilha(tr_id)
+);
+
+
+CREATE TABLE rel_adm_curr(
+	acurr_id			SERIAL,
+	acurr_adm_id		SERIAL,
+	acurr_curr_id 		SERIAL,
+	acurr_DataInicio 	varchar(10),
+	acurr_DataTermino 	varchar(10),
+	CONSTRAINT pk_rel_adm_curr PRIMARY KEY(acurr_id),
+    FOREIGN KEY(acurr_adm_id) REFERENCES administrador(adm_id),
+    FOREIGN KEY(acurr_curr_id) REFERENCES curriculo(curr_id)
 );
 
 CREATE TABLE rel_tr_mod(
@@ -181,7 +213,7 @@ CREATE TABLE rel_tr_mod(
 	mtr_mod_id 	SERIAL,
 	CONSTRAINT pk_rel_tr_mod PRIMARY KEY(mtr_id),
     FOREIGN KEY(mtr_tr_id) REFERENCES trilha(tr_id),
-    FOREIGN KEY(mtr_mod_id) REFERENCES modulo(mod_Codigo)
+    FOREIGN KEY(mtr_mod_id) REFERENCES modulo(mod_id)
 );
 
 CREATE TABLE rel_dis_mod(
@@ -193,17 +225,17 @@ CREATE TABLE rel_dis_mod(
     FOREIGN KEY(dmod_mod_id) REFERENCES modulo(mod_id)
 );
 
--- MODIFY LATER - adaptado para o SUPORT.sql
 CREATE TABLE rel_us_pf(
 	upf_id			SERIAL,
 	upf_us_id       SERIAL,
 	upf_pf_id       SERIAL,
+	upf_DataInicio  varchar(10),
+	upf_DataTermino varchar(10),
 	CONSTRAINT pk_us_pf PRIMARY KEY(upf_id),
     FOREIGN KEY(upf_pf_id) REFERENCES perfil(pf_id),
     FOREIGN KEY(upf_us_id) REFERENCES users(us_id)
 );
 
--- MODIFY LATER
 CREATE TABLE rel_pf_sr(
 	psr_id		SERIAL,
 	psr_pf_id	SERIAL,
@@ -239,8 +271,8 @@ INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000021, 'Beti Kira', '
 --ALUNOS
 
 --Existe um novo atributo "al_nome" e "al_nusp" pra ficar coerente com a dependencia funcional.. não esquecer de inserir aqui embaixo
-INSERT INTO aluno (al_id, al_DataIngresso, al_CodCurso, al_nome, al_Livres, al_Eletivas, al_Obrigatorias)
-	VALUES        (1    , '01/01/2019'   , 0001       , 'Alice'  , 0        , 0          , 0              );
+INSERT INTO aluno (al_id, al_DataIngresso, al_CodCurso, al_Livres, al_Eletivas, al_Obrigatorias)
+	VALUES        (1    , '01/01/2019'   , 0001       , 0        , 0          , 0              );
 INSERT INTO aluno (al_id, al_DataIngresso, al_CodCurso, al_Livres, al_Eletivas, al_Obrigatorias)
 	VALUES        (2    , '01/01/2018'     , 0001     , 0        , 0          , 20              );
 INSERT INTO aluno (al_id, al_DataIngresso, al_CodCurso, al_Livres, al_Eletivas, al_Obrigatorias)
@@ -286,12 +318,12 @@ INSERT INTO professor (pr_id , pr_Area			    	, pr_Departamento, pr_DataAdmissao
 -- administradores
 --não esquecer de inserir aqui embaixo
 
-INSERT INTO administrador (adm_id, adm_nome, adm_dataini, adm_dataterm) VALUES (19,....);
-INSERT INTO administrador (adm_id, adm_nome, adm_dataini, adm_dataterm) VALUES (20,....);
+INSERT INTO administrador (adm_id) VALUES (19);
+INSERT INTO administrador (adm_id) VALUES (20);
 
 
 -- disciplinas
-INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_PreRequisitos, dis_Descricao)
+INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_Descricao)
 	VALUES  (
 		'MAC0105',
 		'Fundamentos de Matemática para a Computação',
@@ -299,11 +331,10 @@ INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_Period
 		0,
 		1,
 		'Discurso matemático: leitura e escrita matemática. Estratégias de demonstrações. Princípio da indução finita. Sequências, somas, recorrências e contagem. Algoritmo de Euclides. Divisibilidade nos inteiros. Sistemas de numeração. MDC e MMC. Teorema de Bézout. Teorema fundamental da aritmética. Congruências. O anel dos inteiros módulo m. Os corpos Zp. Relações de equivalência, conjunto quociente, definição de funções e operações no conjunto quociente. Ordem, fecho transitivo de relações. Conjuntos infinitos.',
-		null,
 		'OBJETIVOS:  Familiarizar o aluno com a linguagem matemática e com a estrutura das demonstrações matemáticas, bem como com alguns fatos e noções elementares sobre números, conjuntos, funções e relações.'
 	);
 
-INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_PreRequisitos, dis_Descricao)
+INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_Descricao)
 	VALUES  (
 		'MAC0110',
 		'Introdução à Computação',
@@ -311,11 +342,10 @@ INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_Period
 		0,
 		1,
 		'Breve história da computação. Algoritmos: caracterização, notação, estruturas básicas. Computadores: unidades básicas, instruções, programa armazenado, endereçamento, programas em linguagem de máquina.Conceitos de linguagens algorítmicas: expressões; comandos seqüenciais, seletivos e repetitivos; entrada/saída; variáveis estruturadas; funções.Desenvolvimento e documentação de programas.Exemplos de processamento não numérico.Extensa prática de programação e depuração de programas.',
-		null,
 		' Objetivos: Introduzir a programação de computadores através do estudo de uma linguagem algorítmica e de exercícios práticos.'
 	);
 
-INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_PreRequisitos, dis_Descricao)
+INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_Descricao)
 	VALUES  (
 		'MAC0329',
 		'Álgebra Booleana e Aplicações no Projeto de Arquitetura de Computadores',
@@ -323,10 +353,9 @@ INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_Period
 		0,
 		1,
 		'Sistemas de representação numérica: bases binária, octal e hexadecimal, conversão entre bases, aritmética com números binários. Noções de circuitos lógicos: funções lógicas, tabelas-verdade, portas lógicas. Noções de organização de computadores. Expressões booleanas: formas canônicas e suas formas minimais, mapas de Karnaugh e outros métodos para minimização de expressões booleanas. PLA e circuitos combinacionais. Circuitos sequenciais: flip-flops e registradores, noções de análise e projeto de circuitos sequenciais. Exemplos de circuitos: somadores, subtratores, multiplicadores, divisores, verificadores de paridade, decodificadores, seletores ou multiplexadores, demultiplexadores, comparadores, conversores de código, deslocadores e contadores. Álgebra booleana: definição axiomática, exemplos (álgebra de conjuntos, cálculo proposicional, funções lógicas), propriedades, e ordens parciais em álgebras booleanas.',
-		null,
 		'Objetivos: Estudo de álgebras Booleanas finitas, assim como, as suas aplicações no projeto de circuitos digitais e, em particular, de arquiteturas de computadores.'
 	);
-INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_PreRequisitos, dis_Descricao)
+INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_Descricao)
 	VALUES  (
 		'MAT2453',
 		'Cálculo Diferencial e Integral I',
@@ -334,11 +363,10 @@ INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_Period
 		0,
 		1,
 		'Funções trigonométricas. Funções exponenciais. Função composta e função inversa. Limites: noção intuitiva, propriedades algébricas. Teorema do Confronto. Continuidade. Derivadas: definição, interpretações geométrica e física. Regras de derivação, regra de cadeia, derivada da função inversa e derivação implícita. Aplicações. Teorema do valor médio e consequências. Regras de LHospital. Gráficos. Resolução de problemas de Máximos e Mínimos. Integral de Riemann. Técnicas de integração. Aplicações: cálculos de volumes de revolução, comprimento de curvas. Fórmula de Taylor.',
-		null,
 		'Objetivos: Familiarizar o aluno com as noções de limite, derivada e integral de funções de uma variável, destacando aspectos geométricos e interpretações físicas.'
  
 	);
-INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_PreRequisitos, dis_Descricao)
+INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_Descricao)
 	VALUES  (
 		'MAT0112',
 		'Vetores e Geometria',
@@ -346,10 +374,9 @@ INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_Period
 		0,
 		1,
 		'1. Vetores, operações, módulo de um vetor, ângulo de dois vetores. 2. Dependência linear, bases, mudança de bases. Sistema de coordenadas no espaço, transformação de coordenadas. 3. Bases ortogonais, matrizes ortogonais, produto escalar. Orientação do espaço, produto vetorial. 4. Equações vetoriais da reta e do plano no espaço. Paralelismo entre retas e planos. 5. Ortogonalidade entre retas e planos. Distância de dois pontos, de ponto a uma reta e a um plano. Áreas e volumes. 6. Curvas planas, cônicas. Curvas e superfícies no espaço. Noções sobre quádricas.',
-		null,
 		'Objetivos: Ensinar aos alunos as leis básicas do cálculo vetorial clássico e a geometria analítica em dimensão 2 e 3.'
 	);
-INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_PreRequisitos, dis_Descricao)
+INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_Descricao)
 	VALUES  (
 		'MAC0239',
 		'Introdução à Lógica e Verificação de Programas',
@@ -357,11 +384,10 @@ INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_Period
 		0,
 		2,
 		'Lógica Formal: cálculo proposicional, sintaxe, semântica, métodos de prova; cálculo de predicados de primeira ordem, noções intuitivas de correção e completude. Verificação de Programas: semântica axiomática dos comandos básicos de programação; lógica de Hoare, pré- e pós-condições, comandos nulos, atribuição, seleção, iteração; invariantes, terminação. Exemplos clássicos de provas de algoritmos.',
-		'Introdução à Computação',
 		'Objetivos: Dar ao aluno o primeiro contato com métodos formais. Introduzir conceitos básicos para a verificação formal, assim como técnicas de demonstração de corretude de programas.'
 	);
 
-INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_PreRequisitos, dis_Descricao)
+INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_Descricao)
 	VALUES  (
 		'MAE0119',
 		'Introdução à Probabilidade e à Estatística',
@@ -369,10 +395,9 @@ INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_Period
 		0,
 		2,
 		'1) Estatística Descritiva uni e bidimensional; 2) Probabilidade; 3) Variáveis aleatórias e principais distribuições discretas e contínuas; 4) Aproximação normal; 5) Distribuições amostrais e Teorema Limite Central; 6) Estimadores e propriedades; 7) Estimação pontual e por intervalo; 8) Testes de hipóteses para uma média, uma proporção; 9) Testes de comparação de médias e proporções; Testes qui-quadrado; 10) Teste de Hipóteses para Variância; 11) Regressão e correlação.',
-		null,
 		'Objetivos: Introduzir os conceitos básicos da teoria das probabilidades e da teoria estatística.'
 	);
-INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_PreRequisitos, dis_Descricao)
+INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_Descricao)
 	VALUES  (
 		'MAC0121',
 		'Algoritmos e Estruturas de Dados I',
@@ -380,10 +405,9 @@ INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_Period
 		0,
 		2,
 		'Noções informais de prova de correção e medida do desempenho de algoritmos. Noções de tipos abstratos de dados. Vetores e matrizes. Strings (cadeias de caracteres). Alocação dinâmica de memória e redimensionamento de vetores. Apontadores. Listas ligadas. Estruturas ligadas não lineares. Árvores binárias. Pilhas e filas (implementadas com vetores e listas ligadas). Aplicações. Filas de prioridade (implementadas com heaps). Aplicações. Recursão. Aplicações. Algoritmos de ordenação elementares. Algoritmo quicksort. Algoritmo mergesort. Algoritmo heapsort. Algoritmo radixsort (ordenação digital). Ordenação indireta (ordenação de apontadores). Processamento elementar de texto. Aplicações. Tabelas de símbolos elementares: implementações baseadas em vetores, listas ligadas, busca binária, e árvores binárias de busca. Aplicações. As aplicações podem envolver várias estruturas de dados compostas (como vetores de listas ligadas) e várias estratégias algorítmicas (gulosa, divisão e conquista, programação dinâmica, backtracking, busca em largura, etc.).',
-		'Introdução à Computação',
 		'Objetivos: Introduzir técnicas básicas de programação, estruturas de dados básicas, e noções de projeto e análise de algoritmos, por meio de exemplos.'
 	);
-INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_PreRequisitos, dis_Descricao)
+INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_Descricao)
 	VALUES  (
 		'MAC0216',
 		'Técnicas de Programação I',
@@ -391,10 +415,9 @@ INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_Period
 		2,
 		2,
 		'Conceitos básicos de arquitetura de computadores. Linguagem de montagem e montadores, ligação de código objeto, interface com hardware e com linguagens de alto nível. Interação com o sistema operacional no nível do shell: streams, entrada e saída padrão, redirecionamento e pipes. Shell scripts. Gerenciamento de compilação de programas e bibliotecas com ferramentas como make. Modularização de código. Ligação de módulos, estática e dinâmica. Construção de bibliotecas. Técnicas de depuração e teste de programas. Construção de um sistema em uma linguagem procedimental (por exemplo, C). Estudo de uma linguagem dinâmica de script (por exemplo, Python ou Ruby). Introdução aos conceitos de orientação a objetos no âmbito de linguagens dinâmicas.',
-		'Introdução à Computação',
-		' Objetivos: Expor o estudante a conceitos e ambientes de programação e integração de módulos e programas, partindo de baixo nível (linguagem de montagem), utilização de ferramentas do sistema operacional e de desenvolvimento de software até atingir os princípios de orientação a objetos. Estes tópicos são aplicados em uma parte prática que consiste em desenvolver um sistema de software em linguagem procedimental.'
+		'Objetivos: Expor o estudante a conceitos e ambientes de programação e integração de módulos e programas, partindo de baixo nível (linguagem de montagem), utilização de ferramentas do sistema operacional e de desenvolvimento de software até atingir os princípios de orientação a objetos. Estes tópicos são aplicados em uma parte prática que consiste em desenvolver um sistema de software em linguagem procedimental.'
 	);
-INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_PreRequisitos, dis_Descricao)
+INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_Descricao)
 	VALUES  (
 		'MAT2454',
 		'Cálculo Diferencial e Integral II',
@@ -402,35 +425,35 @@ INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_Period
 		0,
 		2,
 		'Funções de duas ou mais variáveis: limites, continuidade, diferenciabilidade. ; Gradiente; Regra da cadeia; Teorema do Valor Médio; Derivadas de ordem superior; Teorema de Schwarz (enunciado); Fórmula de Taylor; Máximos e Mínimos; Multiplicadores de Lagrange.',
-		'Cálculo Diferencial e Integral I',
 		' Objetivos: Aprimorar o conhecimento e as habilidades dos alunos introduzindo o cálculo diferencial de funções de duas ou mais variáveis.'
 	);
 
 
 --prerequisitos
---nao esquecer de adicionar o "prq_id" e exemplos de povoar
-INSERT INTO prerequisitos (prq_id, prq_dis1_id, prq_dis2_id) VALUES (1, 6, 2);
-INSERT INTO prerequisitos (prq_dis1_id, prq_dis2_id) VALUES (8, 2);
-INSERT INTO prerequisitos (prq_dis1_id, prq_dis2_id) VALUES (9, 2);
-INSERT INTO prerequisitos (prq_dis1_id, prq_dis2_id) VALUES (10, 4);
-INSERT INTO prerequisitos (prq_dis1_id, prq_dis2_id) VALUES (6, 2);
-INSERT INTO prerequisitos (prq_dis1_id, prq_dis2_id) VALUES (6, 2);
-INSERT INTO prerequisitos (prq_dis1_id, prq_dis2_id) VALUES (6, 2);
-INSERT INTO prerequisitos (prq_dis1_id, prq_dis2_id) VALUES (6, 2);
-INSERT INTO prerequisitos (prq_dis1_id, prq_dis2_id) VALUES (6, 2);
-INSERT INTO prerequisitos (prq_dis1_id, prq_dis2_id) VALUES (6, 2);
+--No exemplo 1, a disciplina de id 2 é pre-requisito da disciplina de id 6.
+INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (6, 2);
+INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (8, 2);
+INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (9, 2);
+INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (10, 4);
+INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (6, 2);
+INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (6, 2);
+INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (6, 2);
+INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (6, 2);
+INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (6, 2);
+INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (6, 2);
+
 
 --currículos
-INSERT INTO curriculo (curr_adm_id, curr_AnoIni, curr_AnoFim, curr_Curso                           , curr_Unidade)
-	VALUES            (19         , '2008'     , '2014'    , 'Bacharelado em Ciência da Computação', 'IME'       );
-INSERT INTO curriculo (curr_adm_id, curr_AnoIni, curr_AnoFim, curr_Curso                           , curr_Unidade)
-	VALUES            (19         , '2014'     , '2016'    , 'Bacharelado em Ciência da Computação', 'IME'       );
-INSERT INTO curriculo (curr_adm_id, curr_AnoIni, curr_AnoFim, curr_Curso                           , curr_Unidade)
-	VALUES            (20         , '2016'     , null      , 'Bacharelado em Ciência da Computação', 'IME'       );
-INSERT INTO curriculo (curr_adm_id, curr_AnoIni, curr_AnoFim, curr_Curso                           , curr_Unidade)
-	VALUES            (20         , '2010'     , '2015'    , 'Bacharelado em Ciência da Computação', 'ICMC'      );
-INSERT INTO curriculo (curr_adm_id, curr_AnoIni, curr_AnoFim, curr_Curso                           , curr_Unidade)
-	VALUES            (20         , '2015'     , null      , 'Bacharelado em Ciência da Computação', 'ICMC'      );
+INSERT INTO curriculo (curr_AnoIni, curr_AnoFim, curr_Curso, curr_Unidade)
+	VALUES            ('2008'     , '2014'    , 'Bacharelado em Ciência da Computação', 'IME'       );
+INSERT INTO curriculo (curr_AnoIni, curr_AnoFim, curr_Curso                           , curr_Unidade)
+	VALUES            ('2014'     , '2016'    , 'Bacharelado em Ciência da Computação', 'IME'       );
+INSERT INTO curriculo (curr_AnoIni, curr_AnoFim, curr_Curso                           , curr_Unidade)
+	VALUES            ('2016'     , null      , 'Bacharelado em Ciência da Computação', 'IME'       );
+INSERT INTO curriculo (curr_AnoIni, curr_AnoFim, curr_Curso                           , curr_Unidade)
+	VALUES            ('2010'     , '2015'    , 'Bacharelado em Ciência da Computação', 'ICMC'      );
+INSERT INTO curriculo (curr_AnoIni, curr_AnoFim, curr_Curso                           , curr_Unidade)
+	VALUES            ('2015'     , null      , 'Bacharelado em Ciência da Computação', 'ICMC'      );
 
 INSERT INTO modulo	  (mod_Codigo, mod_Nome) VALUES (1, 'Desenvolvimento de Software I');
 INSERT INTO modulo	  (mod_Codigo, mod_Nome) VALUES (2, 'Desenvolvimento de Software II');
@@ -460,3 +483,62 @@ INSERT INTO trilha	  (tr_Codigo, tr_Nome) VALUES (5, 'Teoria da Computação');
 --perfis
 INSERT INTO perfil (pf_Tipo) VALUES ('aluno');
 INSERT INTO perfil (pf_Tipo) VALUES ('administrador');
+INSERT INTO perfil (pf_Tipo) VALUES ('monitor');
+--servico
+INSERT INTO servico (sr_Nome, sr_Descricao) VALUES ('ADDNOTA'   , 'Adicionar Nota a um aluno');
+INSERT INTO servico (sr_Nome, sr_Descricao) VALUES ('MODIFNOTA' , 'Modificar Nota de um aluno');
+INSERT INTO servico (sr_Nome, sr_Descricao) VALUES ('CONSULNOTA', 'Consultar Nota de um aluno');
+--oferecimento
+INSERT INTO oferecimento (of_pr_id, of_dis_id, of_DataInicio, of_Vagas, of_Horario) VALUES (11, 1,'01/01/2019', 30, 'SEG 08:00 - 10:00, QUA 10:00 - 12:00');
+INSERT INTO oferecimento (of_pr_id, of_dis_id, of_DataInicio, of_Vagas, of_Horario) VALUES (12, 2,'01/01/2019', 30, 'SEG 08:00 - 10:00, QUA 10:00 - 12:00');
+INSERT INTO oferecimento (of_pr_id, of_dis_id, of_DataInicio, of_Vagas, of_Horario) VALUES (13, 3,'01/01/2019', 30, 'SEG 08:00 - 10:00, QUA 10:00 - 12:00');
+--users
+INSERT INTO users(us_email, us_password) VALUES ('qualquer1@usp.br', '123456');
+INSERT INTO users(us_email, us_password) VALUES ('qualquer2@usp.br', '123456');
+INSERT INTO users(us_email, us_password) VALUES ('qualquer3@usp.br', '123456');
+--rel_pe_us
+INSERT INTO rel_pe_us (pus_pe_id, pus_us_id) VALUES (1, 1);
+INSERT INTO rel_pe_us (pus_pe_id, pus_us_id) VALUES (2, 2);
+INSERT INTO rel_pe_us (pus_pe_id, pus_us_id) VALUES (3, 3);
+--cursa
+INSERT INTO cursa(cur_al_id, cur_of_id, cur_Nota, cur_Freq) VALUES (1, 1, 10.0, 100);
+INSERT INTO cursa(cur_al_id, cur_of_id, cur_Nota, cur_Freq) VALUES (2, 2, 7.0, 80);
+INSERT INTO cursa(cur_al_id, cur_of_id, cur_Nota, cur_Freq) VALUES (3, 3, 5.0, 70);
+--planeja
+INSERT INTO planeja(pla_id, pla_al_id, pla_dis_id, pla_DataInicio) VALUES (1, 1, 3, '01/01/2020');
+INSERT INTO planeja(pla_id, pla_al_id, pla_dis_id, pla_DataInicio) VALUES (2, 2, 4, '01/01/2020');
+INSERT INTO planeja(pla_id, pla_al_id, pla_dis_id, pla_DataInicio) VALUES (3, 2, 5, '01/01/2020');
+--rel_curr_tri
+INSERT INTO rel_curr_tri(ctr_curr_id, ctr_tr_id, ctr_AnoInicio, ctr_Unidade) VALUES (1, 1, '2016', 'IME');
+INSERT INTO rel_curr_tri(ctr_curr_id, ctr_tr_id, ctr_AnoInicio, ctr_Unidade) VALUES (2, 1, '2016', 'IME');
+INSERT INTO rel_curr_tri(ctr_curr_id, ctr_tr_id, ctr_AnoInicio, ctr_Unidade) VALUES (3, 1, '2016', 'IME');
+INSERT INTO rel_curr_tri(ctr_curr_id, ctr_tr_id, ctr_AnoInicio, ctr_Unidade) VALUES (1, 1, '2010', 'IME');
+INSERT INTO rel_curr_tri(ctr_curr_id, ctr_tr_id, ctr_AnoInicio, ctr_Unidade) VALUES (2, 1, '2010', 'IME');
+--rel_adm_curr
+INSERT INTO rel_adm_curr(acurr_adm_id, acurr_curr_id, acurr_DataInicio, acurr_DataTermino) VALUES (19, 1, '01/01/2010', '31/12/2014');
+INSERT INTO rel_adm_curr(acurr_adm_id, acurr_curr_id, acurr_DataInicio, acurr_DataTermino) VALUES (20, 2, '01/01/2018', '31/12/2020');
+--rel_tr_mod
+INSERT INTO rel_tr_mod(mtr_tr_id, mtr_mod_id) VALUES (1, 1);
+INSERT INTO rel_tr_mod(mtr_tr_id, mtr_mod_id) VALUES (1, 2);
+INSERT INTO rel_tr_mod(mtr_tr_id, mtr_mod_id) VALUES (1, 3);
+INSERT INTO rel_tr_mod(mtr_tr_id, mtr_mod_id) VALUES (2, 1);
+INSERT INTO rel_tr_mod(mtr_tr_id, mtr_mod_id) VALUES (2, 4);
+INSERT INTO rel_tr_mod(mtr_tr_id, mtr_mod_id) VALUES (2, 5);
+--rel_dis_mod
+INSERT INTO rel_dis_mod(dmod_dis_id, dmod_mod_id) VALUES (1, 1);
+INSERT INTO rel_dis_mod(dmod_dis_id, dmod_mod_id) VALUES (2, 2);
+INSERT INTO rel_dis_mod(dmod_dis_id, dmod_mod_id) VALUES (2, 3);
+INSERT INTO rel_dis_mod(dmod_dis_id, dmod_mod_id) VALUES (3, 1);
+INSERT INTO rel_dis_mod(dmod_dis_id, dmod_mod_id) VALUES (4, 1);
+--rel_us_pf
+INSERT INTO rel_us_pf(upf_us_id, upf_pf_id, upf_DataInicio, upf_DataTermino) VALUES (1, 1, '01/01/2017', '30/06/2017');
+INSERT INTO rel_us_pf(upf_us_id, upf_pf_id, upf_DataInicio, upf_DataTermino) VALUES (1, 2, '01/08/2017', '31/12/2017');
+INSERT INTO rel_us_pf(upf_us_id, upf_pf_id, upf_DataInicio, upf_DataTermino) VALUES (2, 1, '01/01/2017', '30/06/2017');
+INSERT INTO rel_us_pf(upf_us_id, upf_pf_id, upf_DataInicio, upf_DataTermino) VALUES (3, 1, '01/01/2017', '30/06/2017');
+--rel_pf_sr
+INSERT INTO rel_pf_sr(psr_pf_id, psr_sr_id) VALUES (1, 1);
+INSERT INTO rel_pf_sr(psr_pf_id, psr_sr_id) VALUES (1, 2);
+INSERT INTO rel_pf_sr(psr_pf_id, psr_sr_id) VALUES (1, 3);
+INSERT INTO rel_pf_sr(psr_pf_id, psr_sr_id) VALUES (2, 3);
+INSERT INTO rel_pf_sr(psr_pf_id, psr_sr_id) VALUES (3, 2);
+
