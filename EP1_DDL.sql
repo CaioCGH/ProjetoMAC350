@@ -237,12 +237,14 @@ INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000020, 'Gubi', 'Gubi4
 INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000021, 'Beti Kira', 'issoefacil@uspfake.com');
 
 --ALUNOS
+
+--Existe um novo atributo "al_nome" e "al_nusp" pra ficar coerente com a dependencia funcional.. não esquecer de inserir aqui embaixo
+INSERT INTO aluno (al_id, al_DataIngresso, al_CodCurso, al_nome, al_Livres, al_Eletivas, al_Obrigatorias)
+	VALUES        (1    , '01/01/2019'   , 0001       , 'Alice'  , 0        , 0          , 0              );
 INSERT INTO aluno (al_id, al_DataIngresso, al_CodCurso, al_Livres, al_Eletivas, al_Obrigatorias)
-	VALUES        (1    , '01/01/2019'     , 0001       , 0        , 0          , 0              );
+	VALUES        (2    , '01/01/2018'     , 0001     , 0        , 0          , 20              );
 INSERT INTO aluno (al_id, al_DataIngresso, al_CodCurso, al_Livres, al_Eletivas, al_Obrigatorias)
-	VALUES        (2    , '01/01/2018'     , 0001       , 0        , 0          , 20              );
-INSERT INTO aluno (al_id, al_DataIngresso, al_CodCurso, al_Livres, al_Eletivas, al_Obrigatorias)
-	VALUES        (3    , '01/01/2018'     , 0001       , 0        , 0          , 21              );
+	VALUES        (3    , '01/01/2018'     , 0001     , 0        , 0          , 21              );
 INSERT INTO aluno (al_id, al_DataIngresso, al_CodCurso, al_Livres, al_Eletivas, al_Obrigatorias)
 	VALUES        (4    , '01/01/2018'     , 0002       , 0        , 0          , 22             );
 INSERT INTO aluno (al_id, al_DataIngresso, al_CodCurso, al_Livres, al_Eletivas, al_Obrigatorias)
@@ -259,6 +261,7 @@ INSERT INTO aluno (al_id, al_DataIngresso, al_CodCurso, al_Livres, al_Eletivas, 
 	VALUES        (10   , '01/01/2016'     , 0001       , 8        , 10         , 55              );
 
 --PROFESSORES
+--Existe um novo atributo "pr_nome" e "pr_nusp" pra ficar coerente com a dependencia funcional.. não esquecer de inserir aqui embaixo
 INSERT INTO professor (pr_id , pr_Area			    	, pr_Departamento, pr_DataAdmissao)
 	VALUES            (11    , 'computação musical' 	, 'MAC'          , '01/01/1974'     );
 INSERT INTO professor (pr_id , pr_Area			    	, pr_Departamento, pr_DataAdmissao)
@@ -281,8 +284,10 @@ INSERT INTO professor (pr_id , pr_Area			    	, pr_Departamento, pr_DataAdmissao
 	VALUES            (20    , 'probabilidade'		 	, 'MAE'          , '01/01/2000'     );
 
 -- administradores
-INSERT INTO administrador (adm_id) VALUES (19);
-INSERT INTO administrador (adm_id) VALUES (20);
+--não esquecer de inserir aqui embaixo
+
+INSERT INTO administrador (adm_id, adm_nome, adm_dataini, adm_dataterm) VALUES (19,....);
+INSERT INTO administrador (adm_id, adm_nome, adm_dataini, adm_dataterm) VALUES (20,....);
 
 
 -- disciplinas
@@ -403,10 +408,17 @@ INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_Period
 
 
 --prerequisitos
-INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (6, 2);
-INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (8, 2);
-INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (9, 2);
-INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (10, 4);
+--nao esquecer de adicionar o "prq_id" e exemplos de povoar
+INSERT INTO prerequisitos (prq_id, prq_dis1_id, prq_dis2_id) VALUES (1, 6, 2);
+INSERT INTO prerequisitos (prq_dis1_id, prq_dis2_id) VALUES (8, 2);
+INSERT INTO prerequisitos (prq_dis1_id, prq_dis2_id) VALUES (9, 2);
+INSERT INTO prerequisitos (prq_dis1_id, prq_dis2_id) VALUES (10, 4);
+INSERT INTO prerequisitos (prq_dis1_id, prq_dis2_id) VALUES (6, 2);
+INSERT INTO prerequisitos (prq_dis1_id, prq_dis2_id) VALUES (6, 2);
+INSERT INTO prerequisitos (prq_dis1_id, prq_dis2_id) VALUES (6, 2);
+INSERT INTO prerequisitos (prq_dis1_id, prq_dis2_id) VALUES (6, 2);
+INSERT INTO prerequisitos (prq_dis1_id, prq_dis2_id) VALUES (6, 2);
+INSERT INTO prerequisitos (prq_dis1_id, prq_dis2_id) VALUES (6, 2);
 
 --currículos
 INSERT INTO curriculo (curr_adm_id, curr_AnoIni, curr_AnoFim, curr_Curso                           , curr_Unidade)

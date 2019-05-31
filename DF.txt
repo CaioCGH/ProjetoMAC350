@@ -10,6 +10,7 @@
   + {pe_NUSP -> pe_Nome}
 
 
+
 #ALUNO
 ####### - OK
 >Atributos
@@ -62,6 +63,13 @@
 
 >Dependências funcionais
   ?? - Acho que uma disciplina aqui pode ter codigo iguais, mas ser oferecida por duas pessoas diferentes.
+
+========================================================================================================
+========================================================================================================
+  ((((((((((((edu + matheus))))))))))))))): achamos que não precisa fazer essa diferenciação!
+========================================================================================================
+========================================================================================================
+
   + {dis_Codigo -> dis_Nome}
   + {dis_Codigo -> dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_PreRequisitosdis_Descricao} -> ??
 
@@ -145,7 +153,7 @@
 >Dependências funcionais
   + {cur_NUSPaluno, cur_DataIni, cur_NUSPprf -> cur_Codigo, cur_Nota, cur_Freq}
 
-#PLANEJA
-#########
->Atributos
+====================================================================================================
+DAQUI PRA FRENTE, TODOS ESTÃO OK!!!
+
   
