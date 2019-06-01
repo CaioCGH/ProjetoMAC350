@@ -125,6 +125,98 @@ $$
 $$
 LANGUAGE sql;
 
+CREATE OR REPLACE FUNCTION insert_rel_pe_us (INOUT pus_pe_id int, INOUT pus_us_id int, OUT id int)
+AS 
+$$
+	INSERT INTO rel_pe_us (pus_pe_id, pus_us_id)
+	VALUES ($1, $2)
+	RETURNING pus_pe_id, pus_us_id, pus_id
+
+$$
+LANGUAGE sql;
+
+CREATE OR REPLACE FUNCTION insert_cursa(INOUT cur_al_id int, INOUT cur_of_id int, INOUT cur_Nota float, INOUT cur_Freq int, OUT id int)
+AS 
+$$
+	INSERT INTO cursa(cur_al_id, cur_of_id, cur_Nota, cur_Freq)
+	VALUES ($1, $2, $3, $4)
+	RETURNING cur_al_id, cur_of_id, cur_Nota, cur_Freq, cur_id
+
+$$
+LANGUAGE sql;
+
+CREATE OR REPLACE FUNCTION insert_planeja(INOUT pla_al_id int, INOUT pla_dis_id int, INOUT pla_DataInicio text, OUT id int)
+AS 
+$$
+	INSERT INTO planeja(pla_al_id, pla_dis_id, pla_DataInicio)
+	VALUES ($1, $2, $3)
+	RETURNING pla_al_id, pla_dis_id, pla_DataInicio, pla_id
+
+$$
+LANGUAGE sql;
+
+CREATE OR REPLACE FUNCTION insert_rel_curr_tri(INOUT ctr_curr_id int, INOUT ctr_tr_id int,  INOUT ctr_AnoInicio text, INOUT ctr_Unidade text, OUT id int)
+AS 
+$$
+	INSERT INTO rel_curr_tri(ctr_curr_id, ctr_tr_id, ctr_AnoInicio, ctr_Unidade)
+	VALUES ($1, $2, $3, $4)
+	RETURNING ctr_curr_id, ctr_tr_id, ctr_AnoInicio, ctr_Unidade, ctr_id
+
+$$
+LANGUAGE sql;
+
+CREATE OR REPLACE FUNCTION insert_rel_adm_curr(INOUT acurr_adm_id int, INOUT acurr_curr_id int, INOUT acurr_DataInicio TEXT, 
+											   INOUT acurr_DataTermino TEXT, OUT id int)
+AS 
+$$
+	INSERT INTO rel_adm_curr(acurr_adm_id, acurr_curr_id, acurr_DataInicio, acurr_DataTermino)
+	VALUES ($1, $2, $3, $4)
+	RETURNING acurr_adm_id, acurr_curr_id, acurr_DataInicio, acurr_DataTermino, acurr_id
+
+$$
+LANGUAGE sql;
+
+CREATE OR REPLACE FUNCTION insert_rel_tr_mod(INOUT mtr_tr_id INT, INOUT mtr_mod_id INT, OUT id int)
+AS 
+$$
+	INSERT INTO rel_tr_mod(mtr_tr_id, mtr_mod_id)
+	VALUES ($1, $2)
+	RETURNING mtr_tr_id, mtr_mod_id, mtr_id
+
+$$
+LANGUAGE sql;
+
+CREATE OR REPLACE FUNCTION insert_rel_dis_mod(INOUT dmod_dis_id INT, INOUT dmod_mod_id INT, OUT id int)
+AS 
+$$
+	INSERT INTO rel_dis_mod(dmod_dis_id, dmod_mod_id)
+	VALUES ($1, $2)
+	RETURNING dmod_dis_id, dmod_mod_id, dmod_id
+
+$$
+LANGUAGE sql;
+
+CREATE OR REPLACE FUNCTION insert_rel_us_pf(INOUT upf_us_id INT, INOUT upf_pf_id INT, INOUT upf_DataInicio text, 
+											INOUT upf_DataTermino text, OUT id int)
+AS 
+$$
+	INSERT INTO rel_us_pf(upf_us_id, upf_pf_id, upf_DataInicio, upf_DataTermino)
+	VALUES ($1, $2, $3, $4)
+	RETURNING upf_us_id, upf_pf_id, upf_DataInicio, upf_DataTermino, upf_id
+
+$$
+LANGUAGE sql;
+
+CREATE OR REPLACE FUNCTION insert_rel_pf_sr(INOUT psr_pf_id int, INOUT psr_sr_id int, OUT id int)
+AS 
+$$
+	INSERT INTO rel_pf_sr(psr_pf_id, psr_sr_id)
+	VALUES ($1, $2)
+	RETURNING psr_pf_id, psr_sr_id, psr_id
+
+$$
+LANGUAGE sql;
+
 COMMIT;
 
 

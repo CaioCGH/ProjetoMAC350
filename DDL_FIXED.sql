@@ -505,9 +505,9 @@ INSERT INTO cursa(cur_al_id, cur_of_id, cur_Nota, cur_Freq) VALUES (1, 1, 10.0, 
 INSERT INTO cursa(cur_al_id, cur_of_id, cur_Nota, cur_Freq) VALUES (2, 2, 7.0, 80);
 INSERT INTO cursa(cur_al_id, cur_of_id, cur_Nota, cur_Freq) VALUES (3, 3, 5.0, 70);
 --planeja
-INSERT INTO planeja(pla_id, pla_al_id, pla_dis_id, pla_DataInicio) VALUES (1, 1, 3, '01/01/2020');
-INSERT INTO planeja(pla_id, pla_al_id, pla_dis_id, pla_DataInicio) VALUES (2, 2, 4, '01/01/2020');
-INSERT INTO planeja(pla_id, pla_al_id, pla_dis_id, pla_DataInicio) VALUES (3, 2, 5, '01/01/2020');
+INSERT INTO planeja(pla_al_id, pla_dis_id, pla_DataInicio) VALUES (1, 3, '01/01/2020');
+INSERT INTO planeja(pla_al_id, pla_dis_id, pla_DataInicio) VALUES (2, 4, '01/01/2020');
+INSERT INTO planeja(pla_al_id, pla_dis_id, pla_DataInicio) VALUES (2, 5, '01/01/2020');
 --rel_curr_tri
 INSERT INTO rel_curr_tri(ctr_curr_id, ctr_tr_id, ctr_AnoInicio, ctr_Unidade) VALUES (1, 1, '2016', 'IME');
 INSERT INTO rel_curr_tri(ctr_curr_id, ctr_tr_id, ctr_AnoInicio, ctr_Unidade) VALUES (2, 1, '2016', 'IME');
