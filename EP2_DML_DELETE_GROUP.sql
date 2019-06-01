@@ -1,12 +1,12 @@
 BEGIN;
 
-CREATE OR REPLACE FUNCTION delete_pessoa_nusp(pe_nusp TEXT)
+CREATE OR REPLACE FUNCTION delete_pessoa_nusp(pe_nusp integer)
 RETURNS VOID AS $$
 DECLARE
 BEGIN
-	DELETE FROM pessoas WHERE pe_nusp = $1;
+	DELETE FROM pessoa WHERE pessoa.pe_NUSP = $1;
 END;
-$$  LANGUAGE plpgsql
+$$  LANGUAGE plpgsql;
 
 
 COMMIT;

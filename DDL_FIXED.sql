@@ -29,7 +29,7 @@ CREATE TABLE pessoa (
 	pe_id 		SERIAL,
 	pe_NUSP 	int,
 	pe_Nome 	varchar(80),
-	pe_Email 	varchar(80),
+	pe_Email 	email,
 	CONSTRAINT pk_pessoa PRIMARY KEY (pe_id),
 	CONSTRAINT sk_pessoa UNIQUE (pe_email),
 	CONSTRAINT tk_pessoa UNIQUE (pe_NUSP)
