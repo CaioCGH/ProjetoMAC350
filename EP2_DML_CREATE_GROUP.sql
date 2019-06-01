@@ -220,5 +220,5 @@ LANGUAGE sql;
 COMMIT;
 
 
--- Para inserir, digitar, dentro do BD, "select insert_pessoa('e-mail qualquer, nusp qualquer, 'nome qualquer);"
+-- Para inserir, digitar, dentro do BD, "select * from insert_pessoa('e-mail qualquer, nusp qualquer, 'nome qualquer);"
  
