@@ -4,7 +4,7 @@ CREATE OR REPLACE FUNCTION update_pessoa(pe_id integer, pe_nusp integer, pe_emai
 RETURNS VOID AS $$
 DECLARE
 BEGIN
-	UPDATE pessoa SET pe_nusp = $2, pe_email = $3, pe_nome = $4 WHERE pessoa.pe_id = $1;
+	UPDATE pessoa SET pe_nusp = pe_nusp, pe_email = pe_email, pe_nome = pe_nome WHERE pessoa.pe_id = pe_id;
 END;
 $$  LANGUAGE plpgsql;
 

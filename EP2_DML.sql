@@ -1,6 +1,5 @@
 
 --pessoas
-DELETE FROM pessoa WHERE 
 INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000000, 'Bob', 'bob666@uspfake.com');
 INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000001, 'Alice', 'Alice123@uspfake.com');
 INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000002, 'Joe', 'joejoe@uspfake.com');
@@ -295,3 +294,4 @@ INSERT INTO rel_pf_sr(psr_pf_id, psr_sr_id) VALUES (1, 2);
 INSERT INTO rel_pf_sr(psr_pf_id, psr_sr_id) VALUES (1, 3);
 INSERT INTO rel_pf_sr(psr_pf_id, psr_sr_id) VALUES (2, 3);
 INSERT INTO rel_pf_sr(psr_pf_id, psr_sr_id) VALUES (3, 2);
+
