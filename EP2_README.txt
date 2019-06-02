@@ -20,6 +20,9 @@ psql -U myusername -d mydatabase -a -f EP2_DML_CLEAN.sql
 
 As funções dentro do EP2_DML_CREATE_GROUP.sql
 
+
+
+-------------------------------------------------------------------------------------
 Função e exemplo de inserção de pessoa:
 insert_pessoa(INOUT pe_email text, INOUT pe_nusp integer, INOUT pe_nome text, OUT id int)
 SELECT * FROM insert_pessoa(0000000, 'Teste', 'teste@email.com');
@@ -112,7 +115,74 @@ Função e exemplo de inserção de rel_pf_sr:
 insert_rel_pf_sr(INOUT psr_pf_id int, INOUT psr_sr_id int, OUT id int)
 SELECT * FROM insert_rel_pf_sr(1, 1);
 
+-------------------------------------------------------------------------------------
+As funções dentro do EP2_DML_UPDATE_GROUP.sql
+
+Função e exemplo de modificação de pessoa:
+update_pessoa(pe_id integer, pe_nusp integer, pe_email email, pe_nome TEXT)
+SELECT * FROM update_pessoa(1, 0000000, 'Teste', 'teste@email.com');
+
+Função e exemplo de modificação de aluno:
+update_aluno(al_id integer, al_DataIngresso TEXT, al_CodCurso TEXT, al_Livres integer, al_Eletivas integer, al_Obrigatorias integer)
+SELECT * FROM update_aluno(1, 20, '01/01/2017', 0001, 0, 5, 50);
 
 
+Função e exemplo de modificação de professor:
+update_professor(pr_id integer, pr_Area TEXT, pr_Departamento TEXT, pr_DataAdmissao TEXT)
+SELECT * FROM insert_professor (1, 11, 'computação musical', 'MAC', '01/01/1974');
+
+
+Função e exemplo de modificação de disciplina:
+update_disciplina(dis_id integer, dis_Codigo integer, dis_Nome TEXT, dis_Aula integer, dis_Trabalho integer, dis_PeriodoIdeal TEXT, dis_Ementa TEXT, dis_Descricao TEXT)
+SELECT * FROM insert_disciplina(1, MAC0105','Fundamentos de Matemática para a Computação',4, 0, 1,
+		'Discurso matemático: leitura e escrita matemática. Estratégias de demonstrações. Princípio da indução finita. Sequências, somas, recorrências e contagem. Algoritmo de Euclides. Divisibilidade nos inteiros. Sistemas de numeração. MDC e MMC. Teorema de Bézout. Teorema fundamental da aritmética. Congruências. O anel dos inteiros módulo m. Os corpos Zp. Relações de equivalência, conjunto quociente, definição de funções e operações no conjunto quociente. Ordem, fecho transitivo de relações. Conjuntos infinitos.',
+		'OBJETIVOS:  Familiarizar o aluno com a linguagem matemática e com a estrutura das demonstrações matemáticas, bem como com alguns fatos e noções elementares sobre números, conjuntos, funções e relações.'
+	);
+
+
+Função e exemplo de modificação de prerequisito:
+update_prerequisito(prq_id integer, prq_dis1_id integer, prq_dis2_id integer)
+SELECT * FROM update_prerequisito(1, 6, 2)
+
+Função e exemplo de modificação de curriculo:
+update_curriculo(curr_id integer, curr_AnoIni TEXT, curr_AnoFim TEXT, curr_Curso TEXT, curr_Unidade TEXT)
+SELECT * FROM update_curriculo(1, '2008','2014', 'Bacharelado em Ciência da Computação', 'IME');
+
+
+Função e exemplo de modificação de modulo:
+update_modulo(mod_id integer, mod_Codigo integer, mod_Nome TEXT)
+SELECT * FROM update_modulo(1, 1, 'Desenvolvimento de Software I');
+
+Função e exemplo de modificação de trilha:
+update_trilha(tr_id integer, tr_Codigo integer, tr_Nome TEXT)
+SELECT * FROM update_trilha(1, 1, 'Geral');
+
+Função e exemplo de modificação de perfil:
+update_perfil(pf_id integer, pf_Tipo integer)
+SELECT * FROM update_perfil(1, 'aluno');
+
+Função e exemplo de modificação de servico:
+update_servico(sr_id integer, sr_Nome TEXT, sr_Descricao TEXT)
+SELECT * FROM update_servico(1, 'ADDNOTA','Adicionar Nota a um aluno');
+
+Função e exemplo de modificação de users:
+update_users(us_id integer, us_email TEXT, us_password TEXT)
+SELECT * FROM update_users(1, 'qualquer1@usp.br', '123456');
+
+Função e exemplo de modificação de oferecimento:
+update_oferecimento(of_id integer, of_pr_id integer, of_dis_id integer, of_DataInicio integer, of_Vagas integer, of_Horario TEXT)
+SELECT * FROM update_oferecimento(1, 1, 1,'01/01/2019', 30, 'SEG 08:00 - 10:00, QUA 10:00 - 12:00');
+
+Função e exemplo de modificação de rel_curr_tri:
+update_rel_curr_tri(ctr_id integer, ctr_curr_id integer, ctr_tr_id integer, ctr_AnoInicio TEXT, ctr_Unidade TEXT)
+SELECT * FROM update_rel_curr_tri (1, 1, 1, '2016', 'IME');
+
+Função e exemplo de modificação de rel_tr_mod:
+update_rel_tr_mod(mtr_id integer, mtr_tr_id integer, mtr_mod_id integer)
+SELECT * FROM update_rel_tr_mod (1, 1, 1);
+
+Função e exemplo de modificação de rel_dis_mod:
+update_rel_dis_mod(dmod_id integer, dmod_dis_id integer, dmod_mod_id integer)
+SELECT * FROM update_rel_dis_mod (1, 1, 1);
 
 

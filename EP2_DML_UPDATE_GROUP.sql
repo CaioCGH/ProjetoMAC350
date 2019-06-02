@@ -125,7 +125,6 @@ $$
 BEGIN
 	UPDATE rel_dis_mod SET dmod_dis_id = $2, dmod_mod_id = $3 WHERE rel_dis_mod.dmod_id = $1;
 END
-END
 
 $$
 LANGUAGE plpgsql;
