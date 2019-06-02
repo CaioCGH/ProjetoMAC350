@@ -22,4 +22,25 @@ BEGIN;
 	END; $$
 
 	LANGUAGE plpgsql;
+
+	CREATE OR REPLACE FUNCTION alunos_curso(id integer)
+	RETURNS TABLE (
+		nome_aluno VARCHAR,
+		id_curso int
+	)
+	AS $$
+	BEGIN 
+		RETURN QUERY SELECT 
+		cast(pe_nome as varchar),
+		cast(cur_id as integer)
+
+		FROM
+		PESSOA INNER JOIN CURSA ON pessoa.pe_id = cursa.cur_al_id
+		WHERE
+		cur_id = id;
+
+	END; $$
+
+	LANGUAGE plpgsql;
+
 COMMIT;
