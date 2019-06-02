@@ -4,7 +4,7 @@ CREATE OR REPLACE FUNCTION update_pessoa(pe_id integer, pe_nusp integer, pe_emai
 RETURNS VOID AS $$
 DECLARE
 BEGIN
-	UPDATE pessoa SET pe_nusp = pe_nusp, pe_email = pe_email, pe_nome = pe_nome WHERE pessoa.pe_id = pe_id;
+	UPDATE pessoa SET pe_nusp = $2, pe_email = $3, pe_nome = $4 WHERE pessoa.pe_id = $1;
 END;
 $$  LANGUAGE plpgsql;
 
@@ -22,15 +22,19 @@ CREATE OR REPLACE FUNCTION update_professor(pr_id integer, pr_Area TEXT, pr_Depa
 RETURNS VOID AS $$
 DECLARE
 BEGIN
-	UPDATE aluno SET pr_Area = $2, pr_Departamento = $3, pr_DataAdmissao = $4 WHERE professor.pr_id = $1;
+	UPDATE professor SET pr_Area = $2, pr_Departamento = $3, pr_DataAdmissao = $4 WHERE professor.pr_id = $1;
 END;
 $$  LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION update_disciplina(dis_id integer, dis_Codigo integer, dis_Nome TEXT, dis_Aula integer, dis_Trabalho integer, dis_PeriodoIdeal TEXT, dis_Ementa TEXT, dis_Descricao TEXT)
+CREATE OR REPLACE FUNCTION update_disciplina(dis_id integer, dis_Codigo integer, dis_Nome TEXT, dis_Aula integer, dis_Trabalho integer,
+											 dis_PeriodoIdeal TEXT, dis_Ementa TEXT, dis_Descricao TEXT)
 RETURNS VOID AS $$
 DECLARE
 BEGIN
-	UPDATE disciplina SET dis_Codigo = $2, dis_Nome = $3, dis_Aula = $4, dis_Trabalho = $5, dis_PeriodoIdeal = $6, dis_Ementa = $7, dis_Descricao = $8 WHERE disciplina.dis_id = $1;
+	UPDATE disciplina SET dis_Codigo = $2, dis_Nome = $3, dis_Aula = $4, dis_Trabalho = $5, dis_PeriodoIdeal = $6, 
+						  dis_Ementa = $7, dis_Descricao = $8 
+	WHERE 
+		disciplina.dis_id = $1;
 END;
 $$  LANGUAGE plpgsql;
 

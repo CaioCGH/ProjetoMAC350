@@ -21,5 +21,3 @@ DELETE FROM professor;
 DELETE FROM aluno;
 DELETE FROM pessoa;
 DELETE FROM users;
-
-
