@@ -1,8 +1,8 @@
 BEGIN;
 
-	CREATE OR REPLACE FUNCTION select_pessoa(p_query)
+	CREATE OR REPLACE FUNCTION select_pessoa(p_query text)
 	RETURNS TABLE (
-		pe_email VARCHAR
+		pe_email VARCHAR,
 		pe_nusp INT,
 		pe_nome VARCHAR
 	)
@@ -19,6 +19,6 @@ BEGIN;
 		WHERE
 		pe_nome ILIKE p_query;
 
-	END; $$
+	END $$
 
-	LANGUAGE plpglql;
+	LANGUAGE plpgsql;
