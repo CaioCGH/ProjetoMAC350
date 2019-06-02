@@ -1,6 +1,6 @@
 BEGIN;
 
-	CREATE OR REPLACE FUNCTION select_pessoa(p_query text)
+	CREATE OR REPLACE FUNCTION select_pessoa(p_query VARCHAR)
 	RETURNS TABLE (
 		pe_email VARCHAR,
 		pe_nusp INT,
