@@ -72,12 +72,32 @@ BEGIN;
 	BEGIN 
 		RETURN QUERY SELECT 
 		cast(dis_nome as varchar),
-		cast(dmod_mod_id as integer)
+		cast(dis_id as integer)
 
 		FROM
-		REL_DIS_MOD INNER JOIN DISCIPLINA ON rel_dis_mod.dmod_mod_id = disciplina.dis_id 
+		REL_DIS_MOD INNER JOIN DISCIPLINA ON rel_dis_mod.dmod_dis_id = disciplina.dis_id 
 		WHERE
 		dmod_mod_id = id;
+
+	END; $$
+
+	LANGUAGE plpgsql;
+
+	CREATE OR REPLACE FUNCTION modulos_trilha(id integer)
+	RETURNS TABLE (
+		nome_modulo VARCHAR,
+		id_trilha int
+	)
+	AS $$
+	BEGIN 
+		RETURN QUERY SELECT 
+		cast(mod_nome as varchar),
+		cast(mtr_tr_id as integer)
+
+		FROM
+		REL_TR_MOD INNER JOIN MODULO ON rel_tr_mod.mtr_mod_id = MODULO.mod_id 
+		WHERE
+		mtr_tr_id = id;
 
 	END; $$
 
