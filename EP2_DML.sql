@@ -20,6 +20,16 @@ INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000018, 'Euclides', 'e
 INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000019, 'Linus Torvalds', 'linuxxx@uspfake.com');
 INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000020, 'Gubi', 'Gubi42@uspfake.com');
 INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000021, 'Beti Kira', 'issoefacil@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000023, 'Primo 23', 'primo23@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000029, 'Primo 29', 'primo29@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000031, 'Primo 31', 'primo31@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000037, 'Primo 37', 'primo37@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000041, 'Primo 41', 'primo41@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000043, 'Primo 43', 'primo43@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000047, 'Primo 47', 'primo47@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000053, 'Primo 53', 'primo53@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000059, 'Primo 59', 'primo59@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000061, 'Primo 61', 'primo61@uspfake.com');
 
 --ALUNOS
 
@@ -73,9 +83,17 @@ INSERT INTO professor (pr_id , pr_Area			    	, pr_Departamento, pr_DataAdmissao
 
 INSERT INTO administrador (adm_id) VALUES (19);
 INSERT INTO administrador (adm_id) VALUES (20);
-
+INSERT INTO administrador (adm_id) VALUES (21);
+INSERT INTO administrador (adm_id) VALUES (22);
+INSERT INTO administrador (adm_id) VALUES (23);
+INSERT INTO administrador (adm_id) VALUES (24);
+INSERT INTO administrador (adm_id) VALUES (25);
+INSERT INTO administrador (adm_id) VALUES (26);
+INSERT INTO administrador (adm_id) VALUES (27);
+INSERT INTO administrador (adm_id) VALUES (28);
 
 -- disciplinas
+
 INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_Descricao)
 	VALUES  (
 		'MAC0105',
@@ -181,6 +199,16 @@ INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_Period
 		' Objetivos: Aprimorar o conhecimento e as habilidades dos alunos introduzindo o cálculo diferencial de funções de duas ou mais variáveis.'
 	);
 
+INSERT INTO disciplina (dis_Codigo, dis_Nome, dis_Aula, dis_Trabalho, dis_PeriodoIdeal, dis_Ementa, dis_Descricao)
+	VALUES  (
+		'MAC0000',
+		'Entrada no Curso',
+		0,
+		0,
+		0,
+		'Começar a fazer faculdade.',
+		'Objetivos: Conhecer novos horizontes.'
+	);
 
 --prerequisitos
 --No exemplo 1, a disciplina de id 2 é pre-requisito da disciplina de id 6.
@@ -188,12 +216,12 @@ INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (6, 2);
 INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (8, 2);
 INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (9, 2);
 INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (10, 4);
-INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (6, 2);
-INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (6, 2);
-INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (6, 2);
-INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (6, 2);
-INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (6, 2);
-INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (6, 2);
+INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (10, 11);
+INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (9, 11);
+INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (8, 11);
+INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (7, 11);
+INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (6, 11);
+INSERT INTO prerequisito (prq_dis1_id, prq_dis2_id) VALUES (5, 11);
 
 
 --currículos
@@ -207,6 +235,17 @@ INSERT INTO curriculo (curr_AnoIni, curr_AnoFim, curr_Curso                     
 	VALUES            ('2010'     , '2015'    , 'Bacharelado em Ciência da Computação', 'ICMC'      );
 INSERT INTO curriculo (curr_AnoIni, curr_AnoFim, curr_Curso                           , curr_Unidade)
 	VALUES            ('2015'     , null      , 'Bacharelado em Ciência da Computação', 'ICMC'      );
+INSERT INTO curriculo (curr_AnoIni, curr_AnoFim, curr_Curso                           , curr_Unidade)
+	VALUES            ('2010'     , '2015'    , 'Bacharelado em Sistemas de Informações', 'EACH'    );
+INSERT INTO curriculo (curr_AnoIni, curr_AnoFim, curr_Curso                           , curr_Unidade)
+	VALUES            ('2015'     , null      , 'Bacharelado em Sistemas de Informações', 'EACH'	);
+INSERT INTO curriculo (curr_AnoIni, curr_AnoFim, curr_Curso                           , curr_Unidade)
+	VALUES            ('2016'     , null      , 'Bacharelado em Estatística'		  , 'IME'       );
+INSERT INTO curriculo (curr_AnoIni, curr_AnoFim, curr_Curso                           , curr_Unidade)
+	VALUES            ('2013'     , '2016'    , 'Bacharelado em Estatística'		  , 'IME'       );
+INSERT INTO curriculo (curr_AnoIni, curr_AnoFim, curr_Curso                           , curr_Unidade)
+	VALUES            ('2012'     , '2015'    , 'Licenciatura em Matemática'		  , 'IME'       );
+
 
 INSERT INTO modulo	  (mod_Codigo, mod_Nome) VALUES (1, 'Desenvolvimento de Software I');
 INSERT INTO modulo	  (mod_Codigo, mod_Nome) VALUES (2, 'Desenvolvimento de Software II');
@@ -233,43 +272,121 @@ INSERT INTO trilha	  (tr_Codigo, tr_Nome) VALUES (2, 'Sistemas de Software');
 INSERT INTO trilha	  (tr_Codigo, tr_Nome) VALUES (3, 'Inteligência Artificial');
 INSERT INTO trilha	  (tr_Codigo, tr_Nome) VALUES (4, 'Ciência de Dados');
 INSERT INTO trilha	  (tr_Codigo, tr_Nome) VALUES (5, 'Teoria da Computação');
+INSERT INTO trilha	  (tr_Codigo, tr_Nome) VALUES (1, 'Teoria dos Quantum');
+INSERT INTO trilha	  (tr_Codigo, tr_Nome) VALUES (2, 'Matemático');
+INSERT INTO trilha	  (tr_Codigo, tr_Nome) VALUES (3, 'White Hat');
+INSERT INTO trilha	  (tr_Codigo, tr_Nome) VALUES (4, 'Black Hat');
+INSERT INTO trilha	  (tr_Codigo, tr_Nome) VALUES (5, 'Red Hat');
+
 --perfis
 INSERT INTO perfil (pf_Tipo) VALUES ('aluno');
 INSERT INTO perfil (pf_Tipo) VALUES ('administrador');
 INSERT INTO perfil (pf_Tipo) VALUES ('monitor');
+INSERT INTO perfil (pf_Tipo) VALUES ('professor');
+INSERT INTO perfil (pf_Tipo) VALUES ('visitante');
+INSERT INTO perfil (pf_Tipo) VALUES ('aluno de fora');
+INSERT INTO perfil (pf_Tipo) VALUES ('pesquisador');
+INSERT INTO perfil (pf_Tipo) VALUES ('aluno especial');
+INSERT INTO perfil (pf_Tipo) VALUES ('palestrante');
+INSERT INTO perfil (pf_Tipo) VALUES ('funcionário');
+
+
 --servico
 INSERT INTO servico (sr_Nome, sr_Descricao) VALUES ('ADDNOTA'   , 'Adicionar Nota a um aluno');
 INSERT INTO servico (sr_Nome, sr_Descricao) VALUES ('MODIFNOTA' , 'Modificar Nota de um aluno');
 INSERT INTO servico (sr_Nome, sr_Descricao) VALUES ('CONSULNOTA', 'Consultar Nota de um aluno');
+INSERT INTO servico (sr_Nome, sr_Descricao) VALUES ('INDISC'    , 'Inscrever na disciplina');
+INSERT INTO servico (sr_Nome, sr_Descricao) VALUES ('TRADISC'	, 'Trancar a disciplina');
+INSERT INTO servico (sr_Nome, sr_Descricao) VALUES ('CRIADISC' 	, 'Criar uma disciplina');
+INSERT INTO servico (sr_Nome, sr_Descricao) VALUES ('MREQ'		, 'Mandar requerimento');
+INSERT INTO servico (sr_Nome, sr_Descricao) VALUES ('RREQ' 		, 'Recusar requerimento');
+INSERT INTO servico (sr_Nome, sr_Descricao) VALUES ('AREQ'		, 'Aceitar requerimento');
+INSERT INTO servico (sr_Nome, sr_Descricao) VALUES ('APES'		, 'Solicitação de aproveitamento de estudos');
+	
 --oferecimento
 INSERT INTO oferecimento (of_pr_id, of_dis_id, of_DataInicio, of_Vagas, of_Horario) VALUES (11, 1,'01/01/2019', 30, 'SEG 08:00 - 10:00, QUA 10:00 - 12:00');
 INSERT INTO oferecimento (of_pr_id, of_dis_id, of_DataInicio, of_Vagas, of_Horario) VALUES (12, 2,'01/01/2019', 30, 'SEG 08:00 - 10:00, QUA 10:00 - 12:00');
 INSERT INTO oferecimento (of_pr_id, of_dis_id, of_DataInicio, of_Vagas, of_Horario) VALUES (13, 3,'01/01/2019', 30, 'SEG 08:00 - 10:00, QUA 10:00 - 12:00');
+INSERT INTO oferecimento (of_pr_id, of_dis_id, of_DataInicio, of_Vagas, of_Horario) VALUES (14, 4,'01/01/2019', 30, 'SEG 08:00 - 10:00, QUA 10:00 - 12:00');
+INSERT INTO oferecimento (of_pr_id, of_dis_id, of_DataInicio, of_Vagas, of_Horario) VALUES (15, 5,'01/01/2019', 30, 'SEG 08:00 - 10:00, QUA 10:00 - 12:00');
+INSERT INTO oferecimento (of_pr_id, of_dis_id, of_DataInicio, of_Vagas, of_Horario) VALUES (16, 6,'01/01/2019', 30, 'SEG 08:00 - 10:00, QUA 10:00 - 12:00');
+INSERT INTO oferecimento (of_pr_id, of_dis_id, of_DataInicio, of_Vagas, of_Horario) VALUES (17, 7,'01/01/2019', 30, 'SEG 08:00 - 10:00, QUA 10:00 - 12:00');
+INSERT INTO oferecimento (of_pr_id, of_dis_id, of_DataInicio, of_Vagas, of_Horario) VALUES (18, 8,'01/01/2019', 30, 'SEG 08:00 - 10:00, QUA 10:00 - 12:00');
+INSERT INTO oferecimento (of_pr_id, of_dis_id, of_DataInicio, of_Vagas, of_Horario) VALUES (19, 9,'01/01/2019', 30, 'SEG 08:00 - 10:00, QUA 10:00 - 12:00');
+INSERT INTO oferecimento (of_pr_id, of_dis_id, of_DataInicio, of_Vagas, of_Horario) VALUES (20,10,'01/01/2019', 30, 'SEG 08:00 - 10:00, QUA 10:00 - 12:00');
 --users
 INSERT INTO users(us_email, us_password) VALUES ('qualquer1@usp.br', '123456');
 INSERT INTO users(us_email, us_password) VALUES ('qualquer2@usp.br', '123456');
 INSERT INTO users(us_email, us_password) VALUES ('qualquer3@usp.br', '123456');
+INSERT INTO users(us_email, us_password) VALUES ('qualquer4@usp.br', '123456');
+INSERT INTO users(us_email, us_password) VALUES ('qualquer5@usp.br', '123456');
+INSERT INTO users(us_email, us_password) VALUES ('qualquer6@usp.br', '123456');
+INSERT INTO users(us_email, us_password) VALUES ('qualquer7@usp.br', '123456');
+INSERT INTO users(us_email, us_password) VALUES ('qualquer8@usp.br', '123456');
+INSERT INTO users(us_email, us_password) VALUES ('qualquer9@usp.br', '123456');
+INSERT INTO users(us_email, us_password) VALUES ('qualquer10@usp.br', '123456');
+
 --rel_pe_us
 INSERT INTO rel_pe_us (pus_pe_id, pus_us_id) VALUES (1, 1);
 INSERT INTO rel_pe_us (pus_pe_id, pus_us_id) VALUES (2, 2);
 INSERT INTO rel_pe_us (pus_pe_id, pus_us_id) VALUES (3, 3);
+INSERT INTO rel_pe_us (pus_pe_id, pus_us_id) VALUES (4, 4);
+INSERT INTO rel_pe_us (pus_pe_id, pus_us_id) VALUES (5, 5);
+INSERT INTO rel_pe_us (pus_pe_id, pus_us_id) VALUES (6, 6);
+INSERT INTO rel_pe_us (pus_pe_id, pus_us_id) VALUES (7, 7);
+INSERT INTO rel_pe_us (pus_pe_id, pus_us_id) VALUES (8, 8);
+INSERT INTO rel_pe_us (pus_pe_id, pus_us_id) VALUES (9, 9);
+INSERT INTO rel_pe_us (pus_pe_id, pus_us_id) VALUES (10, 10);
+
 --cursa
 INSERT INTO cursa(cur_al_id, cur_of_id, cur_Nota, cur_Freq) VALUES (1, 1, 10.0, 100);
 INSERT INTO cursa(cur_al_id, cur_of_id, cur_Nota, cur_Freq) VALUES (2, 2, 7.0, 80);
 INSERT INTO cursa(cur_al_id, cur_of_id, cur_Nota, cur_Freq) VALUES (3, 3, 5.0, 70);
+INSERT INTO cursa(cur_al_id, cur_of_id, cur_Nota, cur_Freq) VALUES (4, 4, 9.5, 91);
+INSERT INTO cursa(cur_al_id, cur_of_id, cur_Nota, cur_Freq) VALUES (5, 5, 8.2, 80);
+INSERT INTO cursa(cur_al_id, cur_of_id, cur_Nota, cur_Freq) VALUES (6, 6, 6.3, 70);
+INSERT INTO cursa(cur_al_id, cur_of_id, cur_Nota, cur_Freq) VALUES (7, 7, 0.0, 0);
+INSERT INTO cursa(cur_al_id, cur_of_id, cur_Nota, cur_Freq) VALUES (8, 8, 2.1, 0);
+INSERT INTO cursa(cur_al_id, cur_of_id, cur_Nota, cur_Freq) VALUES (9, 9, 3.3, 40);
+INSERT INTO cursa(cur_al_id, cur_of_id, cur_Nota, cur_Freq) VALUES (10, 10, 9.3, 100);
+
+
 --planeja
 INSERT INTO planeja(pla_al_id, pla_dis_id, pla_DataInicio) VALUES (1, 3, '01/01/2020');
 INSERT INTO planeja(pla_al_id, pla_dis_id, pla_DataInicio) VALUES (2, 4, '01/01/2020');
 INSERT INTO planeja(pla_al_id, pla_dis_id, pla_DataInicio) VALUES (2, 5, '01/01/2020');
+INSERT INTO planeja(pla_al_id, pla_dis_id, pla_DataInicio) VALUES (1, 4, '01/01/2020');
+INSERT INTO planeja(pla_al_id, pla_dis_id, pla_DataInicio) VALUES (2, 6, '01/01/2020');
+INSERT INTO planeja(pla_al_id, pla_dis_id, pla_DataInicio) VALUES (2, 7, '01/01/2020');
+INSERT INTO planeja(pla_al_id, pla_dis_id, pla_DataInicio) VALUES (1, 5, '01/01/2020');
+INSERT INTO planeja(pla_al_id, pla_dis_id, pla_DataInicio) VALUES (2, 8, '01/01/2020');
+INSERT INTO planeja(pla_al_id, pla_dis_id, pla_DataInicio) VALUES (2, 9, '01/01/2020');
+INSERT INTO planeja(pla_al_id, pla_dis_id, pla_DataInicio) VALUES (1, 6, '01/01/2020');
+
 --rel_curr_tri
 INSERT INTO rel_curr_tri(ctr_curr_id, ctr_tr_id, ctr_AnoInicio, ctr_Unidade) VALUES (1, 1, '2016', 'IME');
 INSERT INTO rel_curr_tri(ctr_curr_id, ctr_tr_id, ctr_AnoInicio, ctr_Unidade) VALUES (2, 1, '2016', 'IME');
 INSERT INTO rel_curr_tri(ctr_curr_id, ctr_tr_id, ctr_AnoInicio, ctr_Unidade) VALUES (3, 1, '2016', 'IME');
-INSERT INTO rel_curr_tri(ctr_curr_id, ctr_tr_id, ctr_AnoInicio, ctr_Unidade) VALUES (1, 1, '2010', 'IME');
-INSERT INTO rel_curr_tri(ctr_curr_id, ctr_tr_id, ctr_AnoInicio, ctr_Unidade) VALUES (2, 1, '2010', 'IME');
+INSERT INTO rel_curr_tri(ctr_curr_id, ctr_tr_id, ctr_AnoInicio, ctr_Unidade) VALUES (1, 3, '2010', 'IME');
+INSERT INTO rel_curr_tri(ctr_curr_id, ctr_tr_id, ctr_AnoInicio, ctr_Unidade) VALUES (2, 3, '2010', 'IME');
+INSERT INTO rel_curr_tri(ctr_curr_id, ctr_tr_id, ctr_AnoInicio, ctr_Unidade) VALUES (1, 4, '2016', 'IME');
+INSERT INTO rel_curr_tri(ctr_curr_id, ctr_tr_id, ctr_AnoInicio, ctr_Unidade) VALUES (2, 5, '2016', 'IME');
+INSERT INTO rel_curr_tri(ctr_curr_id, ctr_tr_id, ctr_AnoInicio, ctr_Unidade) VALUES (3, 6, '2016', 'IME');
+INSERT INTO rel_curr_tri(ctr_curr_id, ctr_tr_id, ctr_AnoInicio, ctr_Unidade) VALUES (1, 7, '2010', 'IME');
+INSERT INTO rel_curr_tri(ctr_curr_id, ctr_tr_id, ctr_AnoInicio, ctr_Unidade) VALUES (2, 9, '2010', 'IME');
+
 --rel_adm_curr
 INSERT INTO rel_adm_curr(acurr_adm_id, acurr_curr_id, acurr_DataInicio, acurr_DataTermino) VALUES (19, 1, '01/01/2010', '31/12/2014');
 INSERT INTO rel_adm_curr(acurr_adm_id, acurr_curr_id, acurr_DataInicio, acurr_DataTermino) VALUES (20, 2, '01/01/2018', '31/12/2020');
+INSERT INTO rel_adm_curr(acurr_adm_id, acurr_curr_id, acurr_DataInicio, acurr_DataTermino) VALUES (21, 1, '01/01/2010', '31/12/2014');
+INSERT INTO rel_adm_curr(acurr_adm_id, acurr_curr_id, acurr_DataInicio, acurr_DataTermino) VALUES (22, 2, '01/01/2018', '31/12/2020');
+INSERT INTO rel_adm_curr(acurr_adm_id, acurr_curr_id, acurr_DataInicio, acurr_DataTermino) VALUES (23, 1, '01/01/2010', '31/12/2014');
+INSERT INTO rel_adm_curr(acurr_adm_id, acurr_curr_id, acurr_DataInicio, acurr_DataTermino) VALUES (24, 2, '01/01/2018', '31/12/2020');
+INSERT INTO rel_adm_curr(acurr_adm_id, acurr_curr_id, acurr_DataInicio, acurr_DataTermino) VALUES (25, 1, '01/01/2010', '31/12/2014');
+INSERT INTO rel_adm_curr(acurr_adm_id, acurr_curr_id, acurr_DataInicio, acurr_DataTermino) VALUES (26, 2, '01/01/2018', '31/12/2020');
+INSERT INTO rel_adm_curr(acurr_adm_id, acurr_curr_id, acurr_DataInicio, acurr_DataTermino) VALUES (27, 1, '01/01/2010', '31/12/2014');
+INSERT INTO rel_adm_curr(acurr_adm_id, acurr_curr_id, acurr_DataInicio, acurr_DataTermino) VALUES (28, 2, '01/01/2018', '31/12/2020');
+
 --rel_tr_mod
 INSERT INTO rel_tr_mod(mtr_tr_id, mtr_mod_id) VALUES (1, 1);
 INSERT INTO rel_tr_mod(mtr_tr_id, mtr_mod_id) VALUES (1, 2);
@@ -277,21 +394,44 @@ INSERT INTO rel_tr_mod(mtr_tr_id, mtr_mod_id) VALUES (1, 3);
 INSERT INTO rel_tr_mod(mtr_tr_id, mtr_mod_id) VALUES (2, 1);
 INSERT INTO rel_tr_mod(mtr_tr_id, mtr_mod_id) VALUES (2, 4);
 INSERT INTO rel_tr_mod(mtr_tr_id, mtr_mod_id) VALUES (2, 5);
+INSERT INTO rel_tr_mod(mtr_tr_id, mtr_mod_id) VALUES (3, 1);
+INSERT INTO rel_tr_mod(mtr_tr_id, mtr_mod_id) VALUES (3, 2);
+INSERT INTO rel_tr_mod(mtr_tr_id, mtr_mod_id) VALUES (3, 3);
+INSERT INTO rel_tr_mod(mtr_tr_id, mtr_mod_id) VALUES (4, 1);
+
 --rel_dis_mod
 INSERT INTO rel_dis_mod(dmod_dis_id, dmod_mod_id) VALUES (1, 1);
 INSERT INTO rel_dis_mod(dmod_dis_id, dmod_mod_id) VALUES (2, 2);
 INSERT INTO rel_dis_mod(dmod_dis_id, dmod_mod_id) VALUES (2, 3);
 INSERT INTO rel_dis_mod(dmod_dis_id, dmod_mod_id) VALUES (3, 1);
 INSERT INTO rel_dis_mod(dmod_dis_id, dmod_mod_id) VALUES (4, 1);
+INSERT INTO rel_dis_mod(dmod_dis_id, dmod_mod_id) VALUES (1, 2);
+INSERT INTO rel_dis_mod(dmod_dis_id, dmod_mod_id) VALUES (2, 1);
+INSERT INTO rel_dis_mod(dmod_dis_id, dmod_mod_id) VALUES (2, 1);
+INSERT INTO rel_dis_mod(dmod_dis_id, dmod_mod_id) VALUES (3, 2);
+INSERT INTO rel_dis_mod(dmod_dis_id, dmod_mod_id) VALUES (4, 2);
+
 --rel_us_pf
 INSERT INTO rel_us_pf(upf_us_id, upf_pf_id, upf_DataInicio, upf_DataTermino) VALUES (1, 1, '01/01/2017', '30/06/2017');
 INSERT INTO rel_us_pf(upf_us_id, upf_pf_id, upf_DataInicio, upf_DataTermino) VALUES (1, 2, '01/08/2017', '31/12/2017');
 INSERT INTO rel_us_pf(upf_us_id, upf_pf_id, upf_DataInicio, upf_DataTermino) VALUES (2, 1, '01/01/2017', '30/06/2017');
 INSERT INTO rel_us_pf(upf_us_id, upf_pf_id, upf_DataInicio, upf_DataTermino) VALUES (3, 1, '01/01/2017', '30/06/2017');
+INSERT INTO rel_us_pf(upf_us_id, upf_pf_id, upf_DataInicio, upf_DataTermino) VALUES (4, 1, '01/01/2017', '30/06/2017');
+INSERT INTO rel_us_pf(upf_us_id, upf_pf_id, upf_DataInicio, upf_DataTermino) VALUES (5, 2, '01/08/2017', '31/12/2017');
+INSERT INTO rel_us_pf(upf_us_id, upf_pf_id, upf_DataInicio, upf_DataTermino) VALUES (6, 1, '01/01/2017', '30/06/2017');
+INSERT INTO rel_us_pf(upf_us_id, upf_pf_id, upf_DataInicio, upf_DataTermino) VALUES (7, 1, '01/01/2017', '30/06/2017');
+INSERT INTO rel_us_pf(upf_us_id, upf_pf_id, upf_DataInicio, upf_DataTermino) VALUES (8, 1, '01/01/2017', '30/06/2017');
+INSERT INTO rel_us_pf(upf_us_id, upf_pf_id, upf_DataInicio, upf_DataTermino) VALUES (9, 2, '01/08/2017', '31/12/2017');
+
 --rel_pf_sr
 INSERT INTO rel_pf_sr(psr_pf_id, psr_sr_id) VALUES (1, 1);
 INSERT INTO rel_pf_sr(psr_pf_id, psr_sr_id) VALUES (1, 2);
 INSERT INTO rel_pf_sr(psr_pf_id, psr_sr_id) VALUES (1, 3);
-INSERT INTO rel_pf_sr(psr_pf_id, psr_sr_id) VALUES (2, 3);
-INSERT INTO rel_pf_sr(psr_pf_id, psr_sr_id) VALUES (3, 2);
+INSERT INTO rel_pf_sr(psr_pf_id, psr_sr_id) VALUES (2, 4);
+INSERT INTO rel_pf_sr(psr_pf_id, psr_sr_id) VALUES (2, 5);
+INSERT INTO rel_pf_sr(psr_pf_id, psr_sr_id) VALUES (2, 6);
+INSERT INTO rel_pf_sr(psr_pf_id, psr_sr_id) VALUES (2, 7);
+INSERT INTO rel_pf_sr(psr_pf_id, psr_sr_id) VALUES (2, 8);
+INSERT INTO rel_pf_sr(psr_pf_id, psr_sr_id) VALUES (2, 9);
+INSERT INTO rel_pf_sr(psr_pf_id, psr_sr_id) VALUES (2, 10);
 
