@@ -23,10 +23,10 @@ BEGIN;
 
 	LANGUAGE plpgsql;
 
-	CREATE OR REPLACE FUNCTION alunos_curso(id integer)
+	CREATE OR REPLACE FUNCTION alunos_disciplina(id integer)
 	RETURNS TABLE (
 		nome_aluno VARCHAR,
-		id_curso int
+		id_disciplina int
 	)
 	AS $$
 	BEGIN 
@@ -38,6 +38,46 @@ BEGIN;
 		PESSOA INNER JOIN CURSA ON pessoa.pe_id = cursa.cur_al_id
 		WHERE
 		cur_id = id;
+
+	END; $$
+
+	LANGUAGE plpgsql;
+
+	CREATE OR REPLACE FUNCTION professor_disciplina(id integer)
+	RETURNS TABLE (
+		nome_professor VARCHAR,
+		id_disciplina int
+	)
+	AS $$
+	BEGIN 
+		RETURN QUERY SELECT 
+		cast(pe_nome as varchar),
+		cast(of_dis_id as integer)
+
+		FROM
+		PESSOA INNER JOIN OFERECIMENTO ON pessoa.pe_id = oferecimento.of_dis_id
+		WHERE
+		of_dis_id = id;
+
+	END; $$
+
+	LANGUAGE plpgsql;
+
+	CREATE OR REPLACE FUNCTION disciplinas_modulo(id integer)
+	RETURNS TABLE (
+		nome_disciplina VARCHAR,
+		id_disciplina int
+	)
+	AS $$
+	BEGIN 
+		RETURN QUERY SELECT 
+		cast(dis_nome as varchar),
+		cast(dmod_mod_id as integer)
+
+		FROM
+		REL_DIS_MOD INNER JOIN DISCIPLINA ON rel_dis_mod.dmod_mod_id = disciplina.dis_id 
+		WHERE
+		dmod_mod_id = id;
 
 	END; $$
 
