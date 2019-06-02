@@ -2,23 +2,24 @@ BEGIN;
 
 	CREATE OR REPLACE FUNCTION select_pessoa(p_query VARCHAR)
 	RETURNS TABLE (
-		pe_email VARCHAR,
-		pe_nusp INT,
-		pe_nome VARCHAR
+		email VARCHAR,
+		nusp INT,
+		nome VARCHAR
 	)
 
 	AS $$
 	BEGIN 
 		RETURN QUERY SELECT 
-		pe_email, 
+		pe_nome,
 		cast(pe_nusp as integer), 
-		pe_nome
+		cast(pe_email as varchar) 
 
 		FROM
 		PESSOA
 		WHERE
 		pe_nome ILIKE p_query;
 
-	END $$
+	END; $$
 
 	LANGUAGE plpgsql;
+COMMIT;
