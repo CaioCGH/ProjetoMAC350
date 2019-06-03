@@ -96,38 +96,36 @@ END;
 $$  LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION update_oferecimento(of_id integer, of_pr_id integer, of_dis_id integer, of_DataInicio integer, of_Vagas integer, of_Horario TEXT)
-AS 
-$$
+RETURNS VOID AS $$
+DECLARE
 BEGIN
 	UPDATE oferecimento SET of_pr_id = $2, of_dis_id = $3, of_DataInicio = $4, of_Vagas = $5, of_Horario = $6 WHERE oferecimento.of_id = $1;
 END
 $$  LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION update_rel_curr_tri(ctr_id integer, ctr_curr_id integer, ctr_tr_id integer, ctr_AnoInicio TEXT, ctr_Unidade TEXT)
-AS 
-$$
+RETURNS VOID AS $$
+DECLARE
 BEGIN
 	UPDATE rel_curr_tri SET ctr_curr_id = $2, ctr_tr_id = $3, ctr_AnoInicio  = $4, ctr_Unidade = $5 WHERE rel_curr_tri.of_id = $1;
 END
 $$  LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION update_rel_tr_mod(mtr_id integer, mtr_tr_id integer, mtr_mod_id integer)
-AS 
-$$
+RETURNS VOID AS $$
+DECLARE
 BEGIN
 	UPDATE rel_tr_mod SET mtr_tr_id = $2, mtr_mod_id = $3 WHERE rel_tr_mod.mtr_id = $1;
 END
 $$  LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION update_rel_dis_mod(dmod_id integer, dmod_dis_id integer, dmod_mod_id integer)
-AS 
-$$
+RETURNS VOID AS $$
+DECLARE
 BEGIN
 	UPDATE rel_dis_mod SET dmod_dis_id = $2, dmod_mod_id = $3 WHERE rel_dis_mod.dmod_id = $1;
 END
-
-$$
-LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql;
 
 
 COMMIT;
