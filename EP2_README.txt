@@ -19,8 +19,7 @@ E para rodar o script sql para deletar a tabela usamos o comando abaixo.
 psql -U myusername -d mydatabase -a -f EP2_DML_CLEAN.sql
 
 As funções dentro do EP2_DML_CREATE_GROUP.sql
-
-
+Essas funções retornam o SERIAL do módulo
 
 -------------------------------------------------------------------------------------
 Função e exemplo de inserção de pessoa:
@@ -117,6 +116,7 @@ SELECT * FROM insert_rel_pf_sr(1, 1);
 
 -------------------------------------------------------------------------------------
 As funções dentro do EP2_DML_UPDATE_GROUP.sql
+Essas funções retornam VOID
 
 Função e exemplo de modificação de pessoa:
 update_pessoa(pe_id integer, pe_nusp integer, pe_email email, pe_nome TEXT)
@@ -187,6 +187,7 @@ SELECT * FROM update_rel_dis_mod (1, 1, 1);
 
 -------------------------------------------------------------------------------------
 As funções dentro do EP2_DML_DELETE_GROUP.sql:
+Essas funções retornam VOID
 
 Função e exemplo de remoção de pessoa:
 delete_pessoa(pe_id integer)
