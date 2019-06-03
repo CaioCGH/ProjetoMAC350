@@ -185,4 +185,93 @@ Função e exemplo de modificação de rel_dis_mod:
 update_rel_dis_mod(dmod_id integer, dmod_dis_id integer, dmod_mod_id integer)
 SELECT * FROM update_rel_dis_mod (1, 1, 1);
 
+-------------------------------------------------------------------------------------
+As funções dentro do EP2_DML_DELETE_GROUP.sql:
 
+Função e exemplo de remoção de pessoa:
+delete_pessoa(pe_id integer)
+SELECT * FROM delete_pessoa(1)
+
+Função e exemplo de remoção de aluno:
+delete_aluno(al_id integer)
+SELECT * FROM delete_aluno(1)
+
+Função e exemplo de remoção de professor:
+delete_professor(pr_id integer)
+SELECT * FROM delete_professor(1)
+
+Função e exemplo de remoção de administrador: 
+delete_administrador(adm_id integer)
+SELECT * FROM delete_administrador(1)
+
+Função e exemplo de remoção de disciplina:
+delete_disciplina(dis_id integer)
+SELECT * FROM delete_disciplina(1)
+
+Função e exemplo de remoção de prerequisito:
+delete_prerequisito(prq_id integer)
+SELECT * FROM delete_prerequisito(1)
+
+Função e exemplo de remoção de curriculo:
+delete_curriculo(curr_id integer)
+SELECT * FROM delete_curriculo(1)
+
+Função e exemplo de remoção de módulo:
+delete_modulo(mod_id integer)
+SELECT * FROM delete_modulo(1)
+
+Função e exemplo de remoção de trilha:
+delete_trilha(tr_id integer)
+SELECT * FROM delete_trilha(1)
+
+Função e exemplo de remoção de perfil:
+delete_perfil(pf_id integer)
+SELECT * FROM delete_perfil(1)
+
+Função e exemplo de remoção de serviço:
+delete_servico(sr_id integer)
+SELECT * FROM delete_servico(1)
+
+Função e exemplo de remoção de usuários:
+delete_users(us_id integer)
+SELECT * FROM delete_users(1)
+
+Função e exemplo de remoção de oferecimento:
+delete_oferecimento(of_id integer)
+SELECT * FROM delete_oferecimento(1)
+
+Função e exemplo de remoção da relação pessoa/usuário:
+delete_rel_pe_us(pus_id integer)
+SELECT * FROM delete_rel_pe_us(1)
+
+Função e exemplo de remoção da relação cursa:
+delete_cursa(cur_id integer)
+SELECT * FROM delete_cursa(1)
+
+Função e exemplo de remoção da relação planeja:
+delete_planeja(pla_id integer)
+SELECT * FROM delete_planeja(1)
+
+Função e exemplo de remoção da relação currículo/trilha:
+delete_rel_curr_tri(ctr_id integer)
+SELECT * FROM delete_rel_curr_tri(1)
+
+Função e exemplo de remoção da relação administrador/currículo:
+delete_rel_adm_curr(acurr_id integer)
+SELECT * FROM delete_rel_adm_curr(1)
+
+Função e exemplo de remoção da relação trilha/módulo:
+delete_rel_tr_mod(mtr_id integer)
+SELECT * FROM delete_rel_tr_mod(1)
+
+Função e exemplo de remoção da relação disciplina/módulo:
+delete_rel_dis_mod(dmod_id integer)
+SELECT * FROM delete_rel_dis_mod(1)
+
+Função e exemplo de remoção da relação usuário/perfil:
+delete_rel_us_pf(upf_id integer)
+SELECT * FROM delete_rel_us_pf(1)
+
+Função e exemplo de remoção da relação perfil/serviço:
+delete_rel_pf_sr(psr_id integer)
+SELECT * FROM delete_rel_pf_sr(1)
