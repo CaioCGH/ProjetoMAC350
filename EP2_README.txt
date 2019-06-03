@@ -18,10 +18,10 @@ psql -U myusername -d mydatabase -a -f EP2_DML_RETRIVAL_GROUP.sql
 E para rodar o script sql para deletar a tabela usamos o comando abaixo.
 psql -U myusername -d mydatabase -a -f EP2_DML_CLEAN.sql
 
-As funções dentro do EP2_DML_CREATE_GROUP.sql
-Essas funções retornam o SERIAL do módulo
 
 -------------------------------------------------------------------------------------
+As funções dentro do EP2_DML_CREATE_GROUP.sql
+
 Função e exemplo de inserção de pessoa:
 insert_pessoa(INOUT pe_email text, INOUT pe_nusp integer, INOUT pe_nome text, OUT id int)
 SELECT * FROM insert_pessoa(0000000, 'Teste', 'teste@email.com');
@@ -116,7 +116,6 @@ SELECT * FROM insert_rel_pf_sr(1, 1);
 
 -------------------------------------------------------------------------------------
 As funções dentro do EP2_DML_UPDATE_GROUP.sql
-Essas funções retornam VOID
 
 Função e exemplo de modificação de pessoa:
 update_pessoa(pe_id integer, pe_nusp integer, pe_email email, pe_nome TEXT)
@@ -187,7 +186,6 @@ SELECT * FROM update_rel_dis_mod (1, 1, 1);
 
 -------------------------------------------------------------------------------------
 As funções dentro do EP2_DML_DELETE_GROUP.sql:
-Essas funções retornam VOID
 
 Função e exemplo de remoção de pessoa:
 delete_pessoa(pe_id integer)
@@ -276,3 +274,27 @@ SELECT * FROM delete_rel_us_pf(1)
 Função e exemplo de remoção da relação perfil/serviço:
 delete_rel_pf_sr(psr_id integer)
 SELECT * FROM delete_rel_pf_sr(1)
+
+
+-------------------------------------------------------------------------------------
+As funções dentro do EP2_DML_RETRIVAL_GROUP.sql:
+
+Função e exemplo de consulta de pessoa;
+select_pessoa(p_query VARCHAR)
+SELECT * FROM select_pessoa('Maria')
+
+Função e exemplo de consulta de alunos que estão cursando a disciplina fornecida:
+alunos_disciplina(id integer)
+SELECT * FROM alunos_disciplina(1)
+
+Função e exemplo de consulta de professores que ministram a disciplina fornecida:
+professor_disciplina(id integer)
+SELECT * FROM professor_disciplina(1)
+
+Função e exemplo de consulta das disciplinas do módulo fornecido:
+disciplinas_modulo(id integer)
+SELECT * FROM disciplinas_modulo(1)
+
+Função e exemplo de consulta dos módulos da trilha fornecida:
+modulos_trilha(id integer)
+SELECT * FROM modulos_trilha(1)
