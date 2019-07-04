@@ -22,10 +22,12 @@ db.init_app(app)
 def main():
     return render_template('index.html', message="Hello World!")
 
-@app.route('/api')
-def get_json():
-    return 'BLA'
 
-if __name__ = '__main__':
+@app.route('/alunos')
+def alunos():
+    return render_template('alunos.html', alunos=['João', 'Maria'])
+
+
+if __name__ == '__main__':
     app.run()
 

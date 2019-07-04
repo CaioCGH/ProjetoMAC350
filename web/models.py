@@ -18,18 +18,16 @@ class BaseModel(db.Model):
         })
 
     def json(self):
-        """
-                Define a base way to jsonify models, dealing with datetime objects
-        """
+        """ Define a base way to jsonify models, dealing with datetime objects """
         return {
             column: value if not isinstance(value, datetime.date) else value.strftime('%Y-%m-%d')
             for column, value in self._to_dict().items()
         }
 
 
-class Station(BaseModel, db.Model):
-    """Model for the stations table"""
-    __tablename__ = 'stations'
+class Aluno(BaseModel, db.Model):
+    """Model for the alunos table"""
+    __tablename__ = 'alunos'
 
     id = db.Column(db.Integer, primary_key = True)
     lat = db.Column(db.Float)
