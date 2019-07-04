@@ -3,7 +3,8 @@ from models import db
 
 from flask import render_template
 
-app = Flask(__name__) 
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'ZXVzb3V1bWNhcmFtdWl0b2J1cnJvCg=='
 
 POSTGRES = {
     'user': 'postgres',
@@ -22,10 +23,18 @@ db.init_app(app)
 def main():
     return render_template('index.html', message="Hello World!")
 
+@app.route('/signup')
+def signup():
+    return render_template('signup.html')
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
 
 @app.route('/alunos')
 def alunos():
     return render_template('alunos.html', alunos=['João', 'Maria'])
+
 
 
 if __name__ == '__main__':
