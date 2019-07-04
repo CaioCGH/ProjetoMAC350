@@ -1,0 +1,1 @@
+DELETE FROM rel_pe_us;
