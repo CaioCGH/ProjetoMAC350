@@ -3,32 +3,38 @@ import datetime
 
 db = SQLAlchemy()
 
-class BaseModel(db.Model):
-    """Base data model for all objects"""
-    __abstract__ = True
+class User(db.Model):
+    """Model for the users table"""
+    __tablename__ = 'users'
+
+    id = db.Column(db.Integer, primary_key = True)
+    user = db.Column(db.String(100), unique=True)
+    password  = db.Column(db.String(100))
+    name = db.Column(db.String(100))
+
+    def __init__(self, user, password, name):
+        self.user = user
+        self.password = password
+        self.name = name
+
+    def __repr__(self):
+        return '<id {}>'.format(self.id)
+
+
+
+class Aluno(db.Model):
+    """Model for the alunos table"""
+    __tablename__ = 'alunos'
 
     def __init__(self, *args):
         super().__init__(*args)
 
-    def __repr__(self):
-        """Define a base way to print models"""
-        return '%s(%s)' % (self.__class__.__name__, {
-            column: value
-            for column, value in self._to_dict().items()
-        })
-
-    def json(self):
-        """ Define a base way to jsonify models, dealing with datetime objects """
-        return {
-            column: value if not isinstance(value, datetime.date) else value.strftime('%Y-%m-%d')
-            for column, value in self._to_dict().items()
-        }
-
-
-class Aluno(BaseModel, db.Model):
-    """Model for the alunos table"""
-    __tablename__ = 'alunos'
-
     id = db.Column(db.Integer, primary_key = True)
-    lat = db.Column(db.Float)
-    lng = db.Column(db.Float)
+    name = db.Column(db.String(100))
+    nusp = db.Column(db.String(10))
+
+    def __init__(self, name, nusp):
+        self.name = name
+        self.nusp = nusp
+
+    

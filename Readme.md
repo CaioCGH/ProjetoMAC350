@@ -4,8 +4,29 @@ Python - linguagem escolhida para o projeto
 Flask - criação do site
 Psycopg2 - integração com o postgreSQL
 SQLAlchemy - manipulação de SQL
+Flask Script
 
-# Instalação
+
+# Codigo para rodar
+createdb yggdrasil-db
+psql -U jz -d yggdrasil-db
+
+pip install flask_script
+pip install flask_migrate
+pip install psycopg2-binary
+
+python manage.py db init
+python manage.py db migrate
+python manage.py db upgrade
+
+python app.py
+
+Para adicionar alunos use esse link
+http://127.0.0.1:5000/add?name=joao&nusp=100000
+
+Para visualizar os alunos serem adicionados use esse link, era para ser materias mais tudo bem
+http://127.0.0.1:5000/alunos
+
 
 ## Criação do ambiente virtual
 Usamos um ambiente virtual para controlar as dependências do projeto, tanto durante o desenvolvimento e na produção.
