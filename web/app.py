@@ -65,17 +65,30 @@ def painel_do_aluno():
 @app.route('/signup', methods=['POST'])
 def do_signup():
     cursor = connection.cursor()
-    f_email = request.form['username']
+    f_nome = request.form['nome']
+    f_nusp = request.form['nusp']
+    f_email = request.form['email']
     f_senha = request.form['password']
     query = 'select user_email from get_user_by_email(\'{}\');'.format(f_email)
     cursor.execute(query)
     record = cursor.fetchone()
+    flash('entrou')
     if record == f_email:
         flash('e-mail ja existe!')
     else:    
-        query = 'select * from insert_users(\'{}\',\'{}\');'.format(f_email, f_senha)
+        query = 'select id from insert_users(\'{}\',\'{}\');'.format(f_email, f_senha)
         cursor.execute(query)
         record = cursor.fetchone()
+
+        query = 'select id from insert_pessoa(\'{}\',\'{}\',\'{}\');'.format(f_email, f_nusp, f_nome)
+        cursor.execute(query)
+        record2 = cursor.fetchone()
+
+        print(record, record2)
+        query = 'select * from insert_rel_pe_us(\'{}\',\'{}\');'.format(record2[0], record[0])
+        cursor.execute(query)
+        record = cursor.fetchone()
+
     return render_template('index.html')
 
 @app.route('/signup')
