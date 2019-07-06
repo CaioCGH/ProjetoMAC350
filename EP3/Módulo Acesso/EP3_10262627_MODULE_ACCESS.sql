@@ -11,12 +11,12 @@ DROP DOMAIN IF EXISTS email CASCADE;
 CREATE DOMAIN email AS citext
   CHECK ( value ~ '^[a-zA-Z0-9.!#$%&''*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$' );
 
--- DROPAR NUMA ORDEM TOPOLOGICA..
+DROPAR NUMA ORDEM TOPOLOGICA..
 DROP TABLE IF EXISTS rel_pf_sr;
 DROP TABLE IF EXISTS rel_us_pf;
 DROP TABLE IF EXISTS servico;
 DROP TABLE IF EXISTS perfil;
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS users CASCADE;
 
 
 CREATE TABLE perfil(
@@ -63,7 +63,7 @@ CREATE TABLE rel_pf_sr(
     FOREIGN KEY(psr_sr_id) REFERENCES servico(sr_id)
 );
 
-# ==============================  INÎCIO DAS FUNÇÕES DE INSERT ============================== 
+-- # ==============================  INÎCIO DAS FUNÇÕES DE INSERT ============================== 
 BEGIN;
 
 CREATE OR REPLACE FUNCTION insert_perfil(INOUT pf_Tipo TEXT, OUT id int)
@@ -125,9 +125,9 @@ END
 $$
 LANGUAGE plpgsql;
 
-# ==============================  FIM DAS FUNÇÕES DE INSERT ================================
+-- # ==============================  FIM DAS FUNÇÕES DE INSERT ================================
 
-# ==============================  INÎCIO DAS FUNÇÕES DE DELETE ============================== 
+-- # ==============================  INÎCIO DAS FUNÇÕES DE DELETE ============================== 
 CREATE OR REPLACE FUNCTION delete_perfil(pf_id integer)
 RETURNS VOID AS 
 $$
@@ -182,8 +182,8 @@ BEGIN
 END
 $$  
 LANGUAGE plpgsql;
-# ==============================  FIM DAS FUNÇÕES DE DELETE =================================
-# ==============================  INÎCIO DAS FUNÇÕES DE UPDATE =================================
+-- # ==============================  FIM DAS FUNÇÕES DE DELETE =================================
+-- # ==============================  INÎCIO DAS FUNÇÕES DE UPDATE =================================
 CREATE OR REPLACE FUNCTION update_perfil(pf_id integer, pf_Tipo integer)
 RETURNS VOID AS $$
 DECLARE
@@ -208,19 +208,38 @@ BEGIN
 END;
 $$  LANGUAGE plpgsql;
 
-#CREATE OR REPLACE FUNCTION update_rel_us_pf(pf_id integer, pf_Tipo integer)
-#RETURNS VOID AS $$
-#DECLARE
-#BEGIN
-#	UPDATE rel_us_pf SET pf_Tipo = $2 WHERE perfil.pf_id = $1;
-#END;
-#$$  LANGUAGE plpgsql;
+CREATE OR REPLACE FUNCTION update_rel_us_pf(pf_id integer, pf_Tipo integer)
+RETURNS VOID AS $$
+DECLARE
+BEGIN
+	UPDATE rel_us_pf SET pf_Tipo = $2 WHERE perfil.pf_id = $1;
+END;
+$$  LANGUAGE plpgsql;
 
-# ==============================  FIM DAS FUNÇÕES DE UPDATE =======================================
+-- # ==============================  FIM DAS FUNÇÕES DE UPDATE =======================================
 
-# ==============================  INÎCIO DAS FUNÇÕES DE RETRIEVAL =================================
-#					NÃO TEM NADA NO DML DE RETRIEVAL SOBRE O MÓDULO DE ACESSO
-# ==============================  FIM DAS FUNÇÕES DE UPDATE =======================================
+-- # ==============================  FIM DAS FUNÇÕES DE UPDATE =======================================
 
+-- # ==============================  INÎCIO DAS FUNÇÕES DE RETRIEVAL =================================
+DROP FUNCTION IF EXISTS  get_user_by_email(VARCHAR);
+CREATE OR REPLACE FUNCTION get_user_by_email (query_email VARCHAR) 
+   RETURNS TABLE (
+		 	user_id int,
+      user_email VARCHAR,
+      user_password VARCHAR
+) 
+AS $$
+BEGIN
+   RETURN QUERY SELECT
+	 		cast(us_id as int),
+      cast(us_email as varchar),
+      cast(us_password as varchar)
+   FROM
+      users
+   WHERE
+      us_email ILIKE query_email ;
+END; $$ 
+ 
+LANGUAGE 'plpgsql';
 
 COMMIT;

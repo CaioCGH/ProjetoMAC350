@@ -1,0 +1,4 @@
+#!/bin/bash
+
+psql -U postgres -f EP3_10262627_MODULE_ACCESS.sql
+psql -U postgres -f EP3_10262627_DML_MODULE_ACCESS.sql

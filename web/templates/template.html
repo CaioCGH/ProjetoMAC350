@@ -14,8 +14,14 @@
                 <a class="navbar-brand" href="/">Yggdrasil</a>
             </div>
             <ul class="nav navbar-nav navbar-right">
+                {% if session['logged_in'] %}
+                <li><a> {{ session['name'] }}</a></li>
+                <li><a href="/myaccount"><span class="glyphicon glyphicon-user"></span> Minha conta</a></li>
+                <li><a href="/logout"><span class="glyphicon glyphicon-user"></span> Log Out</a></li>
+                {%else%}
                 <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                 <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                {% endif %}
             </ul>
         </div>
     </nav>   

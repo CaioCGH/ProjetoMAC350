@@ -9,7 +9,7 @@ CREATE EXTENSION IF NOT EXISTS citext;
 
 DROP DOMAIN IF EXISTS email CASCADE;
 CREATE DOMAIN email AS citext
-  CHECK ( value ~ '^[a-zA-Z0-9.!#$%&''*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$' );
+  CHECK ( value ~ '^[a-zA-Z0-9.!--$%&''*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$' );
 
 -- DROPAR NUMA ORDEM TOPOLOGICA..
 DROP TABLE IF EXISTS rel_pe_us;
@@ -26,7 +26,7 @@ CREATE TABLE rel_pe_us(
 
 
 BEGIN;
-# ==============================  INÎCIO DAS FUNÇÕES DE INSERT ============================== 
+-- ==============================  INÎCIO DAS FUNÇÕES DE INSERT ============================== 
 
 CREATE OR REPLACE FUNCTION insert_rel_pe_us (INOUT pus_pe_id int, INOUT pus_us_id int, OUT id int)
 AS 
@@ -40,9 +40,9 @@ END
 $$
 LANGUAGE plpgsql;
 
-# ==============================  FIM DAS FUNÇÕES DE INSERT ================================
+-- ==============================  FIM DAS FUNÇÕES DE INSERT ================================
 
-# ==============================  INÎCIO DAS FUNÇÕES DE DELETE ============================== 
+-- ==============================  INÎCIO DAS FUNÇÕES DE DELETE ============================== 
 CREATE OR REPLACE FUNCTION delete_rel_pe_us(pus_id integer)
 RETURNS VOID AS 
 $$
@@ -53,18 +53,34 @@ BEGIN
 END
 $$  
 LANGUAGE plpgsql;
-# ==============================  FIM DAS FUNÇÕES DE DELETE ====================================
+-- ==============================  FIM DAS FUNÇÕES DE DELETE ====================================
 
-# ==============================  INÎCIO DAS FUNÇÕES DE UPDATE =================================
-#			 NÃO TEM NADA NO DML DE UPDATE SOBRE O MÓDULO DE INTEGRAÇÃO ACCESS-PEOPLE
-#
-#								Faz sentido não ter. O que acham?
-#
-# ==============================  FIM DAS FUNÇÕES DE UPDATE =======================================
+-- ==============================  INÎCIO DAS FUNÇÕES DE UPDATE =================================
+--			 NÃO TEM NADA NO DML DE UPDATE SOBRE O MÓDULO DE INTEGRAÇÃO ACCESS-PEOPLE
+--
+--								Faz sentido não ter. O que acham?
+--
+-- ==============================  FIM DAS FUNÇÕES DE UPDATE =======================================
 
-# ==============================  INÎCIO DAS FUNÇÕES DE RETRIEVAL =================================
-#			 NÃO TEM NADA NO DML DE RETRIEVAL SOBRE O MÓDULO DE INTEGRAÇÃO ACCESS-PEOPLE
-# ==============================  FIM DAS FUNÇÕES DE UPDATE =======================================
+-- ==============================  FIM DAS FUNÇÕES DE UPDATE =======================================
+-- ==============================  INÎCIO DAS FUNÇÕES DE RETRIEVAL =================================
+DROP FUNCTION IF EXISTS  get_pessoa_by_user_id(query_id int);
+CREATE OR REPLACE FUNCTION get_pessoa_by_user_id(query_id int) 
+   RETURNS TABLE (
+		id 		int,
+		NUSP 	int,
+		Nome 	varchar
+)
+AS $$
+BEGIN
+	RETURN QUERY SELECT
+		pe_id,
+		pe_NUSP,
+		cast(pe_Nome as varchar)
+	FROM pessoa WHERE pe_id = (SELECT pus_pe_id FROM rel_pe_us WHERE pus_us_id = query_id );
+END; $$ 
+ 
+LANGUAGE 'plpgsql';
 
 
 COMMIT;

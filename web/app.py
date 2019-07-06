@@ -1,79 +1,74 @@
-from flask import Flask, render_template, request
+from flask import Flask
 from models import db
-from models import User, Aluno
+import psycopg2
+
+
+from flask import Flask, flash, redirect, render_template, request, session, abort
+import os
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'ZXVzb3V1bWNhcmFtdWl0b2J1cnJvCg=='
+app.secret_key = 'super secret key'
+connection = psycopg2.connect(user = "postgres",
+                                    password = "123456",
+                                    host = "127.0.0.1",
+                                    port = "5432",
+                                    database = "postgres")
 
-POSTGRES = {
-    'user': 'jz',
-    'pw': '',
-    'db': 'yggdrasil_db',
-    'host': 'localhost',
-    'port': '5432',
-}
-
-'''Modo de debug'''
+'''Sempre que muda o código da página, ele atualiza o site automáticamente.'''
 app.config['DEBUG'] = True
-
-'''Começando SQLALCHEMY'''
-if ('%(pw)s' % POSTGRES  == '') :
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost:%(port)s/%(db)s' % POSTGRES
-else :
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%(user)s:\%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
-
-print ('Connecting in SQLALCHEMY_DATABASE_URI '+'%s' % app.config['SQLALCHEMY_DATABASE_URI']);
-
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db.init_app(app)
 
-
-'''Rota principal'''
 @app.route('/')
-def main():
+def home():
     return render_template('index.html', message="Hello World!")
 
-'''Rota de signup'''
+
+@app.route('/login', methods=['POST'])
+def do_login():
+    cursor = connection.cursor()
+    f_email = request.form['username']
+    query = 'select * from get_user_by_email(\'{}\');'.format(f_email)
+    cursor.execute(query)
+    record = cursor.fetchone()
+    print(record)
+    if record != None and record[2] ==  request.form['password']:
+        session['logged_in'] = True
+        session['user_email'] = record[1]
+        query = 'select * from get_pessoa_by_user_id(\'{}\');'.format(record[0])
+        cursor.execute(query)
+        record = cursor.fetchone()
+        session['pessoa_id'] = record[0]
+        session['nusp'] = record[1]
+        session['name'] = record[2]
+    else:
+        flash('wrong password!')
+    return render_template('index.html', message="Bem vindo!")
+
+
+@app.route("/logout")
+def logout():
+    session['logged_in'] = False
+    return home()
+
+
 @app.route('/signup')
 def signup():
     return render_template('signup.html')
 
-'''Rota de login'''
 @app.route('/login')
 def login():
     return render_template('login.html')
 
 @app.route('/alunos')
 def alunos():
-    return render_template('alunos.html', alunos=Aluno.query.all())
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM pessoa;")
 
-@app.route('/professores')
-def professores():
-    return render_template('professores.html')
-
-@app.route("/add")
-def add_aluno():
-    name=request.args.get('name')
-    nusp=request.args.get('nusp')
     
-    try:
-        a = [name, nusp]
-        aluno = Aluno(
-            name=name,
-            nusp=nusp
-        )
-        db.session.add(aluno)
-        db.session.commit()
-        return "Aluno adicionado. aluno id={}".format(aluno.id)
-    except Exception as e:
-	    return(str(e))
-
-
-
-
+    record = cursor.fetchall()
+    return render_template('alunos.html', alunos=record)
 
 
 
 if __name__ == '__main__':
     app.run()
-
