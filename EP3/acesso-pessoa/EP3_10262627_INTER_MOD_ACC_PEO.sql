@@ -12,12 +12,21 @@ CREATE TABLE rel_pe_us(
 	pus_id		SERIAL,
 	pus_pe_id	SERIAL,
 	pus_us_id 	SERIAL,
+	CONSTRAINT pk_rel_pe_us PRIMARY KEY(pus_id)
+);
+
+/*
+OLD
+CREATE TABLE rel_pe_us(
+	pus_id		SERIAL,
+	pus_pe_id	SERIAL,
+	pus_us_id 	SERIAL,
 	CONSTRAINT pk_rel_pe_us PRIMARY KEY(pus_id),
     FOREIGN KEY(pus_pe_id) REFERENCES pessoa(pe_id),
     FOREIGN KEY(pus_us_id) REFERENCES users(us_id)
 );
 
-
+*/
 
 BEGIN;
 -- ==============================  INÎCIO DAS FUNÇÕES DE INSERT ============================== 

@@ -8,11 +8,31 @@ import os
 
 app = Flask(__name__)
 app.secret_key = 'super secret key'
-connection = psycopg2.connect(user = "postgres",
-                                    password = "123456",
-                                    host = "127.0.0.1",
-                                    port = "5432",
-                                    database = "postgres")
+
+user_tmp = "jz"
+password_tmp = "0"
+
+'''Faz a conexão'''
+def get_connection(name) :
+    return psycopg2.connect(   user = user_tmp,
+                           password = password_tmp,
+                            host = "127.0.0.1",
+                            port = "5432",
+                            database = name)
+''' Consegue o cursor do psycopg2 '''
+def get_cursor(name):
+    return get_connection(name).cursor()
+''' Faz a query em relação a um no banco de dados'''
+def get_query_one(name, query):
+    cursor = get_cursor(name)
+    cursor.execute(query)
+    return cursor.fetchone()
+''' Faz a query em relação a todos no banco de dados'''
+def get_query_all(name, query):
+    cursor = get_curso(name)
+    cursor.execute(query)
+    return cursor.fetchall()
+
 
 '''Sempre que muda o código da página, ele atualiza o site automáticamente.'''
 app.config['DEBUG'] = True
@@ -28,18 +48,17 @@ def login():
 
 @app.route('/login', methods=['POST'])
 def do_login():
-    cursor = connection.cursor()
     f_email = request.form['username']
     query = 'select * from get_user_by_email(\'{}\');'.format(f_email)
-    cursor.execute(query)
-    record = cursor.fetchone()
+    record = get_query_one("acesso", query)
     print(record)
     if record != None and record[2] ==  request.form['password']:
         session['logged_in'] = True
         session['user_email'] = record[1]
+
         query = 'select * from get_pessoa_by_user_id(\'{}\');'.format(record[0])
-        cursor.execute(query)
-        record = cursor.fetchone()
+        record = get_query_one("acesso_pessoa", query)
+
         session['pessoa_id'] = record[0]
         session['nusp'] = record[1]
         session['name'] = record[2]
@@ -56,38 +75,31 @@ def logout():
 
 @app.route('/painel_do_aluno')
 def painel_do_aluno():
-    cursor = connection.cursor()
     query = 'select * from get_disciplinas_by_pessoa_id(\'{}\');'.format(session['pessoa_id'])
-    cursor.execute(query)
-    a = cursor.fetchall()
+    a = get_query_all('pessoa-curriculo', query)
     return render_template('painel_do_aluno.html', disciplinas_cursadas=a)
 
 @app.route('/signup', methods=['POST'])
 def do_signup():
-    cursor = connection.cursor()
+    
     f_nome = request.form['nome']
     f_nusp = request.form['nusp']
     f_email = request.form['email']
     f_senha = request.form['password']
     query = 'select user_email from get_user_by_email(\'{}\');'.format(f_email)
-    cursor.execute(query)
-    record = cursor.fetchone()
+    record = get_query_one('acesso', query)
     flash('entrou')
     if record == f_email:
         flash('e-mail ja existe!')
     else:    
         query = 'select id from insert_users(\'{}\',\'{}\');'.format(f_email, f_senha)
-        cursor.execute(query)
-        record = cursor.fetchone()
+        record = get_query_one('acesso', query)
 
         query = 'select id from insert_pessoa(\'{}\',\'{}\',\'{}\');'.format(f_email, f_nusp, f_nome)
-        cursor.execute(query)
-        record2 = cursor.fetchone()
+        record2 = get_query_one('pessoa', query)
 
-        print(record, record2)
         query = 'select * from insert_rel_pe_us(\'{}\',\'{}\');'.format(record2[0], record[0])
-        cursor.execute(query)
-        record = cursor.fetchone()
+        record = get_query_one('acesso-pessoa', query)
 
     return render_template('index.html')
 
@@ -97,9 +109,8 @@ def signup():
 
 @app.route('/alunos')
 def alunos():
-    cursor = connection.cursor()
-    cursor.execute("SELECT * FROM pessoa;")
-    record = cursor.fetchall()
+    query = "SELECT * FROM pessoa;"
+    record = get_query_all('pessoa', query)
     return render_template('alunos.html', alunos=record)
 
 if __name__ == '__main__':
