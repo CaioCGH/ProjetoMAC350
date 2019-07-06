@@ -62,6 +62,22 @@ def painel_do_aluno():
     a = cursor.fetchall()
     return render_template('painel_do_aluno.html', disciplinas_cursadas=a)
 
+@app.route('/signup', methods=['POST'])
+def do_signup():
+    cursor = connection.cursor()
+    f_email = request.form['username']
+    f_senha = request.form['password']
+    query = 'select user_email from get_user_by_email(\'{}\');'.format(f_email)
+    cursor.execute(query)
+    record = cursor.fetchone()
+    if record == f_email:
+        flash('e-mail ja existe!')
+    else:    
+        query = 'select * from insert_users(\'{}\',\'{}\');'.format(f_email, f_senha)
+        cursor.execute(query)
+        record = cursor.fetchone()
+return render_template('index.html')
+
 @app.route('/signup')
 def signup():
     return render_template('signup.html')
