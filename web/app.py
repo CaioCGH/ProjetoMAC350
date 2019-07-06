@@ -22,6 +22,9 @@ db.init_app(app)
 def home():
     return render_template('index.html', message="Hello World!")
 
+@app.route('/login')
+def login():
+    return render_template('login.html')
 
 @app.route('/login', methods=['POST'])
 def do_login():
@@ -50,14 +53,25 @@ def logout():
     session['logged_in'] = False
     return home()
 
+@app.route('/signup', methods=['POST'])
+def do_signup():
+    cursor = connection.cursor()
+    f_email = request.form['username']
+    f_senha = request.form['password']
+    query = 'select user_email from get_user_by_email(\'{}\');'.format(f_email)
+    cursor.execute(query)
+    record = cursor.fetchone()
+    if record == f_email:
+        flash('e-mail ja existe!')
+    else:    
+        query = 'select * from insert_users(\'{}\',\'{}\');'.format(f_email, f_senha)
+        cursor.execute(query)
+        record = cursor.fetchone()
+    return render_template('index.html')
 
 @app.route('/signup')
 def signup():
     return render_template('signup.html')
-
-@app.route('/login')
-def login():
-    return render_template('login.html')
 
 @app.route('/alunos')
 def alunos():
