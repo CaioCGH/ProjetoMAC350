@@ -40,9 +40,10 @@ def do_login():
         session['pessoa_id'] = record[0]
         session['nusp'] = record[1]
         session['name'] = record[2]
+        return painel_do_aluno()
     else:
-        flash('wrong password!')
-    return render_template('index.html', message="Bem vindo!")
+        flash('Senha ou usuário incorretos!')
+        return render_template('index.html', message="Bem vindo!")
 
 
 @app.route("/logout")
@@ -50,6 +51,13 @@ def logout():
     session['logged_in'] = False
     return home()
 
+@app.route('/painel_do_aluno')
+def painel_do_aluno():
+    cursor = connection.cursor()
+    query = 'select * from get_disciplinas_by_pessoa_id(\'{}\');'.format(session['pessoa_id'])
+    cursor.execute(query)
+    a = cursor.fetchall()
+    return render_template('painel_do_aluno.html', disciplinas_cursadas=a)
 
 @app.route('/signup')
 def signup():
@@ -63,12 +71,8 @@ def login():
 def alunos():
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM pessoa;")
-
-    
     record = cursor.fetchall()
     return render_template('alunos.html', alunos=record)
-
-
 
 if __name__ == '__main__':
     app.run()
