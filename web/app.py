@@ -76,7 +76,7 @@ def do_signup():
         query = 'select * from insert_users(\'{}\',\'{}\');'.format(f_email, f_senha)
         cursor.execute(query)
         record = cursor.fetchone()
-return render_template('index.html')
+    return render_template('index.html')
 
 @app.route('/signup')
 def signup():
