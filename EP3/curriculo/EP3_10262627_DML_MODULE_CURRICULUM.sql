@@ -179,11 +179,11 @@ INSERT INTO trilha	  (tr_Codigo, tr_Nome) VALUES (2, 'Sistemas de Software');
 INSERT INTO trilha	  (tr_Codigo, tr_Nome) VALUES (3, 'Inteligência Artificial');
 INSERT INTO trilha	  (tr_Codigo, tr_Nome) VALUES (4, 'Ciência de Dados');
 INSERT INTO trilha	  (tr_Codigo, tr_Nome) VALUES (5, 'Teoria da Computação');
-INSERT INTO trilha	  (tr_Codigo, tr_Nome) VALUES (1, 'Teoria dos Quantum');
-INSERT INTO trilha	  (tr_Codigo, tr_Nome) VALUES (2, 'Matemático');
-INSERT INTO trilha	  (tr_Codigo, tr_Nome) VALUES (3, 'White Hat');
-INSERT INTO trilha	  (tr_Codigo, tr_Nome) VALUES (4, 'Black Hat');
-INSERT INTO trilha	  (tr_Codigo, tr_Nome) VALUES (5, 'Red Hat');
+INSERT INTO trilha	  (tr_Codigo, tr_Nome) VALUES (6, 'Teoria dos Quantum');
+INSERT INTO trilha	  (tr_Codigo, tr_Nome) VALUES (7, 'Matemático');
+INSERT INTO trilha	  (tr_Codigo, tr_Nome) VALUES (8, 'White Hat');
+INSERT INTO trilha	  (tr_Codigo, tr_Nome) VALUES (9, 'Black Hat');
+INSERT INTO trilha	  (tr_Codigo, tr_Nome) VALUES (10, 'Red Hat');
 
 --rel_curr_tri
 INSERT INTO rel_curr_tri(ctr_curr_id, ctr_tr_id, ctr_AnoInicio, ctr_Unidade) VALUES (1, 1, '2016', 'IME');

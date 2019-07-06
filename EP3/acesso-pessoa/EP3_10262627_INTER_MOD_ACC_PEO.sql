@@ -4,15 +4,9 @@ After creating the extensions, lets create a domain for valid emails
 Valid emails follows a specific Request for Comment defined in RFC5322
 For more info, see: https://tools.ietf.org/html/rfc5322
 */
-CREATE EXTENSION IF NOT EXISTS pgcrypto;
-CREATE EXTENSION IF NOT EXISTS citext;
-
-DROP DOMAIN IF EXISTS email CASCADE;
-CREATE DOMAIN email AS citext
-  CHECK ( value ~ '^[a-zA-Z0-9.!--$%&''*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$' );
 
 -- DROPAR NUMA ORDEM TOPOLOGICA..
-DROP TABLE IF EXISTS rel_pe_us;
+DROP TABLE IF EXISTS rel_pe_us cascade;
 
 CREATE TABLE rel_pe_us(
 	pus_id		SERIAL,

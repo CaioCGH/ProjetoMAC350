@@ -4,19 +4,14 @@ After creating the extensions, lets create a domain for valid emails
 Valid emails follows a specific Request for Comment defined in RFC5322
 For more info, see: https://tools.ietf.org/html/rfc5322
 */
-CREATE EXTENSION IF NOT EXISTS pgcrypto;
-CREATE EXTENSION IF NOT EXISTS citext;
 
-DROP DOMAIN IF EXISTS email CASCADE;
-CREATE DOMAIN email AS citext
-  CHECK ( value ~ '^[a-zA-Z0-9.!#$%&''*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$' );
 
 -- DROPAR NUMA ORDEM TOPOLOGICA..
 
-DROP TABLE IF EXISTS administrador;
-DROP TABLE IF EXISTS professor;
-DROP TABLE IF EXISTS aluno;
-DROP TABLE IF EXISTS pessoa;
+DROP TABLE IF EXISTS administrador cascade;
+DROP TABLE IF EXISTS professor	   cascade;
+DROP TABLE IF EXISTS aluno         cascade;
+DROP TABLE IF EXISTS pessoa        cascade;
 
 
 CREATE TABLE pessoa (
@@ -58,7 +53,7 @@ CREATE TABLE administrador (
 );
 
 BEGIN;
-# ==============================  INÎCIO DAS FUNÇÕES DE INSERT ============================== 
+-- ==============================  INÎCIO DAS FUNÇÕES DE INSERT ============================== 
 
 CREATE OR REPLACE FUNCTION insert_pessoa(INOUT pe_email text, INOUT pe_nusp integer, INOUT pe_nome text, OUT id int)
 AS 
@@ -105,9 +100,9 @@ END
 $$
 LANGUAGE plpgsql;
 
-# ==============================  FIM DAS FUNÇÕES DE INSERT ================================
+-- ==============================  FIM DAS FUNÇÕES DE INSERT ================================
 
-# ==============================  INÎCIO DAS FUNÇÕES DE DELETE ============================== 
+-- ==============================  INÎCIO DAS FUNÇÕES DE DELETE ============================== 
 CREATE OR REPLACE FUNCTION delete_pessoa(pe_id integer)
 RETURNS VOID AS 
 $$
@@ -149,9 +144,9 @@ BEGIN
 END
 $$  
 LANGUAGE plpgsql;
-# ==============================  FIM DAS FUNÇÕES DE DELETE ====================================
+-- ==============================  FIM DAS FUNÇÕES DE DELETE ====================================
 
-# ==============================  INÎCIO DAS FUNÇÕES DE UPDATE =================================
+-- ==============================  INÎCIO DAS FUNÇÕES DE UPDATE =================================
 CREATE OR REPLACE FUNCTION update_pessoa(pe_id integer, pe_nusp integer, pe_email email, pe_nome TEXT)
 RETURNS VOID AS $$
 DECLARE
@@ -178,17 +173,17 @@ BEGIN
 END;
 $$  LANGUAGE plpgsql;
 
-#CREATE OR REPLACE FUNCTION update_administrador(pr_id integer, pr_Area TEXT, pr_Departamento TEXT, pr_DataAdmissao TEXT)
-#RETURNS VOID AS $$
-#DECLARE
-#BEGIN
-#	UPDATE professor SET pr_Area = $2, pr_Departamento = $3, pr_DataAdmissao = $4 WHERE professor.pr_id = $1;
-#END;
-#$$  LANGUAGE plpgsql;
+--CREATE OR REPLACE FUNCTION update_administrador(pr_id integer, pr_Area TEXT, pr_Departamento TEXT, pr_DataAdmissao TEXT)
+--RETURNS VOID AS $$
+--DECLARE
+--BEGIN
+--	UPDATE professor SET pr_Area = $2, pr_Departamento = $3, pr_DataAdmissao = $4 WHERE professor.pr_id = $1;
+--END;
+--$$  LANGUAGE plpgsql;
 
-# ==============================  FIM DAS FUNÇÕES DE UPDATE =======================================
+-- ==============================  FIM DAS FUNÇÕES DE UPDATE =======================================
 
-# ==============================  INÎCIO DAS FUNÇÕES DE RETRIEVAL =================================
+-- ==============================  INÎCIO DAS FUNÇÕES DE RETRIEVAL =================================
 CREATE OR REPLACE FUNCTION select_pessoa(p_query VARCHAR)
 	RETURNS TABLE (
 		email VARCHAR,
@@ -211,7 +206,7 @@ CREATE OR REPLACE FUNCTION select_pessoa(p_query VARCHAR)
 	END; $$
 
 	LANGUAGE plpgsql;
-# ==============================  FIM DAS FUNÇÕES DE UPDATE =======================================
+-- ==============================  FIM DAS FUNÇÕES DE UPDATE =======================================
 
 
 COMMIT;

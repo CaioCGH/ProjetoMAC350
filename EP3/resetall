@@ -1,0 +1,18 @@
+#!/bin/bash
+
+
+psql -U postgres -f acesso/EP3_10262627_MODULE_ACCESS.sql
+psql -U postgres -f acesso/EP3_10262627_DML_MODULE_ACCESS.sql
+
+psql -U postgres -f pessoa/EP3_10262627_MODULE_PEOPLE.sql
+psql -U postgres -f pessoa/EP3_10262627_DML_MODULE_PEOPLE.sql
+
+psql -U postgres -f curriculo/EP3_10262627_MODULE_CURRICULUM.sql
+psql -U postgres -f curriculo/EP3_10262627_DML_MODULE_CURRICULUM.sql
+
+psql -U postgres -f acesso-pessoa/EP3_10262627_INTER_MOD_ACC_PEO.sql
+psql -U postgres -f acesso-pessoa/EP3_10262627_DML_INTER_MOD_ACC_PEO.sql
+
+psql -U postgres -f pessoa-curriculo/EP3_10262627_INTER_MOD_PEO_CUR.sql
+psql -U postgres -f pessoa-curriculo/EP3_10262627_DML_INTER_MOD_PEO_CUR.sql
+

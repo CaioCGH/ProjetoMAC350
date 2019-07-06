@@ -4,18 +4,12 @@ After creating the extensions, lets create a domain for valid emails
 Valid emails follows a specific Request for Comment defined in RFC5322
 For more info, see: https://tools.ietf.org/html/rfc5322
 */
-CREATE EXTENSION IF NOT EXISTS pgcrypto;
-CREATE EXTENSION IF NOT EXISTS citext;
-
-DROP DOMAIN IF EXISTS email CASCADE;
-CREATE DOMAIN email AS citext
-  CHECK ( value ~ '^[a-zA-Z0-9.!#$%&''*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$' );
 
 -- DROPAR NUMA ORDEM TOPOLOGICA..
-DROP TABLE IF EXISTS rel_adm_curr;
-DROP TABLE IF EXISTS planeja;
-DROP TABLE IF EXISTS cursa;
-DROP TABLE IF EXISTS oferecimento;
+DROP TABLE IF EXISTS rel_adm_curr 	cascade;
+DROP TABLE IF EXISTS planeja		cascade;
+DROP TABLE IF EXISTS cursa			cascade;
+DROP TABLE IF EXISTS oferecimento	cascade;
 
 CREATE TABLE oferecimento(
 	of_id 			SERIAL,
@@ -67,7 +61,7 @@ CREATE TABLE rel_adm_curr(
 
 
 BEGIN;
-# ==============================  INÎCIO DAS FUNÇÕES DE INSERT ============================== 
+-- ==============================  INÎCIO DAS FUNÇÕES DE INSERT ============================== 
 
 CREATE OR REPLACE FUNCTION insert_oferecimento(INOUT of_pr_id int, INOUT of_dis_id int, INOUT of_DataInicio text, INOUT of_Vagas int, 
 											   INOUT of_Horario text, OUT id int)
@@ -119,9 +113,9 @@ $$
 LANGUAGE plpgsql;
 
 
-# ==============================  FIM DAS FUNÇÕES DE INSERT ================================
+-- ==============================  FIM DAS FUNÇÕES DE INSERT ================================
 
-# ==============================  INÎCIO DAS FUNÇÕES DE DELETE ============================== 
+-- ==============================  INÎCIO DAS FUNÇÕES DE DELETE ============================== 
 CREATE OR REPLACE FUNCTION delete_oferecimento(of_id integer)
 RETURNS VOID AS 
 $$
@@ -166,9 +160,9 @@ END
 $$  
 LANGUAGE plpgsql;
 
-# ==============================  FIM DAS FUNÇÕES DE DELETE ====================================
+-- ==============================  FIM DAS FUNÇÕES DE DELETE ====================================
 
-# ==============================  INÎCIO DAS FUNÇÕES DE UPDATE =================================
+-- ==============================  INÎCIO DAS FUNÇÕES DE UPDATE =================================
 CREATE OR REPLACE FUNCTION update_oferecimento(of_id integer, of_pr_id integer, of_dis_id integer, of_DataInicio integer, of_Vagas integer, of_Horario TEXT)
 RETURNS VOID AS $$
 DECLARE
@@ -178,9 +172,9 @@ END
 $$  LANGUAGE plpgsql;
 
 
-# ==============================  FIM DAS FUNÇÕES DE UPDATE =======================================
+-- ==============================  FIM DAS FUNÇÕES DE UPDATE =======================================
 
-# ==============================  INÎCIO DAS FUNÇÕES DE RETRIEVAL =================================
+-- ==============================  INÎCIO DAS FUNÇÕES DE RETRIEVAL =================================
 CREATE OR REPLACE FUNCTION alunos_disciplina(id integer)
 	RETURNS TABLE (
 		nome_aluno VARCHAR,
@@ -220,7 +214,24 @@ CREATE OR REPLACE FUNCTION alunos_disciplina(id integer)
 	END; $$
 
 	LANGUAGE plpgsql;
-# ==============================  FIM DAS FUNÇÕES DE UPDATE =======================================
 
+DROP FUNCTION IF EXISTS  get_disciplinas_by_pessoa_id(query_id int);
+CREATE OR REPLACE FUNCTION get_disciplinas_by_pessoa_id(query_id int) 
+   RETURNS TABLE (
+		id 		int,
+		Codigo  		varchar,
+		Nome    		varchar
+)
+AS $$
+BEGIN
+	RETURN QUERY SELECT DISTINCT
+		cast(dis_id as integer),
+		cast(dis_Codigo as varchar),
+		cast(dis_Nome as varchar)
+		FROM disciplina
+		INNER JOIN  oferecimento ON dis_id     = of_dis_id
+		INNER JOIN  cursa		 ON cur_al_id = query_id;
+END; $$
+LANGUAGE 'plpgsql';
 
 COMMIT;

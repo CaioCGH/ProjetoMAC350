@@ -4,22 +4,16 @@ After creating the extensions, lets create a domain for valid emails
 Valid emails follows a specific Request for Comment defined in RFC5322
 For more info, see: https://tools.ietf.org/html/rfc5322
 */
-CREATE EXTENSION IF NOT EXISTS pgcrypto;
-CREATE EXTENSION IF NOT EXISTS citext;
-
-DROP DOMAIN IF EXISTS email CASCADE;
-CREATE DOMAIN email AS citext
-  CHECK ( value ~ '^[a-zA-Z0-9.!#$%&''*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$' );
 
 -- DROPAR NUMA ORDEM TOPOLOGICA..
-DROP TABLE IF EXISTS rel_dis_mod;
-DROP TABLE IF EXISTS rel_tr_mod;
-DROP TABLE IF EXISTS rel_curr_tri;
-DROP TABLE IF EXISTS trilha;
-DROP TABLE IF EXISTS modulo;
-DROP TABLE IF EXISTS curriculo;
-DROP TABLE IF EXISTS prerequisito;
-DROP TABLE IF EXISTS disciplina;
+DROP TABLE IF EXISTS rel_dis_mod cascade;
+DROP TABLE IF EXISTS rel_tr_mod  cascade;
+DROP TABLE IF EXISTS rel_curr_tri cascade;
+DROP TABLE IF EXISTS trilha       cascade;
+DROP TABLE IF EXISTS modulo       cascade;
+DROP TABLE IF EXISTS curriculo    cascade;
+DROP TABLE IF EXISTS prerequisito cascade;
+DROP TABLE IF EXISTS disciplina   cascade;
 
 CREATE TABLE disciplina (
 	dis_id 				SERIAL,
@@ -102,7 +96,7 @@ CREATE TABLE rel_dis_mod(
 
 
 BEGIN;
-# ==============================  INÎCIO DAS FUNÇÕES DE INSERT ============================== 
+-- ==============================  INÎCIO DAS FUNÇÕES DE INSERT ============================== 
 
 CREATE OR REPLACE FUNCTION insert_disciplina(INOUT dis_Codigo text, INOUT dis_Nome TEXT, INOUT dis_Aula int, INOUT dis_Trabalho int, 
 	                                         INOUT dis_PeriodoIdeal int, INOUT dis_Ementa text, INOUT dis_Descricao text, OUT id int)
@@ -196,9 +190,9 @@ END
 $$
 LANGUAGE plpgsql;
 
-# ==============================  FIM DAS FUNÇÕES DE INSERT ================================
+-- ==============================  FIM DAS FUNÇÕES DE INSERT ================================
 
-# ==============================  INÎCIO DAS FUNÇÕES DE DELETE ============================== 
+-- ==============================  INÎCIO DAS FUNÇÕES DE DELETE ============================== 
 CREATE OR REPLACE FUNCTION delete_disciplina(dis_id integer)
 RETURNS VOID AS 
 $$
@@ -287,9 +281,9 @@ BEGIN
 END
 $$  
 LANGUAGE plpgsql;
-# ==============================  FIM DAS FUNÇÕES DE DELETE ====================================
+-- ==============================  FIM DAS FUNÇÕES DE DELETE ====================================
 
-# ==============================  INÎCIO DAS FUNÇÕES DE UPDATE =================================
+-- ==============================  INÎCIO DAS FUNÇÕES DE UPDATE =================================
 CREATE OR REPLACE FUNCTION update_disciplina(dis_id integer, dis_Codigo integer, dis_Nome TEXT, dis_Aula integer, dis_Trabalho integer,
 											 dis_PeriodoIdeal TEXT, dis_Ementa TEXT, dis_Descricao TEXT)
 RETURNS VOID AS $$
@@ -358,9 +352,9 @@ BEGIN
 	UPDATE rel_dis_mod SET dmod_dis_id = $2, dmod_mod_id = $3 WHERE rel_dis_mod.dmod_id = $1;
 END
 $$ LANGUAGE plpgsql;
-# ==============================  FIM DAS FUNÇÕES DE UPDATE =======================================
+-- ==============================  FIM DAS FUNÇÕES DE UPDATE =======================================
 
-# ==============================  INÎCIO DAS FUNÇÕES DE RETRIEVAL =================================
+-- ==============================  INÎCIO DAS FUNÇÕES DE RETRIEVAL =================================
 CREATE OR REPLACE FUNCTION disciplinas_modulo(id integer)
 	RETURNS TABLE (
 		nome_disciplina VARCHAR,
@@ -400,7 +394,7 @@ CREATE OR REPLACE FUNCTION disciplinas_modulo(id integer)
 	END; $$
 
 	LANGUAGE plpgsql;
-# ==============================  FIM DAS FUNÇÕES DE UPDATE =======================================
+-- ==============================  FIM DAS FUNÇÕES DE UPDATE =======================================
 
 
 COMMIT;

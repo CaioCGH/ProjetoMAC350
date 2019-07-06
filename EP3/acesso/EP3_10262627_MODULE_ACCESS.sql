@@ -11,7 +11,7 @@ DROP DOMAIN IF EXISTS email CASCADE;
 CREATE DOMAIN email AS citext
   CHECK ( value ~ '^[a-zA-Z0-9.!#$%&''*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$' );
 
-DROPAR NUMA ORDEM TOPOLOGICA..
+-- DROPAR NUMA ORDEM TOPOLOGICA..
 DROP TABLE IF EXISTS rel_pf_sr;
 DROP TABLE IF EXISTS rel_us_pf;
 DROP TABLE IF EXISTS servico;
