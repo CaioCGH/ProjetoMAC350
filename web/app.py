@@ -22,6 +22,9 @@ db.init_app(app)
 def home():
     return render_template('index.html', message="Hello World!")
 
+@app.route('/login')
+def login():
+    return render_template('login.html')
 
 @app.route('/login', methods=['POST'])
 def do_login():
@@ -62,10 +65,6 @@ def painel_do_aluno():
 @app.route('/signup')
 def signup():
     return render_template('signup.html')
-
-@app.route('/login')
-def login():
-    return render_template('login.html')
 
 @app.route('/alunos')
 def alunos():
