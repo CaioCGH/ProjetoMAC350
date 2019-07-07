@@ -9,6 +9,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Nome</th>
+                    <th scope="col">Sobrenome</th>
                     <th scope="col">NUSP</th>
                 </tr>
             </thead>
@@ -16,6 +17,7 @@
                 <tr>
                     {% for item in alunos %}
                     <th scope="row">{{loop.index}}</th>
+                        <td>{{item[0]}}</td>
                         <td>{{item[1]}}</td>
                         <td>{{item[2]}}</td>
                     </tr>

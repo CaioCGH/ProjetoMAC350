@@ -1,35 +1,35 @@
 
 --pessoas
-INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000000, 'Bob', 'bob666@uspfake.com');
-INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000001, 'Alice', 'Alice123@uspfake.com');
-INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000002, 'Joe', 'joejoe@uspfake.com');
-INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000004, 'Meg', 'megfox@uspfake.com');
-INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000005, 'Julia', 'julialua@uspfake.com');
-INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000007, 'Amanda', 'amanda13@uspfake.com');
-INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000008, 'Caio', 'caiostronda@uspfake.com');
-INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000009, 'Robin', 'batmanS2@uspfake.com');
-INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000010, 'Will', 'william@uspfake.com');
-INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000011, 'Lucy', 'lillucy@uspfake.com');
-INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000012, 'Alan Turing', 'turingmachine@uspfake.com');
-INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000013, 'Ada Lovelece', 'allyouneedislovelace@uspfake.com');
-INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000014, 'Edsger Dijkstra', 'dijkstra@uspfake.com');
-INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000015, 'Donald Knuth', 'donaldwho@uspfake.com');
-INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000016, 'Albert Einstein', 'einstein@uspfake.com');
-INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000017, 'Leonhard Euler', 'eee@uspfake.com');
-INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000018, 'Euclides', 'euclides@uspfake.com');
-INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000019, 'Linus Torvalds', 'linuxxx@uspfake.com');
-INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000020, 'Gubi', 'Gubi42@uspfake.com');
-INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000021, 'Beti Kira', 'issoefacil@uspfake.com');
-INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000023, 'Primo 23', 'primo23@uspfake.com');
-INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000029, 'Primo 29', 'primo29@uspfake.com');
-INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000031, 'Primo 31', 'primo31@uspfake.com');
-INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000037, 'Primo 37', 'primo37@uspfake.com');
-INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000041, 'Primo 41', 'primo41@uspfake.com');
-INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000043, 'Primo 43', 'primo43@uspfake.com');
-INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000047, 'Primo 47', 'primo47@uspfake.com');
-INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000053, 'Primo 53', 'primo53@uspfake.com');
-INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000059, 'Primo 59', 'primo59@uspfake.com');
-INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Email) VALUES (10000061, 'Primo 61', 'primo61@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000000, 'Bob', 'Marley' , 'bob666@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000001, 'Alice', 'Marley', 'Alice123@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000002, 'Joe','Joe',  'joejoe@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000004, 'Meg','Fox',  'megfox@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000005, 'Julia', 'Lua', 'julialua@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000007, 'Amanda', 'Barbosa',  'amanda13@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000008, 'Caio', 'Stronda',  'caiostronda@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000009, 'Robin', 'Wood',  'batmanS2@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000010, 'Will', 'Am', 'william@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000011, 'Lucy', 'LIL', 'lillucy@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000012, 'Alan', 'Turing',  'turingmachine@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000013, 'Ada', 'Lovelece', 'allyouneedislovelace@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000014, 'Edsger', 'Dijkstra', 'dijkstra@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000015, 'Donald', 'Knuth', 'donaldwho@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000016, 'Albert', 'Einstein', 'einstein@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000017, 'Leonhard', 'Euler', 'eee@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000018, 'Euclides', 'Awl','euclides@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000019, 'Linus', 'Torvalds' , 'linuxxx@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000020, 'Marcos', 'Gubitoso','Gubi42@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000021, 'Beti', 'Kira', 'issoefacil@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000023, 'Ana', 'Carolina','primo23@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000029, 'Ana', 'Beatriz','primo29@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000031, 'Ana', 'Paula' 'primo31@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000037, 'Ana', 'Lurdez', 'primo37@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000041, 'Ana', 'Carvalho', 'primo41@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000043, 'Ana', 'Ana', 'primo43@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000047, 'Ana', 'Diana','primo47@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000053, 'Johann', 'Lewtz', 'primo53@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000059, 'Anna', 'Caroline', 'primo59@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000061, 'Anne', 'Hee', 'primo61@uspfake.com');
 
 --ALUNOS
 

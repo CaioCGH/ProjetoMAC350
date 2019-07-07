@@ -53,11 +53,11 @@ def login():
 
 @app.route('/login', methods=['POST'])
 def do_login():
-    f_email = request.form['username']
+    f_email = request.form['email']
     query = 'select * from get_user_by_email(\'{}\');'.format(f_email)
     record = get_query_one("acesso", query)
     print(record)
-    if record != None and record[2] ==  request.form['password']:
+    if record != None and record[2] ==  request.form['senha']:
         session['logged_in'] = True
         session['user_email'] = record[1]
 
@@ -120,9 +120,10 @@ def create_planeja():
 def do_signup():
     
     f_nome = request.form['nome']
+    f_sobrenome = request.form['sobrenome']
     f_nusp = request.form['nusp']
     f_email = request.form['email']
-    f_senha = request.form['password']
+    f_senha = request.form['senha']
     query = 'select user_email from get_user_by_email(\'{}\');'.format(f_email)
     record = get_query_one('acesso', query)
     flash('entrou')
@@ -146,7 +147,7 @@ def signup():
 
 @app.route('/alunos')
 def alunos():
-    query = "SELECT * FROM pessoa;"
+    query = "SELECT pe_Nome, pe_Sobrenome, pe_NUSP FROM pessoa;"
     record = get_query_all('pessoa', query)
     return render_template('alunos.html', alunos=record)
 

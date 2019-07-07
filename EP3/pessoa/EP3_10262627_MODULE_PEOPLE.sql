@@ -21,10 +21,11 @@ DROP TABLE IF EXISTS pessoa        cascade;
 
 
 CREATE TABLE pessoa (
-	pe_id 		SERIAL,
-	pe_NUSP 	int NOT NULL,
-	pe_Nome 	varchar(80) NOT NULL,
-	pe_Email 	email NOT NULL,
+	pe_id 			SERIAL,
+	pe_NUSP 		int NOT NULL,
+	pe_Nome 		varchar(80) NOT NULL,
+	pe_Sobrenome 	varchar(80) NOT NULL,	
+	pe_Email 		email NOT NULL,
 	CONSTRAINT pk_pessoa PRIMARY KEY (pe_id),
 	CONSTRAINT sk_pessoa UNIQUE (pe_email),
 	CONSTRAINT tk_pessoa UNIQUE (pe_NUSP)
@@ -61,11 +62,11 @@ CREATE TABLE administrador (
 BEGIN;
 -- ==============================  INÎCIO DAS FUNÇÕES DE INSERT ============================== 
 
-CREATE OR REPLACE FUNCTION insert_pessoa(INOUT pe_email text, INOUT pe_nusp integer, INOUT pe_nome text, OUT id int)
+CREATE OR REPLACE FUNCTION insert_pessoa(INOUT pe_email text, INOUT pe_nusp integer, INOUT pe_nome text,  INOUT pe_sobrenome text,OUT id int)
 AS 
 $$
 BEGIN
-	INSERT INTO pessoa (pe_email, pe_nusp, pe_nome) 
+	INSERT INTO pessoa (pe_email, pe_nusp, pe_nome, pe_sobrenome) 
 	VALUES ($1, $2, $3)
 	RETURNING pe_id into id;
 END
@@ -153,11 +154,11 @@ LANGUAGE plpgsql;
 -- ==============================  FIM DAS FUNÇÕES DE DELETE ====================================
 
 -- ==============================  INÎCIO DAS FUNÇÕES DE UPDATE =================================
-CREATE OR REPLACE FUNCTION update_pessoa(pe_id integer, pe_nusp integer, pe_email email, pe_nome TEXT)
+CREATE OR REPLACE FUNCTION update_pessoa(pe_id integer, pe_nusp integer, pe_email email, pe_nome TEXT, pe_sobrenome TEXT)
 RETURNS VOID AS $$
 DECLARE
 BEGIN
-	UPDATE pessoa SET pe_nusp = $2, pe_email = $3, pe_nome = $4 WHERE pessoa.pe_id = $1;
+	UPDATE pessoa SET pe_nusp = $2, pe_email = $3, pe_nome = $4, pe_sobrenome = $5 WHERE pessoa.pe_id = $1;
 END;
 $$  LANGUAGE plpgsql;
 
