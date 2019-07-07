@@ -67,13 +67,15 @@ def do_login():
     if record != None and record[2] ==  request.form['senha']:
         session['logged_in'] = True
         session['user_email'] = record[1]
+        session['user_id'] = record[0]
         print(record[0])
-        query = 'select id, NUSP, Nome from get_pessoa_by_user_id(\'{}\');'.format(record[0])
+        query = 'select id, NUSP, Nome, Sobrenome from get_pessoa_by_user_id(\'{}\');'.format(record[0])
         record = get_query_one("acesso-pessoa", query)
 
         session['pessoa_id'] = record[0]
         session['nusp'] = record[1]
         session['name'] = record[2]
+        session['surname'] = record[3]
         return home()
     else:
         flash('Senha ou usuário incorretos!')
