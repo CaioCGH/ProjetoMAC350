@@ -15,7 +15,7 @@ password_tmp = "0"
 '''Faz a conexão'''
 def get_connection(name) :
     return psycopg2.connect(   user = user_tmp,
-                           password = "0",
+                           password = password_tmp,
                             host = "127.0.0.1",
                             port = "5432",
                             database = name)
@@ -114,6 +114,37 @@ def painel_do_professor():
 
     return render_template('painel_do_professor.html', disciplinas_oferecidas=disc_oferecidas, disciplinas=todas_disciplinas)
 
+@app.route('/painel_do_administrador')
+def painel_do_administrador():
+
+    query = 'select * from disciplina'
+    todas_disciplinas = get_query_all('curriculo', query)
+    query = 'select * from trilha'
+    todas_trilhas = get_query_all('curriculo', query)
+    query = 'select * from modulo'
+    todos_modulos = get_query_all('curriculo', query)
+
+    return render_template('painel_do_administrador.html', disciplinas=todas_disciplinas, trilhas=todas_trilhas, modulos=todos_modulos)
+
+@app.route('/create_disciplina')
+def create_disciplina():
+    return render_template('create_disciplina.html')
+
+@app.route('/do_create_disciplina', methods=['POST'])
+def do_create_disciplina():
+    codigo          = request.form.get('codigo')
+    nome            = request.form.get('nome')
+    credito_aula    = request.form.get('credito_aula')
+    credito_trabalho= request.form.get('credito_trabalho')
+    periodo_ideal   = request.form.get('periodo_ideal')
+    ementa          = request.form.get('ementa')
+    descricao       = request.form.get('descricao')
+
+    query = 'select insert_disciplina(\'{}\',\'{}\', {}, {}, {}, \'{}\', \'{}\');'.format(codigo, nome, credito_aula, credito_trabalho, periodo_ideal, ementa, descricao)
+    get_execute('curriculo', query)
+    return painel_do_administrador()
+
+
 @app.route('/delete_planeja', methods=['POST'])
 def delete_planeja():
     target = request.form.get('planeja_a_deletar')
@@ -125,11 +156,18 @@ def delete_planeja():
 @app.route('/delete_oferecimento', methods=['POST'])
 def delete_oferecimento():
     target = request.form.get('oferecimento_a_deletar')
-    print("target", target)
     query = 'select * from delete_oferecimento({})'.format(target)
     get_execute('pessoa-curriculo', query)
 
     return painel_do_professor()
+
+@app.route('/delete_disciplina', methods=['POST'])
+def delete_disciplina():
+    target = request.form.get('disciplina_a_deletar')
+    query = 'select * from delete_disciplina({})'.format(target)
+    get_execute('curriculo', query)
+
+    return painel_do_administrador()
 
 @app.route('/create_planeja', methods=['POST'])
 def create_planeja():

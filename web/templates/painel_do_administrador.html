@@ -1,0 +1,65 @@
+{% extends "template.html" %}
+{% block content %}
+
+    <div class="container-fluid" align="left">
+        <h1>Disciplinas</h1>
+        <a href="/create_disciplina"> <button type="button" class="btn btn-primary btn-lg">Criar Disciplina Nova</button> </a>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Codigo</th>
+                    <th scope="col">Nome da disciplina</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for disciplina in disciplinas %}
+                        <td>{{disciplina[1]}}</td>
+                        <td>{{disciplina[2]}}</td>
+                        <td><form action="/delete_disciplina" method="post">
+                            <input type="hidden" value="{{ disciplina[0]}}" name="disciplina_a_deletar">
+                            <input type=submit value="Excluir Disciplina">
+                        </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+            </tbody>
+        </table>
+        <h1>Trilhas</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Codigo</th>
+                    <th scope="col">Nome da trilha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for trilha in trilhas %}
+                        <td>{{trilha[1]}}</td>
+                        <td>{{trilha[2]}}</td>
+                </tr>
+                    {% endfor %}
+            </tbody>
+        </table>
+        <h1>Módulos</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Codigo</th>
+                    <th scope="col">Nome do módulo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for modulo in modulos %}
+                        <td>{{modulo[1]}}</td>
+                        <td>{{modulo[2]}}</td>
+                </tr>
+                    {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
