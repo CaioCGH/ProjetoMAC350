@@ -276,7 +276,14 @@ BEGIN
 		cast(dis_id as integer),
 		cast(dis_Codigo as varchar),
 		cast(dis_Nome as varchar)
-		FROM disciplina
+		FROM dblink('dbname=curriculo','SELECT * FROM disciplina') AS (	dis_id int,
+		dis_Codigo  		varchar(80),
+		dis_Nome    		varchar(80),
+		dis_Aula    		int,
+			dis_Trabalho 		int,
+		dis_PeriodoIdeal 	int,
+		dis_Ementa 			varchar(2000),
+		dis_Descricao 		varchar(1000))
 		INNER JOIN (
 			SELECT * FROM oferecimento
 			INNER JOIN (
@@ -306,7 +313,14 @@ BEGIN
 		cast(dis_Nome as varchar),
 		cast(pla_id as integer),
 		cast(pla_DataInicio as varchar)
-		FROM disciplina
+		FROM dblink('dbname=curriculo','SELECT * FROM disciplina') AS (	dis_id int,
+		dis_Codigo  		varchar(80),
+		dis_Nome    		varchar(80),
+		dis_Aula    		int,
+		dis_Trabalho 		int,
+		dis_PeriodoIdeal 	int,
+		dis_Ementa 			varchar(2000),
+		dis_Descricao 		varchar(1000))
 		INNER JOIN  planeja ON dis_id     = pla_dis_id
 		WHERE pla_al_id = query_id;
 END; $$
@@ -325,7 +339,14 @@ BEGIN
 		cast(dis_id as integer),
 		cast(dis_Codigo as varchar),
 		cast(dis_Nome as varchar)
-		FROM disciplina
+		FROM dblink('dbname=curriculo','SELECT * FROM disciplina') AS (	dis_id int,
+		dis_Codigo  		varchar(80),
+		dis_Nome    		varchar(80),
+		dis_Aula    		int,
+		dis_Trabalho 		int,
+		dis_PeriodoIdeal 	int,
+		dis_Ementa 			varchar(2000),
+		dis_Descricao 		varchar(1000))
 		LEFT OUTER JOIN planeja 
 		ON dis_id = pla_dis_id
 		WHERE pla_id IS null;

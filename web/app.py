@@ -23,6 +23,11 @@ def get_connection(name) :
 def get_cursor(name):
     return get_connection(name).cursor()
 ''' Faz a query em relação a um no banco de dados'''
+
+def get_execute(name, query):
+    cursor = get_cursor(name)
+    cursor.execute(query)
+
 def get_query_one(name, query):
     cursor = get_cursor(name)
     cursor.execute(query)
@@ -75,22 +80,20 @@ def logout():
 
 @app.route('/painel_do_aluno')
 def painel_do_aluno():
-    cursor = connection.cursor()
     query = 'select * from get_disciplinas_cursa_by_pessoa_id({});'.format(session['pessoa_id'])
-    cursor.execute(query)
-    dc = cursor.fetchall()
+    dc = get_query_all('pessoa-curriculo', query)
+
     query = 'select * from get_disciplinas_planejadas_by_pessoa_id(\'{}\');'.format(session['pessoa_id'])
-    cursor.execute(query)
-    disc_planejadas = cursor.fetchall()
-    cursor.execute('select * from disciplina')
-    todas_disc = cursor.fetchall()
+    disc_planejadas = get_query_all('pessoa-curriculo', query)
+
+    query = 'select * from disciplina'
+    todas_disc = get_query_all('curriculo', query)
 
     query = 'select * from get_disciplinas_planejaveis_by_pessoa_id({});'.format(session['pessoa_id'])
-    cursor.execute(query)
-    disc_planejaveis = cursor.fetchall() 
-    
-    cursor.execute('select * from trilha')
-    tr = cursor.fetchall()
+    disc_planejaveis = get_query_all('pessoa-curriculo', query)
+
+    query = 'select * from trilha'
+    tr = get_query_all('curriculo', query)
 
     return render_template('painel_do_aluno.html', disciplinas_cursadas=dc, trilhas=tr, disc_planejadas=disc_planejadas, disc_planejaveis=disc_planejaveis)
 
@@ -98,8 +101,7 @@ def painel_do_aluno():
 def delete_planeja():
     target = request.form.get('planeja_a_deletar')
     query = 'select * from delete_planeja({})'.format(target)
-    cursor = connection.cursor()
-    cursor.execute(query)
+    get_query_all('pessoa-curriculo', query)
 
     return painel_do_aluno()
 
@@ -108,8 +110,7 @@ def create_planeja():
     disciplina = request.form.get('disciplina_a_planejar')
     dataInicio = request.form.get('dataInicio')
     query = 'select insert_planeja({}, {},  \'{}\');'.format(session['pessoa_id'], disciplina, dataInicio)
-    cursor = connection.cursor()
-    cursor.execute(query)
+    get_query_all('pessoa-curriculo', query)
 
     return painel_do_aluno()
 
