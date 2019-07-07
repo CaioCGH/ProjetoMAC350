@@ -285,5 +285,47 @@ def alunos():
     record = get_query_all('pessoa', query)
     return render_template('alunos.html', alunos=record)
 
+@app.route('/my_account')
+def my_account():
+    return render_template('my_account.html', email=session['user_email'], name=session['name'], surname=session['surname'])
+
+@app.route('/edit_account')
+def edit_account():
+    return render_template('edit_account.html', email=session['user_email'], surname=session['surname'], name=session['name'])
+
+@app.route('/edit_account' , methods=['POST'])
+def edit_account_post():
+
+    f_nome = request.form['nome']
+    f_surname = request.form['sobrenome']
+    print(session['pessoa_id'])
+    query = 'select id, NUSP, Nome, Sobrenome from get_pessoa_by_user_id(\'{}\');'.format(session['user_id'])
+    record = get_query_one("acesso-pessoa", query)
+
+    print(record)
+
+    query = 'select * from update_pessoa(\'{}\',\'{}\',\'{}\',\'{}\',\'{}\');'.format(record[0], record[1], session['user_email'], record[2], record[3])
+    get_execute("pessoa", query)   
+    session['name'] = f_nome
+    session['surname'] = f_surname
+
+    return render_template('my_account.html', email=session['user_email'], surname=session['surname'], name=session['name'])
+
+@app.route('/change_password')
+def change_password():
+    return render_template('change_password.html')
+
+@app.route('/change_password' , methods=['POST'])
+def change_password_post():
+    f_email = session['user_email']
+    query = 'select user_id, user_email, user_password from get_user_by_email(\'{}\');'.format(f_email)
+    record = get_query_one("acesso", query)
+    if record != None and record[2] ==  request.form['old']:
+        query = 'select * from update_users(\'{}\',\'{}\',\'{}\');'.format(session['user_id'], session['user_email'], request.form['new'])
+        record = get_execute("acesso", query)
+
+    return render_template('my_account.html', email=session['user_email'], surname=session['surname'], name=session['name'])
+
+
 if __name__ == '__main__':
     app.run()
