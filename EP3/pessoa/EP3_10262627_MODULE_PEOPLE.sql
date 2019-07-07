@@ -22,9 +22,9 @@ DROP TABLE IF EXISTS pessoa        cascade;
 
 CREATE TABLE pessoa (
 	pe_id 		SERIAL,
-	pe_NUSP 	int,
-	pe_Nome 	varchar(80),
-	pe_Email 	email,
+	pe_NUSP 	int NOT NULL,
+	pe_Nome 	varchar(80) NOT NULL,
+	pe_Email 	email NOT NULL,
 	CONSTRAINT pk_pessoa PRIMARY KEY (pe_id),
 	CONSTRAINT sk_pessoa UNIQUE (pe_email),
 	CONSTRAINT tk_pessoa UNIQUE (pe_NUSP)
@@ -32,7 +32,7 @@ CREATE TABLE pessoa (
 
 CREATE TABLE aluno (
 	al_id			SERIAL,
-	al_DataIngresso varchar(10),
+	al_DataIngresso varchar(10) NOT NULL,
 	al_CodCurso 	int,
 	al_Livres 		int,
 	al_Eletivas 	int,
@@ -44,9 +44,9 @@ CREATE TABLE aluno (
 
 CREATE TABLE professor (
 	pr_id 			SERIAL,
-	pr_Area  		varchar(80),
-	pr_Departamento varchar(80),
-	pr_DataAdmissao varchar(10),
+	pr_Area  		varchar(80) NOT NULL,
+	pr_Departamento varchar(80) NOT NULL,
+	pr_DataAdmissao varchar(10) NOT NULL,
 	CONSTRAINT pr_id PRIMARY KEY (pr_id),
     FOREIGN KEY(pr_id) REFERENCES pessoa(pe_id)
 );

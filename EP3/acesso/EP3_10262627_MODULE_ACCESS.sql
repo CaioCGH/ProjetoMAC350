@@ -21,22 +21,22 @@ DROP TABLE IF EXISTS users CASCADE;
 
 CREATE TABLE perfil(
 	pf_id SERIAL,
-	pf_Tipo varchar(80),
+	pf_Tipo varchar(80) NOT NULL,
 	CONSTRAINT pk_perfil PRIMARY KEY (pf_id),
 	CONSTRAINT sk_perfil UNIQUE (pf_Tipo)
 );
 
 CREATE TABLE servico(
 	sr_id 			SERIAL,
-	sr_Nome 		varchar(80),
-	sr_Descricao 	varchar(80),
+	sr_Nome 		varchar(80) NOT NULL,
+	sr_Descricao 	varchar(80) NOT NULL,
 	CONSTRAINT pk_servico PRIMARY KEY (sr_id),
 	CONSTRAINT sk_servico UNIQUE (sr_Nome)
 );
 
 CREATE TABLE users (
 	us_id       SERIAL,
-	us_email    email,
+	us_email    email NOT NULL,
 	us_password TEXT NOT NULL,
 	CONSTRAINT pk_user PRIMARY KEY (us_id),
 	CONSTRAINT sk_user UNIQUE (us_email)
@@ -47,7 +47,7 @@ CREATE TABLE rel_us_pf(
 	upf_id			SERIAL,
 	upf_us_id       SERIAL,
 	upf_pf_id       SERIAL,
-	upf_DataInicio  varchar(10),
+	upf_DataInicio  varchar(10) NOT NULL,
 	upf_DataTermino varchar(10),
 	CONSTRAINT pk_us_pf PRIMARY KEY(upf_id),
     FOREIGN KEY(upf_pf_id) REFERENCES perfil(pf_id),

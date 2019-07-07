@@ -18,9 +18,9 @@ CREATE TABLE oferecimento(
 	of_id 			SERIAL,
 	of_pr_id 		SERIAL,
 	of_dis_id		SERIAL,
-	of_DataInicio 	varchar(10),
-	of_Vagas 		int,
-	of_Horario 		varchar(80),
+	of_DataInicio 	varchar(10) NOT NULL,
+	of_Vagas 		int NOT NULL,
+	of_Horario 		varchar(80) NOT NULL,
 	CONSTRAINT pk_oferecimento PRIMARY KEY (of_id),
 	CONSTRAINT sk_oferecimento UNIQUE (of_DataInicio, of_pr_id, of_dis_id, of_Horario)
 );
@@ -67,13 +67,35 @@ CREATE TABLE planeja(
 	pla_id 		SERIAL,
 	pla_al_id	SERIAL,
 	pla_dis_id	SERIAL,
+	pla_DataInicio varchar(10) NOT NULL,
+	CONSTRAINT pk_planeja PRIMARY KEY(pla_id),	
+	CONSTRAINT sk_planeja UNIQUE (pla_al_id, pla_dis_id, pla_DataInicio)
+);
+
+
+/*
+OLD
+CREATE TABLE planeja(
+	pla_id 		SERIAL,
+	pla_al_id	SERIAL,
+	pla_dis_id	SERIAL,
 	pla_DataInicio varchar(10),
 	CONSTRAINT pk_planeja PRIMARY KEY(pla_id),	
 	CONSTRAINT sk_planeja UNIQUE (pla_al_id, pla_dis_id, pla_DataInicio),	
     FOREIGN KEY(pla_al_id) REFERENCES aluno(al_id),
     FOREIGN KEY(pla_dis_id) REFERENCES disciplina(dis_id)
-);
+);*/
 
+
+CREATE TABLE rel_adm_curr(
+	acurr_id			SERIAL,
+	acurr_adm_id		SERIAL,
+	acurr_curr_id 		SERIAL,
+	acurr_DataInicio 	varchar(10) NOT NULL,
+	acurr_DataTermino 	varchar(10),
+	CONSTRAINT pk_rel_adm_curr PRIMARY KEY(acurr_id)
+);
+/*
 CREATE TABLE rel_adm_curr(
 	acurr_id			SERIAL,
 	acurr_adm_id		SERIAL,
@@ -84,8 +106,7 @@ CREATE TABLE rel_adm_curr(
     FOREIGN KEY(acurr_adm_id) REFERENCES administrador(adm_id),
     FOREIGN KEY(acurr_curr_id) REFERENCES curriculo(curr_id)
 );
-
-
+*/
 
 BEGIN;
 -- ==============================  INÎCIO DAS FUNÇÕES DE INSERT ============================== 
