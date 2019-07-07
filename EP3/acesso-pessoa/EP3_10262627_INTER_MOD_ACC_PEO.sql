@@ -4,6 +4,14 @@ After creating the extensions, lets create a domain for valid emails
 Valid emails follows a specific Request for Comment defined in RFC5322
 For more info, see: https://tools.ietf.org/html/rfc5322
 */
+CREATE EXTENSION IF NOT EXISTS dblink;
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+CREATE EXTENSION IF NOT EXISTS citext;
+
+DROP DOMAIN IF EXISTS email CASCADE;
+CREATE DOMAIN email AS citext
+  CHECK ( value ~ '^[a-zA-Z0-9.!#$%&''*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$' );
+
 
 -- DROPAR NUMA ORDEM TOPOLOGICA..
 DROP TABLE IF EXISTS rel_pe_us cascade;
@@ -80,7 +88,7 @@ BEGIN
 		pe_id,
 		pe_NUSP,
 		cast(pe_Nome as varchar)
-	FROM pessoa WHERE pe_id = (SELECT pus_pe_id FROM rel_pe_us WHERE pus_us_id = query_id );
+	FROM dblink('dbname=pessoa','SELECT * FROM pessoa') AS (pe_id int, pe_NUSP int, pe_Nome varchar(80), pe_Email email) WHERE pe_id = (SELECT pus_pe_id FROM rel_pe_us WHERE pus_us_id = query_id );
 END; $$ 
  
 LANGUAGE 'plpgsql';

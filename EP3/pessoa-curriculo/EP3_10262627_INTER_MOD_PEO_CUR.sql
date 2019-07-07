@@ -4,6 +4,7 @@ After creating the extensions, lets create a domain for valid emails
 Valid emails follows a specific Request for Comment defined in RFC5322
 For more info, see: https://tools.ietf.org/html/rfc5322
 */
+CREATE EXTENSION IF NOT EXISTS dblink;
 
 -- DROPAR NUMA ORDEM TOPOLOGICA..
 DROP TABLE IF EXISTS rel_adm_curr 	cascade;
@@ -11,6 +12,20 @@ DROP TABLE IF EXISTS planeja		cascade;
 DROP TABLE IF EXISTS cursa			cascade;
 DROP TABLE IF EXISTS oferecimento	cascade;
 
+
+
+CREATE TABLE oferecimento(
+	of_id 			SERIAL,
+	of_pr_id 		SERIAL,
+	of_dis_id		SERIAL,
+	of_DataInicio 	varchar(10),
+	of_Vagas 		int,
+	of_Horario 		varchar(80),
+	CONSTRAINT pk_oferecimento PRIMARY KEY (of_id),
+	CONSTRAINT sk_oferecimento UNIQUE (of_DataInicio, of_pr_id, of_dis_id, of_Horario)
+);
+
+/*OLD
 CREATE TABLE oferecimento(
 	of_id 			SERIAL,
 	of_pr_id 		SERIAL,
@@ -23,7 +38,18 @@ CREATE TABLE oferecimento(
 	FOREIGN KEY(of_pr_id) REFERENCES professor(pr_id),
 	FOREIGN KEY(of_dis_id) REFERENCES disciplina(dis_id)
 );
+*/
 
+CREATE TABLE cursa(
+	cur_id 			SERIAL,
+	cur_al_id		SERIAL,
+	cur_of_id 		SERIAL,
+	cur_Nota 		float,
+	cur_Freq 		int,
+	CONSTRAINT pk_cursa PRIMARY KEY(cur_id),
+	CONSTRAINT sk_cursa UNIQUE (cur_al_id, cur_of_id)
+);
+/*OLD
 CREATE TABLE cursa(
 	cur_id 			SERIAL,
 	cur_al_id		SERIAL,
@@ -35,6 +61,7 @@ CREATE TABLE cursa(
 	FOREIGN KEY(cur_al_id) REFERENCES aluno(al_id),
     FOREIGN KEY(cur_of_id) REFERENCES oferecimento(of_id)
 );
+*/
 
 CREATE TABLE planeja(
 	pla_id 		SERIAL,
@@ -228,7 +255,14 @@ BEGIN
 		cast(dis_id as integer),
 		cast(dis_Codigo as varchar),
 		cast(dis_Nome as varchar)
-		FROM disciplina
+		FROM dblink('dbname=curriculo','SELECT * FROM disciplina') AS (	dis_id int,
+		dis_Codigo  		varchar(80),
+		dis_Nome    		varchar(80),
+		dis_Aula    		int,
+		dis_Trabalho 		int,
+		dis_PeriodoIdeal 	int,
+		dis_Ementa 			varchar(2000),
+		dis_Descricao 		varchar(1000))
 		INNER JOIN  oferecimento ON dis_id     = of_dis_id
 		INNER JOIN  cursa		 ON cur_al_id = query_id;
 END; $$

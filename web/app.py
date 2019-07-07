@@ -29,7 +29,7 @@ def get_query_one(name, query):
     return cursor.fetchone()
 ''' Faz a query em relação a todos no banco de dados'''
 def get_query_all(name, query):
-    cursor = get_curso(name)
+    cursor = get_cursor(name)
     cursor.execute(query)
     return cursor.fetchall()
 
