@@ -1,0 +1,25 @@
+<div class="container-fluid" align="center">
+        <div class="card" style="width: 30rem;" align="center">
+    
+            <div class="card-body">
+                <h2 class="card-title" align="center">
+                    Editar Oferecimento de <br>
+                    {{ disciplina[2] }}
+                </h2>
+                <form action="/do_update_oferecimento" method="POST">
+                    <input type="text" name="codigo" value="{{ disciplina[1] }}">
+                        <td><select name="dataInicio">
+                            <option value="01/08/2019">01/08/2019</option>
+                            <option value="01/03/2020">01/03/2020</option>
+                            <option value="01/08/2020">01/08/2020</option>
+                            <option value="01/03/2021">01/03/2021</option>
+                        </select></td>
+                        <td><input type=text  name=nvagas value="{{ oferecimento[4] }}" ></input></td>
+                        <td><input type=text  name=horario value="{{ oferecimento[5] }}"></input></td>
+                        <input type=hidden name=oferecimento_id value="{{ oferecimento[0] }}"></input>
+                        <button type="sub" class="btn btn-primary btn-block" align="center"> Salvar Edições nesta Disciplina </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

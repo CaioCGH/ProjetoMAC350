@@ -144,7 +144,17 @@ def update_disciplina():
     disciplina_id = request.form.get('disciplina_a_atualizar')
     query = 'select * from disciplina where dis_id = {}'.format(disciplina_id)
     disciplina = get_query_one('curriculo', query)
-    return render_template('update_disciplina.html', disciplina=disciplina)
+    return render_template('update_oferecimento.html', disciplina=disciplina)
+
+@app.route('/update_oferecimento', methods=['POST'])
+def update_oferecimento():
+    oferecimento_id = request.form.get('oferecimento_a_atualizar')
+    query = 'select * from oferecimento where of_id = {}'.format(oferecimento_id)
+    oferecimento = get_query_one('pessoa-curriculo', query)
+    disciplina_id = request.form.get('disciplina_a_atualizar')
+    query = 'select * from disciplina where dis_id = {}'.format(disciplina_id)
+    disciplina = get_query_one('curriculo', query)
+    return render_template('update_oferecimento.html', oferecimento=oferecimento, disciplina=disciplina)
 
 @app.route('/do_update_disciplina', methods=['POST'])
 def do_update_disciplina():
@@ -161,7 +171,20 @@ def do_update_disciplina():
     get_execute('curriculo', query)
     return painel_do_administrador()
 
-    return render_template('update_disciplina.html', disciplina=disciplina)
+@app.route('/do_update_oferecimento', methods=['POST'])
+def do_update_oferecimento():
+    oferecimento_id    = request.form.get('oferecimento_id')
+    codigo    = request.form.get('codigo')
+    dataInicio= request.form.get('dataInicio')
+    nvagas    = request.form.get('nvagas')
+    horario   = request.form.get('horario')
+    query = 'SELECT * FROM disciplina WHERE dis_Codigo = \'{}\''.format(codigo) 
+    disciplina = get_query_one('curriculo', query)
+    query = 'select update_oferecimento({}, {}, {}, \'{}\', {}, \'{}\' \
+    );'.format(oferecimento_id, session['pessoa_id'], disciplina[0], dataInicio, nvagas, horario)
+    get_execute('pessoa-curriculo', query)
+
+    return painel_do_professor()
 
 @app.route('/do_create_disciplina', methods=['POST'])
 def do_create_disciplina():

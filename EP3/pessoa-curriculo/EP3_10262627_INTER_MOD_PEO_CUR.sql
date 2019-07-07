@@ -211,7 +211,7 @@ LANGUAGE plpgsql;
 -- ==============================  FIM DAS FUNÇÕES DE DELETE ====================================
 
 -- ==============================  INÎCIO DAS FUNÇÕES DE UPDATE =================================
-CREATE OR REPLACE FUNCTION update_oferecimento(of_id integer, of_pr_id integer, of_dis_id integer, of_DataInicio integer, of_Vagas integer, of_Horario TEXT)
+CREATE OR REPLACE FUNCTION update_oferecimento(of_id integer, of_pr_id integer, of_dis_id integer, of_DataInicio TEXT, of_Vagas integer, of_Horario TEXT)
 RETURNS VOID AS $$
 DECLARE
 BEGIN
