@@ -1,0 +1,67 @@
+{% extends "template.html" %}
+{% block content %}
+
+    <div class="container-fluid" align="left">
+        <h1>Oferecimentos oferecidos</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Codigo</th>
+                    <th scope="col">Nome da disciplina</th>
+                    <th scope="col">Data Início</th>
+                    <th scope="col">Vagas</th>
+                    <th scope="col">Horário</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for disciplina in disciplinas_oferecidas %}
+                        <td>{{disciplina[1]}}</td>
+                        <td>{{disciplina[2]}}</td>
+                        <td>{{disciplina[4]}}</td>
+                        <td>{{disciplina[5]}}</td>
+                        <td>{{disciplina[6]}}</td>
+                        <td>
+                        <form action="/delete_oferecimento" method="post">
+                            <input type="hidden" value="{{ disciplina[3]}}" name="oferecimento_a_deletar">
+                            <input type=submit value="Excluir Oferecimento">
+                        </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+            </tbody>
+        </table>
+        <h1>Disciplinas Oferecíveis</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Codigo</th>
+                    <th scope="col">Nome da disciplina</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for disciplina in disciplinas %}
+                        <td>{{disciplina[1]}}</td>
+                        <td>{{disciplina[2]}}</td>
+                        <td>
+                            <form action="{{ url_for('create_oferecimento') }}" method=post>
+                                <select name="dataInicio">
+                                    <option value="01/08/2019">01/08/2019</option>
+                                    <option value="01/03/2020">01/03/2020</option>
+                                    <option value="01/08/2020">01/08/2020</option>
+                                    <option value="01/03/2021">01/03/2021</option>
+                                </select>
+                                <input type=text  name=nvagas ></input>
+                                <input type=text  name=horario ></input>
+                                <input type=hidden value="{{ disciplina[0] }}" name=disciplina_a_oferecer></input>
+                                <input type=submit value="Oferecer disciplina"></input>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

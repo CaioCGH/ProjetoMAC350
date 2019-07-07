@@ -22,7 +22,7 @@ INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000020, 
 INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000021, 'Beti', 'Kira', 'issoefacil@uspfake.com');
 INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000023, 'Ana', 'Carolina','primo23@uspfake.com');
 INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000029, 'Ana', 'Beatriz','primo29@uspfake.com');
-INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000031, 'Ana', 'Paula' 'primo31@uspfake.com');
+INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000031, 'Ana', 'Paula' ,'primo31@uspfake.com');
 INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000037, 'Ana', 'Lurdez', 'primo37@uspfake.com');
 INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000041, 'Ana', 'Carvalho', 'primo41@uspfake.com');
 INSERT INTO pessoa (pe_NUSP, pe_Nome, pe_Sobrenome, pe_Email) VALUES (10000043, 'Ana', 'Ana', 'primo43@uspfake.com');

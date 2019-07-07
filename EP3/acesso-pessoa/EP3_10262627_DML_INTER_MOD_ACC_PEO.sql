@@ -9,3 +9,4 @@ INSERT INTO rel_pe_us (pus_pe_id, pus_us_id) VALUES (7, 7);
 INSERT INTO rel_pe_us (pus_pe_id, pus_us_id) VALUES (8, 8);
 INSERT INTO rel_pe_us (pus_pe_id, pus_us_id) VALUES (9, 9);
 INSERT INTO rel_pe_us (pus_pe_id, pus_us_id) VALUES (10, 10);
+INSERT INTO rel_pe_us (pus_pe_id, pus_us_id) VALUES (11, 11);

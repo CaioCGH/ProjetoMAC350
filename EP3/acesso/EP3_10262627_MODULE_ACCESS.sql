@@ -1,4 +1,3 @@
-
 /*
 After creating the extensions, lets create a domain for valid emails
 Valid emails follows a specific Request for Comment defined in RFC5322

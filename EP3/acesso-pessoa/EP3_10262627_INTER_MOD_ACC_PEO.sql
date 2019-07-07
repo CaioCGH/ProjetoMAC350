@@ -1,4 +1,3 @@
-
 /*
 After creating the extensions, lets create a domain for valid emails
 Valid emails follows a specific Request for Comment defined in RFC5322
@@ -88,7 +87,7 @@ BEGIN
 		pe_id,
 		pe_NUSP,
 		cast(pe_Nome as varchar)
-	FROM dblink('dbname=pessoa','SELECT * FROM pessoa') AS (pe_id int, pe_NUSP int, pe_Nome varchar(80),  pe_Sobrenome varchar(80), pe_Email email) WHERE pe_id = (SELECT pus_pe_id FROM rel_pe_us WHERE pus_us_id = query_id );
+	FROM dblink('dbname=pessoa user=caio password=0' ,'SELECT * FROM pessoa') AS (pe_id int, pe_NUSP int, pe_Nome varchar(80),  pe_Sobrenome varchar(80), pe_Email email) WHERE pe_id = (SELECT pus_pe_id FROM rel_pe_us WHERE pus_us_id = query_id );
 END; $$ 
  
 LANGUAGE 'plpgsql';

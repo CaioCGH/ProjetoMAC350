@@ -1,6 +1,6 @@
 #!/bin/bash
 
-a="jz"
+a="caio"
 
 dropdb pessoa
 dropdb acesso

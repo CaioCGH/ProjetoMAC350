@@ -34,6 +34,7 @@ INSERT INTO users(us_email, us_password) VALUES ('qualquer7@usp.br', '123456');
 INSERT INTO users(us_email, us_password) VALUES ('qualquer8@usp.br', '123456');
 INSERT INTO users(us_email, us_password) VALUES ('qualquer9@usp.br', '123456');
 INSERT INTO users(us_email, us_password) VALUES ('qualquer10@usp.br', '123456');
+INSERT INTO users(us_email, us_password) VALUES ('qualquer11@usp.br', '123456');
 
 --rel_us_pf
 INSERT INTO rel_us_pf(upf_us_id, upf_pf_id, upf_DataInicio, upf_DataTermino) VALUES (1, 1, '01/01/2017', '30/06/2017');

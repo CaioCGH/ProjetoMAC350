@@ -9,13 +9,13 @@ import os
 app = Flask(__name__)
 app.secret_key = 'super secret key'
 
-user_tmp = "jz"
+user_tmp = "caio"
 password_tmp = "0"
 
 '''Faz a conexão'''
 def get_connection(name) :
     return psycopg2.connect(   user = user_tmp,
-                           password = password_tmp,
+                           password = "0",
                             host = "127.0.0.1",
                             port = "5432",
                             database = name)
@@ -74,7 +74,7 @@ def do_login():
         session['pessoa_id'] = record[0]
         session['nusp'] = record[1]
         session['name'] = record[2]
-        return painel_do_aluno()
+        return home()
     else:
         flash('Senha ou usuário incorretos!')
         return render_template('index.html', message="Bem vindo!")
@@ -104,6 +104,16 @@ def painel_do_aluno():
 
     return render_template('painel_do_aluno.html', disciplinas_cursadas=dc, trilhas=tr, disc_planejadas=disc_planejadas, disc_planejaveis=disc_planejaveis)
 
+@app.route('/painel_do_professor')
+def painel_do_professor():
+    query = 'select * from get_disciplinas_oferecimento_by_professor_id({});'.format(session['pessoa_id'])
+    disc_oferecidas = get_query_all('pessoa-curriculo', query)
+
+    query = 'select * from disciplina'
+    todas_disciplinas = get_query_all('curriculo', query)
+
+    return render_template('painel_do_professor.html', disciplinas_oferecidas=disc_oferecidas, disciplinas=todas_disciplinas)
+
 @app.route('/delete_planeja', methods=['POST'])
 def delete_planeja():
     target = request.form.get('planeja_a_deletar')
@@ -111,6 +121,15 @@ def delete_planeja():
     get_query_all('pessoa-curriculo', query)
 
     return painel_do_aluno()
+
+@app.route('/delete_oferecimento', methods=['POST'])
+def delete_oferecimento():
+    target = request.form.get('oferecimento_a_deletar')
+    print("target", target)
+    query = 'select * from delete_oferecimento({})'.format(target)
+    get_execute('pessoa-curriculo', query)
+
+    return painel_do_professor()
 
 @app.route('/create_planeja', methods=['POST'])
 def create_planeja():
@@ -120,6 +139,17 @@ def create_planeja():
     get_query_all('pessoa-curriculo', query)
 
     return painel_do_aluno()
+
+@app.route('/create_oferecimento', methods=['POST'])
+def create_oferecimento():
+    disciplina = request.form.get('disciplina_a_oferecer')
+    dataInicio = request.form.get('dataInicio')
+    nvagas = request.form.get('nvagas')
+    horario = request.form.get('horario')
+    query = 'select insert_oferecimento({}, {},  \'{}\', {}, \'{}\');'.format(session['pessoa_id'], disciplina, dataInicio, nvagas, horario)
+    get_query_all('pessoa-curriculo', query)
+
+    return painel_do_professor()
 
 
 
