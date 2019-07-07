@@ -57,7 +57,7 @@ def do_login():
         session['user_email'] = record[1]
 
         query = 'select * from get_pessoa_by_user_id(\'{}\');'.format(record[0])
-        record = get_query_one("acesso_pessoa", query)
+        record = get_query_one("acesso-pessoa", query)
 
         session['pessoa_id'] = record[0]
         session['nusp'] = record[1]
