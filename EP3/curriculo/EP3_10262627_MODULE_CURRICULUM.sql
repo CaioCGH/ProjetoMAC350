@@ -17,13 +17,13 @@ DROP TABLE IF EXISTS disciplina   cascade;
 
 CREATE TABLE disciplina (
 	dis_id 				SERIAL,
-	dis_Codigo  		varchar(80),
-	dis_Nome    		varchar(80),
-	dis_Aula    		int,
-	dis_Trabalho 		int,
-	dis_PeriodoIdeal 	int,
-	dis_Ementa 			varchar(2000),
-	dis_Descricao 		varchar(1000),
+	dis_Codigo  		varchar(80) NOT NULL,
+	dis_Nome    		varchar(80) NOT NULL,
+	dis_Aula    		int NOT NULL,
+	dis_Trabalho 		int NOT NULL,
+	dis_PeriodoIdeal 	int NOT NULL,
+	dis_Ementa 			varchar(2000) NOT NULL,
+	dis_Descricao 		varchar(1000) NOT NULL,
 	CONSTRAINT pk_disciplina PRIMARY KEY (dis_id),
 	CONSTRAINT sk_disciplina UNIQUE (dis_codigo)
 );
@@ -39,26 +39,26 @@ CREATE TABLE prerequisito (
 
 CREATE TABLE curriculo (
 	curr_id			SERIAL,
-	curr_AnoIni 	varchar(10),
+	curr_AnoIni 	varchar(10) NOT NULL,
 	curr_AnoFim 	varchar(10),
-	curr_Curso 		varchar(80),
-	curr_Unidade 	varchar(80),
+	curr_Curso 		varchar(80) NOT NULL,
+	curr_Unidade 	varchar(80) NOT NULL,
 	CONSTRAINT pk_curriculo PRIMARY KEY(curr_id),
 	CONSTRAINT sk_curriculo UNIQUE (curr_Curso, curr_Unidade, curr_AnoIni) 
 );
 
 CREATE TABLE modulo (
 	mod_id 		SERIAL,
-	mod_Codigo  int,
-	mod_Nome    varchar(80),
+	mod_Codigo  int NOT NULL,
+	mod_Nome    varchar(80) NOT NULL,
 	CONSTRAINT pk_modulo PRIMARY KEY(mod_id),
 	CONSTRAINT sk_modulo UNIQUE (mod_Codigo)
 );
 
 CREATE TABLE trilha (
 	tr_id		SERIAL,
-	tr_Codigo   int,
-	tr_Nome 	varchar(80),
+	tr_Codigo   int NOT NULL,
+	tr_Nome 	varchar(80) NOT NULL,
 	CONSTRAINT pk_trilha PRIMARY KEY(tr_id),
 	CONSTRAINT sk_trilha UNIQUE (tr_Codigo)
 );
@@ -67,8 +67,8 @@ CREATE TABLE rel_curr_tri(
 	ctr_id  		SERIAL,
 	ctr_curr_id		SERIAL,
 	ctr_tr_id 		SERIAL,
-	ctr_AnoInicio 		varchar(10),
-	ctr_Unidade 	varchar(10),
+	ctr_AnoInicio 	varchar(10) NOT NULL,
+	ctr_Unidade 	varchar(10) NOT NULL,
 	CONSTRAINT pk_rel_curr_tri PRIMARY KEY(ctr_id),	
 	CONSTRAINT sk_rel_curr_tri UNIQUE (ctr_AnoInicio, ctr_curr_id, ctr_tr_id, ctr_Unidade),	
     FOREIGN KEY(ctr_curr_id) REFERENCES curriculo(curr_id),

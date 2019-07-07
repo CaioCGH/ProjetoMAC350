@@ -4,6 +4,7 @@ After creating the extensions, lets create a domain for valid emails
 Valid emails follows a specific Request for Comment defined in RFC5322
 For more info, see: https://tools.ietf.org/html/rfc5322
 */
+CREATE EXTENSION IF NOT EXISTS dblink;
 
 -- DROPAR NUMA ORDEM TOPOLOGICA..
 DROP TABLE IF EXISTS rel_adm_curr;
@@ -11,6 +12,20 @@ DROP TABLE IF EXISTS planeja	;
 DROP TABLE IF EXISTS cursa		;
 DROP TABLE IF EXISTS oferecimento;
 
+
+
+CREATE TABLE oferecimento(
+	of_id 			SERIAL,
+	of_pr_id 		SERIAL,
+	of_dis_id		SERIAL,
+	of_DataInicio 	varchar(10) NOT NULL,
+	of_Vagas 		int NOT NULL,
+	of_Horario 		varchar(80) NOT NULL,
+	CONSTRAINT pk_oferecimento PRIMARY KEY (of_id),
+	CONSTRAINT sk_oferecimento UNIQUE (of_DataInicio, of_pr_id, of_dis_id, of_Horario)
+);
+
+/*OLD
 CREATE TABLE oferecimento(
 	of_id 			SERIAL,
 	of_pr_id 		SERIAL,
@@ -23,7 +38,18 @@ CREATE TABLE oferecimento(
 	FOREIGN KEY(of_pr_id) REFERENCES professor(pr_id),
 	FOREIGN KEY(of_dis_id) REFERENCES disciplina(dis_id)
 );
+*/
 
+CREATE TABLE cursa(
+	cur_id 			SERIAL,
+	cur_al_id		SERIAL,
+	cur_of_id 		SERIAL,
+	cur_Nota 		float,
+	cur_Freq 		int,
+	CONSTRAINT pk_cursa PRIMARY KEY(cur_id),
+	CONSTRAINT sk_cursa UNIQUE (cur_al_id, cur_of_id)
+);
+/*OLD
 CREATE TABLE cursa(
 	cur_id 			SERIAL,
 	cur_al_id		SERIAL,
@@ -35,7 +61,20 @@ CREATE TABLE cursa(
 	FOREIGN KEY(cur_al_id) REFERENCES aluno(al_id),
     FOREIGN KEY(cur_of_id) REFERENCES oferecimento(of_id)
 );
+*/
 
+CREATE TABLE planeja(
+	pla_id 		SERIAL,
+	pla_al_id	SERIAL,
+	pla_dis_id	SERIAL,
+	pla_DataInicio varchar(10) NOT NULL,
+	CONSTRAINT pk_planeja PRIMARY KEY(pla_id),	
+	CONSTRAINT sk_planeja UNIQUE (pla_al_id, pla_dis_id, pla_DataInicio)
+);
+
+
+/*
+OLD
 CREATE TABLE planeja(
 	pla_id 		SERIAL,
 	pla_al_id	SERIAL,
@@ -45,8 +84,18 @@ CREATE TABLE planeja(
 	CONSTRAINT sk_planeja UNIQUE (pla_al_id, pla_dis_id, pla_DataInicio),	
     FOREIGN KEY(pla_al_id) REFERENCES aluno(al_id),
     FOREIGN KEY(pla_dis_id) REFERENCES disciplina(dis_id)
-);
+);*/
 
+
+CREATE TABLE rel_adm_curr(
+	acurr_id			SERIAL,
+	acurr_adm_id		SERIAL,
+	acurr_curr_id 		SERIAL,
+	acurr_DataInicio 	varchar(10) NOT NULL,
+	acurr_DataTermino 	varchar(10),
+	CONSTRAINT pk_rel_adm_curr PRIMARY KEY(acurr_id)
+);
+/*
 CREATE TABLE rel_adm_curr(
 	acurr_id			SERIAL,
 	acurr_adm_id		SERIAL,
@@ -57,8 +106,7 @@ CREATE TABLE rel_adm_curr(
     FOREIGN KEY(acurr_adm_id) REFERENCES administrador(adm_id),
     FOREIGN KEY(acurr_curr_id) REFERENCES curriculo(curr_id)
 );
-
-
+*/
 
 BEGIN;
 -- ==============================  INÎCIO DAS FUNÇÕES DE INSERT ============================== 
@@ -281,7 +329,19 @@ BEGIN
 		LEFT OUTER JOIN planeja 
 		ON dis_id = pla_dis_id
 		WHERE pla_id IS null;
+		
 END; $$
 LANGUAGE 'plpgsql';
 
 COMMIT;
+
+-- FROM dblink('dbname=curriculo','SELECT * FROM disciplina') AS (	dis_id int,
+-- 		dis_Codigo  		varchar(80),
+-- 		dis_Nome    		varchar(80),
+-- 		dis_Aula    		int,
+-- 		dis_Trabalho 		int,
+-- 		dis_PeriodoIdeal 	int,
+-- 		dis_Ementa 			varchar(2000),
+-- 		dis_Descricao 		varchar(1000))
+-- 		INNER JOIN  oferecimento ON dis_id     = of_dis_id
+-- 		INNER JOIN  cursa		 ON cur_al_id = query_id;
