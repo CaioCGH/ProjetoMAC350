@@ -2,7 +2,7 @@
 {% block content %}
 
     <div class="container-fluid" align="left">
-        <h1>Cursos matrículados</h1>
+        <h1>Alunos matrículados</h1>
         <!--Colocar a lista de cursos matrículados-->
         <table class="table table-striped">
             <thead>
@@ -16,8 +16,8 @@
                 <tr>
                     {% for item in alunos %}
                     <th scope="row">{{loop.index}}</th>
-                        <td>{{item.name}}</td>
-                        <td>{{item.nusp}}</td>
+                        <td>{{item[1]}}</td>
+                        <td>{{item[2]}}</td>
                     </tr>
                     {% endfor %}
             </tbody>

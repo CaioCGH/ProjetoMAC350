@@ -19,10 +19,68 @@
                     {% endfor %}
             </tbody>
         </table>
+        <h1>Disciplinas Planejadas</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Codigo</th>
+                    <th scope="col">Nome da disciplina</th>
+                    <th scope="col">Data de Início Planejado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for disciplina in disc_planejadas %}
+                        <td>{{disciplina[1]}}</td>
+                        <td>{{disciplina[2]}}</td>
+                        <td>{{disciplina[4]}}</td>
+                        <td>
+                            <form action="/delete_planeja" method="post">
+                                <input type="hidden" value="{{ disciplina[3]}}" name="planeja_a_deletar">
+                                <input type=submit value="Desfazer planejamento">
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+            </tbody>
+        </table>
+        <h1>Disciplinas Planejáveis</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Codigo</th>
+                    <th scope="col">Nome da disciplina</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for disciplina in disc_planejaveis %}
+                        <td>{{disciplina[1]}}</td>
+                        <td>{{disciplina[2]}}</td>
+                        <td>
+                            <form action="{{ url_for('create_planeja') }}" method=post>
+                                <select name="dataInicio">
+                                    <option value="01/08/2019">01/08/2019</option>
+                                    <option value="01/03/2020">01/03/2020</option>
+                                    <option value="01/08/2020">01/08/2020</option>
+                                    <option value="01/03/2021">01/03/2021</option>
+                                </select>
+                                <input type=hidden value="{{ disciplina[0] }}" name=disciplina_a_planejar></input>
+                                <input type=submit value="Planejar disciplina"></input>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+            </tbody>
+        </table>
     </div>
     <div class="container-fluid" align="left">
         <h1>Trilhas</h1>   
-        <!-- As trilhas e se foram completas-->
+        <ul>
+            {% for trilha in trilhas %}
+            <li>{{ trilha[2] }}</li>
+            {% endfor %}
+        </ul>
     </div>
 
 {% endblock %}

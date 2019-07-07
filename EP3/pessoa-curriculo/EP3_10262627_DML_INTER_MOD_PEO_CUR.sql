@@ -11,14 +11,11 @@ INSERT INTO oferecimento (of_pr_id, of_dis_id, of_DataInicio, of_Vagas, of_Horar
 INSERT INTO oferecimento (of_pr_id, of_dis_id, of_DataInicio, of_Vagas, of_Horario) VALUES (20,10,'01/01/2019', 30, 'SEG 08:00 - 10:00, QUA 10:00 - 12:00');
 
 --cursa 
---cursos da Alice
+--cursos do bob
 INSERT INTO cursa(cur_al_id, cur_of_id, cur_Nota, cur_Freq) VALUES (1, 1, 10.0, 100);
 INSERT INTO cursa(cur_al_id, cur_of_id, cur_Nota, cur_Freq) VALUES (1, 2, 8.7, 100);
 INSERT INTO cursa(cur_al_id, cur_of_id, cur_Nota, cur_Freq) VALUES (1, 3, 5.6, 100);
 INSERT INTO cursa(cur_al_id, cur_of_id, cur_Nota, cur_Freq) VALUES (1, 4, 9.9, 100);
-INSERT INTO cursa(cur_al_id, cur_of_id, cur_Nota, cur_Freq) VALUES (1, 5, null, null);
-INSERT INTO cursa(cur_al_id, cur_of_id, cur_Nota, cur_Freq) VALUES (1, 6, null, null);
-INSERT INTO cursa(cur_al_id, cur_of_id, cur_Nota, cur_Freq) VALUES (1, 7, null, null);
 --cursos resto
 INSERT INTO cursa(cur_al_id, cur_of_id, cur_Nota, cur_Freq) VALUES (2, 2, 7.0, 80);
 INSERT INTO cursa(cur_al_id, cur_of_id, cur_Nota, cur_Freq) VALUES (3, 3, 5.0, 70);
@@ -32,16 +29,17 @@ INSERT INTO cursa(cur_al_id, cur_of_id, cur_Nota, cur_Freq) VALUES (10, 10, 9.3,
 
 
 --planeja
-INSERT INTO planeja(pla_al_id, pla_dis_id, pla_DataInicio) VALUES (1, 3, '01/01/2020');
+--bob
+INSERT INTO planeja(pla_al_id, pla_dis_id, pla_DataInicio) VALUES (1, 5, '01/01/2020');
+INSERT INTO planeja(pla_al_id, pla_dis_id, pla_DataInicio) VALUES (1, 6, '01/01/2020');
+
+--planeja resto
 INSERT INTO planeja(pla_al_id, pla_dis_id, pla_DataInicio) VALUES (2, 4, '01/01/2020');
 INSERT INTO planeja(pla_al_id, pla_dis_id, pla_DataInicio) VALUES (2, 5, '01/01/2020');
-INSERT INTO planeja(pla_al_id, pla_dis_id, pla_DataInicio) VALUES (1, 4, '01/01/2020');
 INSERT INTO planeja(pla_al_id, pla_dis_id, pla_DataInicio) VALUES (2, 6, '01/01/2020');
 INSERT INTO planeja(pla_al_id, pla_dis_id, pla_DataInicio) VALUES (2, 7, '01/01/2020');
-INSERT INTO planeja(pla_al_id, pla_dis_id, pla_DataInicio) VALUES (1, 5, '01/01/2020');
 INSERT INTO planeja(pla_al_id, pla_dis_id, pla_DataInicio) VALUES (2, 8, '01/01/2020');
 INSERT INTO planeja(pla_al_id, pla_dis_id, pla_DataInicio) VALUES (2, 9, '01/01/2020');
-INSERT INTO planeja(pla_al_id, pla_dis_id, pla_DataInicio) VALUES (1, 6, '01/01/2020');
 
 --rel_adm_curr
 INSERT INTO rel_adm_curr(acurr_adm_id, acurr_curr_id, acurr_DataInicio, acurr_DataTermino) VALUES (19, 1, '01/01/2010', '31/12/2014');

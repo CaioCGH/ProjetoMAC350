@@ -6,10 +6,10 @@ For more info, see: https://tools.ietf.org/html/rfc5322
 */
 
 -- DROPAR NUMA ORDEM TOPOLOGICA..
-DROP TABLE IF EXISTS rel_adm_curr 	cascade;
-DROP TABLE IF EXISTS planeja		cascade;
-DROP TABLE IF EXISTS cursa			cascade;
-DROP TABLE IF EXISTS oferecimento	cascade;
+DROP TABLE IF EXISTS rel_adm_curr;
+DROP TABLE IF EXISTS planeja	;
+DROP TABLE IF EXISTS cursa		;
+DROP TABLE IF EXISTS oferecimento;
 
 CREATE TABLE oferecimento(
 	of_id 			SERIAL,
@@ -215,8 +215,8 @@ CREATE OR REPLACE FUNCTION alunos_disciplina(id integer)
 
 	LANGUAGE plpgsql;
 
-DROP FUNCTION IF EXISTS  get_disciplinas_by_pessoa_id(query_id int);
-CREATE OR REPLACE FUNCTION get_disciplinas_by_pessoa_id(query_id int) 
+DROP FUNCTION IF EXISTS  get_disciplinas_cursa_by_pessoa_id(query_id int);
+CREATE OR REPLACE FUNCTION get_disciplinas_cursa_by_pessoa_id(query_id int) 
    RETURNS TABLE (
 		id 		int,
 		Codigo  		varchar,
@@ -229,8 +229,58 @@ BEGIN
 		cast(dis_Codigo as varchar),
 		cast(dis_Nome as varchar)
 		FROM disciplina
-		INNER JOIN  oferecimento ON dis_id     = of_dis_id
-		INNER JOIN  cursa		 ON cur_al_id = query_id;
+		INNER JOIN (
+			SELECT * FROM oferecimento
+			INNER JOIN (
+				SELECT * FROM cursa WHERE cur_al_id = query_id
+			) alias
+			ON of_dis_id = cur_of_id
+		) alias2
+		ON of_dis_id = dis_id;
+-- eu não faço a menor ideia de como identar isto
+END; $$
+LANGUAGE 'plpgsql';
+
+DROP FUNCTION IF EXISTS  get_disciplinas_planejadas_by_pessoa_id(query_id int);
+CREATE OR REPLACE FUNCTION get_disciplinas_planejadas_by_pessoa_id(query_id int) 
+   RETURNS TABLE (
+		id 		int,
+		Codigo  		varchar,
+		Nome    		varchar,
+		planeja_id		int,
+		dataInicio 		varchar
+)
+AS $$
+BEGIN
+	RETURN QUERY SELECT DISTINCT
+		cast(dis_id as integer),
+		cast(dis_Codigo as varchar),
+		cast(dis_Nome as varchar),
+		cast(pla_id as integer),
+		cast(pla_DataInicio as varchar)
+		FROM disciplina
+		INNER JOIN  planeja ON dis_id     = pla_dis_id
+		WHERE pla_al_id = query_id;
+END; $$
+LANGUAGE 'plpgsql';
+
+DROP FUNCTION IF EXISTS  get_disciplinas_planejaveis_by_pessoa_id(query_id int);
+CREATE OR REPLACE FUNCTION get_disciplinas_planejaveis_by_pessoa_id(query_id int) 
+   RETURNS TABLE (
+		id 		int,
+		Codigo  		varchar,
+		Nome    		varchar
+)
+AS $$
+BEGIN
+	RETURN QUERY SELECT DISTINCT
+		cast(dis_id as integer),
+		cast(dis_Codigo as varchar),
+		cast(dis_Nome as varchar)
+		FROM disciplina
+		LEFT OUTER JOIN planeja 
+		ON dis_id = pla_dis_id
+		WHERE pla_id IS null;
 END; $$
 LANGUAGE 'plpgsql';
 

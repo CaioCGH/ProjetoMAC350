@@ -31,6 +31,7 @@ def do_login():
     cursor = connection.cursor()
     f_email = request.form['username']
     query = 'select * from get_user_by_email(\'{}\');'.format(f_email)
+    print(query)
     cursor.execute(query)
     record = cursor.fetchone()
     print(record)
@@ -57,10 +58,44 @@ def logout():
 @app.route('/painel_do_aluno')
 def painel_do_aluno():
     cursor = connection.cursor()
-    query = 'select * from get_disciplinas_by_pessoa_id(\'{}\');'.format(session['pessoa_id'])
+    query = 'select * from get_disciplinas_cursa_by_pessoa_id({});'.format(session['pessoa_id'])
     cursor.execute(query)
-    a = cursor.fetchall()
-    return render_template('painel_do_aluno.html', disciplinas_cursadas=a)
+    dc = cursor.fetchall()
+    query = 'select * from get_disciplinas_planejadas_by_pessoa_id(\'{}\');'.format(session['pessoa_id'])
+    cursor.execute(query)
+    disc_planejadas = cursor.fetchall()
+    cursor.execute('select * from disciplina')
+    todas_disc = cursor.fetchall()
+
+    query = 'select * from get_disciplinas_planejaveis_by_pessoa_id({});'.format(session['pessoa_id'])
+    cursor.execute(query)
+    disc_planejaveis = cursor.fetchall() 
+    
+    cursor.execute('select * from trilha')
+    tr = cursor.fetchall()
+
+    return render_template('painel_do_aluno.html', disciplinas_cursadas=dc, trilhas=tr, disc_planejadas=disc_planejadas, disc_planejaveis=disc_planejaveis)
+
+@app.route('/delete_planeja', methods=['POST'])
+def delete_planeja():
+    target = request.form.get('planeja_a_deletar')
+    query = 'select * from delete_planeja({})'.format(target)
+    cursor = connection.cursor()
+    cursor.execute(query)
+
+    return painel_do_aluno()
+
+@app.route('/create_planeja', methods=['POST'])
+def create_planeja():
+    disciplina = request.form.get('disciplina_a_planejar')
+    dataInicio = request.form.get('dataInicio')
+    query = 'select insert_planeja({}, {},  \'{}\');'.format(session['pessoa_id'], disciplina, dataInicio)
+    cursor = connection.cursor()
+    cursor.execute(query)
+
+    return painel_do_aluno()
+
+
 
 @app.route('/signup', methods=['POST'])
 def do_signup():
