@@ -17,7 +17,7 @@
                 <tr>
                     {% for disciplina in disciplinas_oferecidas %}
                         <td>{{disciplina[1]}}</td>
-                        <td>{{disciplina[2]}}</td>
+                        <td><a href="{{ url_for('show_disciplina', disc_id= disciplina[0]) }}">{{disciplina[2]}}</a></td>
                         <td>{{disciplina[4]}}</td>
                         <td>{{disciplina[5]}}</td>
                         <td>{{disciplina[6]}}</td>
@@ -43,7 +43,7 @@
                 <tr>
                     {% for disciplina in disciplinas %}
                         <td>{{disciplina[1]}}</td>
-                        <td>{{disciplina[2]}}</td>
+                        <td><a href="{{ url_for('show_disciplina', disc_id= disciplina[0]) }}">{{disciplina[2]}}</a></td>
                         <td>
                             <form action="{{ url_for('create_oferecimento') }}" method=post>
                                 <select name="dataInicio">

@@ -16,7 +16,11 @@
                 <tr>
                     {% for disciplina in disciplinas %}
                         <td>{{disciplina[1]}}</td>
-                        <td>{{disciplina[2]}}</td>
+                        <td><a href="{{ url_for('show_disciplina', disc_id= disciplina[0]) }}">{{disciplina[2]}}</a></td>
+                        <td><form action="/update_disciplina" method="post">
+                            <input type="hidden" value="{{ disciplina[0]}}" name="disciplina_a_atualizar">
+                            <input type=submit value="Editar Disciplina">
+                        </form>
                         <td><form action="/delete_disciplina" method="post">
                             <input type="hidden" value="{{ disciplina[0]}}" name="disciplina_a_deletar">
                             <input type=submit value="Excluir Disciplina">

@@ -284,8 +284,8 @@ LANGUAGE plpgsql;
 -- ==============================  FIM DAS FUNÇÕES DE DELETE ====================================
 
 -- ==============================  INÎCIO DAS FUNÇÕES DE UPDATE =================================
-CREATE OR REPLACE FUNCTION update_disciplina(dis_id integer, dis_Codigo integer, dis_Nome TEXT, dis_Aula integer, dis_Trabalho integer,
-											 dis_PeriodoIdeal TEXT, dis_Ementa TEXT, dis_Descricao TEXT)
+CREATE OR REPLACE FUNCTION update_disciplina(dis_id integer, dis_Codigo TEXT, dis_Nome TEXT, dis_Aula integer, dis_Trabalho integer,
+											 dis_PeriodoIdeal integer, dis_Ementa TEXT, dis_Descricao TEXT)
 RETURNS VOID AS $$
 DECLARE
 BEGIN

@@ -85,6 +85,15 @@ def logout():
     session['logged_in'] = False
     return home()
 
+@app.route('/show_disciplina/<disc_id>')
+def show_disciplina(disc_id):
+    disciplina_id   = disc_id
+    query = 'select * from disciplina where dis_id = {}'.format(disciplina_id)
+    disciplina = get_query_one('curriculo', query)
+
+    return render_template('show_disciplina.html', disciplina=disciplina)
+
+
 @app.route('/painel_do_aluno')
 def painel_do_aluno():
     query = 'select * from get_disciplinas_cursa_by_pessoa_id({});'.format(session['pessoa_id'])
@@ -129,6 +138,30 @@ def painel_do_administrador():
 @app.route('/create_disciplina')
 def create_disciplina():
     return render_template('create_disciplina.html')
+
+@app.route('/update_disciplina', methods=['POST'])
+def update_disciplina():
+    disciplina_id = request.form.get('disciplina_a_atualizar')
+    query = 'select * from disciplina where dis_id = {}'.format(disciplina_id)
+    disciplina = get_query_one('curriculo', query)
+    return render_template('update_disciplina.html', disciplina=disciplina)
+
+@app.route('/do_update_disciplina', methods=['POST'])
+def do_update_disciplina():
+    disciplina_id   = request.form.get('disciplina_a_atualizar')
+    codigo          = request.form.get('codigo')
+    nome            = request.form.get('nome')
+    credito_aula    = request.form.get('credito_aula')
+    credito_trabalho= request.form.get('credito_trabalho')
+    periodo_ideal   = request.form.get('periodo_ideal')
+    ementa          = request.form.get('ementa')
+    descricao       = request.form.get('descricao')
+
+    query = 'select update_disciplina({}, \'{}\',\'{}\', {}, {}, {}, \'{}\', \'{}\');'.format(disciplina_id, codigo, nome, credito_aula, credito_trabalho, periodo_ideal, ementa, descricao)
+    get_execute('curriculo', query)
+    return painel_do_administrador()
+
+    return render_template('update_disciplina.html', disciplina=disciplina)
 
 @app.route('/do_create_disciplina', methods=['POST'])
 def do_create_disciplina():
