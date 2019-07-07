@@ -1,14 +1,25 @@
+{% extends "template.html" %}
+{% block content %}
+
 <div class="container-fluid" align="center">
-    <div class="card" style="width: 30rem;" align="center">
+    <div class="card" style="width: 30rem;">
 
         <div class="card-body">
             <h2 class="card-title" align="center">
                 Criar Disciplina
             </h2>
             <form action="/do_create_disciplina" method="POST">
-                    <input type="text" name="codigo" placeholder="Código" class="form-control">
-                    <input type="text" name="nome" placeholder="Nome da Disciplina" class="form-control">
-                    <select name="credito_aula">
+                    <div class="form-group">
+                        <div align="left">Código</div>
+                        <input type="text" name="codigo" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <div align="left">Nome da Disciplina</div>
+                        <input type="text" name="nome" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <div align="left">Crédito Aula</div>
+                        <select name="credito_aula" class="form-control">
                         <option value="0">0</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -19,7 +30,10 @@
                         <option value="7">7</option>
                         <option value="8">8</option>
                     </select>
-                    <select name="credito_trabalho">
+                    </div>
+                    <div class="form-group">
+                    <div align="left">Crédito Trabalho</div>
+                    <select name="credito_trabalho" class="form-control">
                         <option value="0">0</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -29,18 +43,30 @@
                         <option value="6">6</option>
                         <option value="7">7</option>
                         <option value="8">8</option>
-                    </select><select name="periodo_ideal">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
                     </select>
-                    <input type="text" name="ementa" placeholder="Ementa da Disciplina" class="form-control">
-                    <input type="text" name="descrição" placeholder="Descrição da Disciplina" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <div align="left">Período Ideal</div>
+                        <select name="periodo_ideal" class="form-control">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                    <div align="left">Ementa da Disciplina</div>
+                    <input type="text" name="ementa"  class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                    <div align="left">Descrição da Disciplina</div>
+                    <input type="text" name="descrição" class="form-control">
+                    </div>
                     <button type="sub" class="btn btn-primary btn-block" align="center"> Criar Disciplina </button>
                 </div>
 
@@ -48,3 +74,4 @@
         </div>
     </div>
 </div>
+{% endblock %}
