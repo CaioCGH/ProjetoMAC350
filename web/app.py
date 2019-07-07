@@ -19,24 +19,31 @@ def get_connection(name) :
                             host = "127.0.0.1",
                             port = "5432",
                             database = name)
-''' Consegue o cursor do psycopg2 '''
-def get_cursor(name):
-    return get_connection(name).cursor()
-''' Faz a query em relação a um no banco de dados'''
 
 def get_execute(name, query):
-    cursor = get_cursor(name)
+    conn = get_connection(name)
+    cursor = conn.cursor()
     cursor.execute(query)
+    conn.commit()
+    cursor.close()
 
 def get_query_one(name, query):
-    cursor = get_cursor(name)
-    cursor.execute(query)
-    return cursor.fetchone()
+    conn = get_connection(name)
+    cursor = conn.cursor()
+    cursor.execute(query)    
+    result = cursor.fetchone()
+    conn.commit()
+    cursor.close()
+    return result
 ''' Faz a query em relação a todos no banco de dados'''
 def get_query_all(name, query):
-    cursor = get_cursor(name)
+    conn = get_connection(name)
+    cursor = conn.cursor()
     cursor.execute(query)
-    return cursor.fetchall()
+    result = cursor.fetchall()
+    conn.commit()
+    cursor.close()
+    return result
 
 
 '''Sempre que muda o código da página, ele atualiza o site automáticamente.'''
@@ -54,14 +61,14 @@ def login():
 @app.route('/login', methods=['POST'])
 def do_login():
     f_email = request.form['email']
-    query = 'select * from get_user_by_email(\'{}\');'.format(f_email)
+    query = 'select user_id, user_email, user_password from get_user_by_email(\'{}\');'.format(f_email)
     record = get_query_one("acesso", query)
     print(record)
     if record != None and record[2] ==  request.form['senha']:
         session['logged_in'] = True
         session['user_email'] = record[1]
-
-        query = 'select * from get_pessoa_by_user_id(\'{}\');'.format(record[0])
+        print(record[0])
+        query = 'select id, NUSP, Nome from get_pessoa_by_user_id(\'{}\');'.format(record[0])
         record = get_query_one("acesso-pessoa", query)
 
         session['pessoa_id'] = record[0]
@@ -126,18 +133,21 @@ def do_signup():
     f_senha = request.form['senha']
     query = 'select user_email from get_user_by_email(\'{}\');'.format(f_email)
     record = get_query_one('acesso', query)
-    flash('entrou')
-    if record == f_email:
-        flash('e-mail ja existe!')
-    else:    
+    print(record)
+    if record == None:
         query = 'select id from insert_users(\'{}\',\'{}\');'.format(f_email, f_senha)
         record = get_query_one('acesso', query)
+        print(record)
 
-        query = 'select id from insert_pessoa(\'{}\',\'{}\',\'{}\');'.format(f_email, f_nusp, f_nome)
+        query = 'select id from insert_pessoa(\'{}\',\'{}\',\'{}\',\'{}\');'.format(f_email, f_nusp, f_nome, f_sobrenome)
+        print(query)
         record2 = get_query_one('pessoa', query)
+        print(record2)
 
         query = 'select * from insert_rel_pe_us(\'{}\',\'{}\');'.format(record2[0], record[0])
         record = get_query_one('acesso-pessoa', query)
+    else:    
+        flash('e-mail ja existe!')
 
     return render_template('index.html')
 

@@ -67,7 +67,7 @@ AS
 $$
 BEGIN
 	INSERT INTO pessoa (pe_email, pe_nusp, pe_nome, pe_sobrenome) 
-	VALUES ($1, $2, $3)
+	VALUES ($1, $2, $3, $4)
 	RETURNING pe_id into id;
 END
 $$
