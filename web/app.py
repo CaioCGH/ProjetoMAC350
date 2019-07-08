@@ -9,7 +9,7 @@ import os
 app = Flask(__name__)
 app.secret_key = 'super secret key'
 
-user_tmp = "caio"
+user_tmp = "jz"
 password_tmp = "0"
 
 '''Faz a conexão'''
@@ -327,6 +327,37 @@ def change_password_post():
         record = get_execute("acesso", query)
 
     return render_template('my_account.html', email=session['user_email'], surname=session['surname'], name=session['name'])
+
+@app.route('/delete_account')
+def delete_account():
+    return render_template('delete_account.html')
+
+@app.route('/delete_account' , methods=['POST'])
+def delete_account_post():
+    f_email = session['user_email']
+    query = 'select user_email from get_user_by_email(\'{}\');'.format(f_email)
+    record = get_query_one('acesso', query)
+    print(record)
+    if record == None:
+        flash('nao existe!')
+    else:    
+        query = 'select * from delete_users(\'{}\');'.format(session['user_id'])
+        get_execute('acesso', query)
+
+        query = 'select * from delete_pessoa(\'{}\');'.format(session['pessoa_id'])
+        get_execute('pessoa', query)
+        print(session['pessoa_id'])
+        print(session['user_id'])
+
+
+        query = 'select * from rel_pe_us where pus_pe_id=\'{}\' and pus_us_id=\'{}\';'.format(session['pessoa_id'], session['user_id'])
+        record = get_query_one('acesso-pessoa', query)      
+
+        query = 'select * from delete_rel_pe_us(\'{}\');'.format(record[0])
+        get_query_one('acesso-pessoa', query)
+        session['logged_in'] = False
+
+    return render_template('index.html')
 
 
 if __name__ == '__main__':
