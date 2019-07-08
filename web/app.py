@@ -1,5 +1,4 @@
 from flask import Flask
-from models import db
 import psycopg2
 
 
@@ -48,7 +47,6 @@ def get_query_all(name, query):
 
 '''Sempre que muda o código da página, ele atualiza o site automáticamente.'''
 app.config['DEBUG'] = True
-db.init_app(app)
 
 @app.route('/')
 def home():

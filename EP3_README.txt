@@ -28,19 +28,18 @@ pip install Flask
 pip install flask_script
 pip install flask_migrate
 pip install psycopg2-binary
+Instalando em Ubuntu
+sudo apt-get install psycopg2 libpq-dev python-dev
+pip install flask-sqlalchemy psycopg2
 
 
 ## Utilizando PostgreSQL
 Nesse projeto usaremos um servidor de SQL como o PostgreSQL.
-As duas bibliotecas de Python que usamos é o Psycopg2 e o SQLAlchemy
+As duas bibliotecas de Python que usamos é o Psycopg2 e o Flask.
 Psycopg2 (2.6.1) - um adaptador de python para postgreSQL.
-Instalando em Ubuntu
-sudo apt-get install psycopg2 libpq-dev python-dev
-pip install flask-sqlalchemy psycopg2
-Instalando em OS X
-https://stackoverflow.com/questions/22313407/clang-error-unknown-argument-mno-fused-madd-python-package-installation-fa
 
-No script, iremos remover a database se existir e criamos a database novamente, depois rodamos os scripts de sql para os bancos de dados correspondentes, no script precisamos mudar o myusername deve ser trocado por seu usuário.
+No script resetall podemos trocar o valor do a para o usuário e rodar com bash resetall.
+Nesse script iremos remover a database se existir e criamos a database novamente, depois rodamos os scripts de sql para os bancos de dados correspondentes, no script precisamos mudar o myusername deve ser trocado por seu usuário.
 
 dropdb pessoa
 dropdb acesso

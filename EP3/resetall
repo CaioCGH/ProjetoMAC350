@@ -1,6 +1,6 @@
 #!/bin/bash
 
-a="caio"
+a="jz"
 
 dropdb pessoa
 dropdb acesso
@@ -14,18 +14,18 @@ createdb curriculo
 createdb acesso-pessoa
 createdb pessoa-curriculo 
 
-psql -U $a -d acesso -f acesso/EP3_10262627_MODULE_ACCESS.sql
-psql -U $a -d acesso -f acesso/EP3_10262627_DML_MODULE_ACCESS.sql
+psql -U $a -d acesso -f acesso/EP3_9778706_MODULE_ACCESS.sql
+psql -U $a -d acesso -f acesso/EP3_9778706_DML_MODULE_ACCESS.sql
 
-psql -U $a -d pessoa -f pessoa/EP3_10262627_MODULE_PEOPLE.sql
-psql -U $a -d pessoa -f pessoa/EP3_10262627_DML_MODULE_PEOPLE.sql
+psql -U $a -d pessoa -f pessoa/EP3_9778706_MODULE_PEOPLE.sql
+psql -U $a -d pessoa -f pessoa/EP3_9778706_DML_MODULE_PEOPLE.sql
 
-psql -U $a -d curriculo -f curriculo/EP3_10262627_MODULE_CURRICULUM.sql
-psql -U $a -d curriculo -f curriculo/EP3_10262627_DML_MODULE_CURRICULUM.sql
+psql -U $a -d curriculo -f curriculo/EP3_9778706_MODULE_CURRICULUM.sql
+psql -U $a -d curriculo -f curriculo/EP3_9778706_DML_MODULE_CURRICULUM.sql
 
-psql -U $a -d acesso-pessoa -f acesso-pessoa/EP3_10262627_INTER_MOD_ACC_PEO.sql
-psql -U $a -d acesso-pessoa -f acesso-pessoa/EP3_10262627_DML_INTER_MOD_ACC_PEO.sql
+psql -U $a -d acesso-pessoa -f acesso-pessoa/EP3_9778706_INTER_MOD_ACC_PEO.sql
+psql -U $a -d acesso-pessoa -f acesso-pessoa/EP3_9778706_DML_INTER_MOD_ACC_PEO.sql
 
-psql -U $a -d pessoa-curriculo -f pessoa-curriculo/EP3_10262627_INTER_MOD_PEO_CUR.sql
-psql -U $a -d pessoa-curriculo -f pessoa-curriculo/EP3_10262627_DML_INTER_MOD_PEO_CUR.sql
+psql -U $a -d pessoa-curriculo -f pessoa-curriculo/EP3_9778706_INTER_MOD_PEO_CUR.sql
+psql -U $a -d pessoa-curriculo -f pessoa-curriculo/EP3_9778706_DML_INTER_MOD_PEO_CUR.sql
 
