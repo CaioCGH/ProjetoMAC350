@@ -146,7 +146,7 @@ def update_disciplina():
     disciplina_id = request.form.get('disciplina_a_atualizar')
     query = 'select * from disciplina where dis_id = {}'.format(disciplina_id)
     disciplina = get_query_one('curriculo', query)
-    return render_template('update_oferecimento.html', disciplina=disciplina)
+    return render_template('update_disciplina.html', disciplina=disciplina)
 
 @app.route('/update_oferecimento', methods=['POST'])
 def update_oferecimento():
@@ -280,12 +280,6 @@ def do_signup():
 @app.route('/signup')
 def signup():
     return render_template('signup.html')
-
-@app.route('/alunos')
-def alunos():
-    query = "SELECT pe_Nome, pe_Sobrenome, pe_NUSP FROM pessoa;"
-    record = get_query_all('pessoa', query)
-    return render_template('alunos.html', alunos=record)
 
 @app.route('/my_account')
 def my_account():

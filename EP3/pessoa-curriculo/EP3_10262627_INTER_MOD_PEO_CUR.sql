@@ -276,7 +276,7 @@ BEGIN
 		cast(dis_id as integer),
 		cast(dis_Codigo as varchar),
 		cast(dis_Nome as varchar)
-		FROM dblink('dbname=curriculo user=caio password=0','SELECT * FROM disciplina') AS (	dis_id int,
+		FROM dblink('dbname=curriculo','SELECT * FROM disciplina') AS (	dis_id int,
 		dis_Codigo  		varchar(80),
 		dis_Nome    		varchar(80),
 		dis_Aula    		int,
@@ -313,7 +313,7 @@ BEGIN
 		cast(dis_Nome as varchar),
 		cast(pla_id as integer),
 		cast(pla_DataInicio as varchar)
-		FROM dblink('dbname=curriculo user=caio password=0','SELECT * FROM disciplina') AS (	dis_id int,
+		FROM dblink('dbname=curriculo','SELECT * FROM disciplina') AS (	dis_id int,
 		dis_Codigo  		varchar(80),
 		dis_Nome    		varchar(80),
 		dis_Aula    		int,
@@ -347,7 +347,7 @@ BEGIN
 		cast(of_DataInicio as varchar),
 		cast(of_Vagas 		as integer),
 		cast(of_Horario 	as varchar)
-		FROM dblink('dbname=curriculo user=caio password=0','SELECT * FROM disciplina') AS (	
+		FROM dblink('dbname=curriculo','SELECT * FROM disciplina') AS (	
 		dis_id              int,
 		dis_Codigo  		varchar(80),
 		dis_Nome    		varchar(80),
@@ -374,7 +374,7 @@ BEGIN
 		cast(dis_id as integer),
 		cast(dis_Codigo as varchar),
 		cast(dis_Nome as varchar)
-		FROM dblink('dbname=curriculo user=caio password=0','SELECT * FROM disciplina') AS (	
+		FROM dblink('dbname=curriculo','SELECT * FROM disciplina') AS (	
 		dis_id 				int,
 		dis_Codigo  		varchar(80),
 		dis_Nome    		varchar(80),

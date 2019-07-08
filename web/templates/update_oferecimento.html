@@ -1,5 +1,7 @@
+{% extends "template.html" %}
+{% block content %}
 <div class="container-fluid" align="center">
-        <div class="card" style="width: 30rem;" align="center">
+        <div class="card" style="width: 70rem;" align="center">
     
             <div class="card-body">
                 <h2 class="card-title" align="center">
@@ -7,19 +9,32 @@
                     {{ disciplina[2] }}
                 </h2>
                 <form action="/do_update_oferecimento" method="POST">
-                    <input type="text" name="codigo" value="{{ disciplina[1] }}">
-                        <td><select name="dataInicio">
+                    <div class="form-group">
+                            <div align="left">Código</div>
+                    <input type="text" name="codigo" value="{{ disciplina[1] }}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                            <div align="left">Data início</div>
+                        <td><select name="dataInicio" class="form-control">
                             <option value="01/08/2019">01/08/2019</option>
                             <option value="01/03/2020">01/03/2020</option>
                             <option value="01/08/2020">01/08/2020</option>
                             <option value="01/03/2021">01/03/2021</option>
                         </select></td>
-                        <td><input type=text  name=nvagas value="{{ oferecimento[4] }}" ></input></td>
-                        <td><input type=text  name=horario value="{{ oferecimento[5] }}"></input></td>
-                        <input type=hidden name=oferecimento_id value="{{ oferecimento[0] }}"></input>
-                        <button type="sub" class="btn btn-primary btn-block" align="center"> Salvar Edições nesta Disciplina </button>
+                    </div>
+                    <div class="form-group">
+                            <div align="left">Número de vagas</div>
+                        <td><input type=text  name=nvagas value="{{ oferecimento[4] }}" class="form-control"></input></td>
+                    </div>
+                    <div class="form-group">
+                            <div align="left">Horário</div>
+                        <td><input type=text  name=horario value="{{ oferecimento[5] }}"class="form-control"></input></td>
+                    </div>
+                    <input type=hidden name=oferecimento_id value="{{ oferecimento[0] }}"class="form-control"></input>
+                    <button type="sub" class="btn btn-primary btn-block" align="center"> Salvar Edições nesta Disciplina </button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+{% endblock %}
