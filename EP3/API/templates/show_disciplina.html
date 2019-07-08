@@ -1,0 +1,20 @@
+{% extends "template.html" %}
+{% block content %}
+
+<div class="container-fluid" align="center">
+        <div class="card" style="width: 70rem;" align="center">
+    
+            <div class="card-body">
+                <h2 class="card-title" align="center">
+                    {{ disciplina[1]}} : {{disciplina[2] }}
+                </h2>
+                <p><strong>Créditos Aula: </strong>     {{disciplina[3]}}</p>
+                <p><strong>Créditos Trabalho: </strong> {{disciplina[4]}}</p>
+                <p><strong>Período Ideal: </strong>     {{disciplina[5]}}</p>
+                <p><strong>Ementa: </strong>            {{disciplina[6]}}</p>
+                <p><strong>Descrição: </strong>         {{disciplina[7]}}</p>
+            </div>
+        </div>
+</div>
+
+{% endblock %}

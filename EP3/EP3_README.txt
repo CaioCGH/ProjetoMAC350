@@ -53,7 +53,7 @@ createdb curriculo
 createdb acesso-pessoa
 createdb pessoa-curriculo 
 
-psql -U myusername -d acesso -f EP3_9778706_MODULE_ACCESS.sql
+psql -U myusername -d acesso -f acessoEP3_9778706_MODULE_ACCESS.sql
 psql -U myusername -d acesso -f EP3_9778706_DML_MODULE_ACCESS.sql
 psql -U myusername -d pessoa -f EP3_9778706_MODULE_PEOPLE.sql
 psql -U myusername -d pessoa -f EP3_9778706_DML_MODULE_PEOPLE.sql

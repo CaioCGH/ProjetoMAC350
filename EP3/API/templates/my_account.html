@@ -1,0 +1,32 @@
+{% extends "template.html" %}
+{% block content %}
+
+<div class="container-fluid" align="center">
+    <div class="card" style="width: 30rem;">
+
+        <div class="card-body">
+            <h2 class="card-title" align="center">
+                Minha Conta
+            </h2>
+            <div class="form-group">
+                <div align="left">Nome</div>
+                    <input type="text" name="codigo" class="form-control" value={{name}} readonly> 
+            </div>
+            <div class="form-group">
+                <div align="left">Sobrenome</div>
+                    <input type="text" name="codigo" class="form-control" value={{surname}} readonly> 
+                </div>
+            <div class="form-group">
+                <div align="left">E-mail</div>
+                <input type="text" name="nome" class="form-control" value={{email}} readonly>
+            </div>
+
+             <a href="/edit_account" type="sub" class="btn btn-primary btn-block" align="center"> Editar informações </a>
+             <a href="/delete_account" type="sub" class="btn btn-primary btn-block" align="center"> Deletar conta </a>
+             <a href="/change_password" type="sub" class="btn btn-primary btn-block" align="center"> Troca de senha </a>
+        </div>
+
+        </form>
+    </div>
+</div>
+{% endblock %}
